@@ -1,0 +1,1611 @@
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 1
+
+
+   1              		.file	"test.c"
+   2              		.text
+   3              	Ltext0:
+   4              		.def	___main;	.scl	2;	.type	32;	.endef
+   5              		.section .rdata,"dr"
+   6              	LC0:
+   7 0000 7A00     		.ascii "z\0"
+   8              	LC1:
+   9 0002 636E744C 		.ascii "cntLoops = %d\12\0"
+   9      6F6F7073 
+   9      203D2025 
+   9      640A00
+  10              	LC2:
+  11 0011 73686F77 		.ascii "show = %d\12\0"
+  11      203D2025 
+  11      640A00
+  12              	LC3:
+  13 001c 78203D20 		.ascii "x = %d\12\0"
+  13      25640A00 
+  14              	LC4:
+  15 0024 79203D20 		.ascii "y = %d\12\0"
+  15      25640A00 
+  16              		.section	.text.unlikely,"x"
+  17              	LCOLDB5:
+  18              		.section	.text.startup,"x"
+  19              	LHOTB5:
+  20              		.p2align 4,,15
+  21              		.section	.text.unlikely,"x"
+  22              	Ltext_cold0:
+  23              		.section	.text.startup,"x"
+  24              		.globl	_main
+  25              		.def	_main;	.scl	2;	.type	32;	.endef
+  26              	_main:
+  27              	LFB26:
+  28              		.file 1 "test.c"
+   1:test.c        **** /**
+   2:test.c        ****  * @file test.c
+   3:test.c        ****  * C code generated from program test.fcl written in a fictive
+   4:test.c        ****  * computer language.
+   5:test.c        ****  *
+   6:test.c        ****  * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+   7:test.c        ****  *
+   8:test.c        ****  * This program is free software: you can redistribute it and/or modify it
+   9:test.c        ****  * under the terms of the GNU General Public License as published by the
+  10:test.c        ****  * Free Software Foundation, either version 3 of the License, or (at your
+  11:test.c        ****  * option) any later version.
+  12:test.c        ****  *
+  13:test.c        ****  * This program is distributed in the hope that it will be useful, but
+  14:test.c        ****  * WITHOUT ANY WARRANTY; without even the implied warranty of
+  15:test.c        ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  16:test.c        ****  * General Public License for more details.
+  17:test.c        ****  *
+  18:test.c        ****  * You should have received a copy of the GNU General Public License along
+  19:test.c        ****  * with this program. If not, see <http://www.gnu.org/licenses/>.
+  20:test.c        ****  */
+  21:test.c        **** /* Module interface
+  22:test.c        ****  * Local functions
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 2
+
+
+  23:test.c        ****  */
+  24:test.c        **** 
+  25:test.c        **** /*
+  26:test.c        ****  * Include files
+  27:test.c        ****  */
+  28:test.c        **** 
+  29:test.c        **** #include <stdlib.h>
+  30:test.c        **** #include <stdio.h>
+  31:test.c        **** #include <string.h>
+  32:test.c        **** 
+  33:test.c        **** 
+  34:test.c        **** /*
+  35:test.c        ****  * Defines
+  36:test.c        ****  */
+  37:test.c        **** 
+  38:test.c        **** /* Definition of the pseudo assembler statements. */ 
+  39:test.c        **** #define jmp(target)         {goto target;}
+  40:test.c        **** #define brneq(cond,target)  {if(cond) goto target;}
+  41:test.c        **** #define load(R,val)         {R = val;}
+  42:test.c        **** #define store(sym,val)      {sym = val;}
+  43:test.c        **** #define eq(R,op)            {R = R==op;}
+  44:test.c        **** #define neq(R,op)           {R = R!=op;}
+  45:test.c        **** #define lt(R,op)            {R = R<op;}
+  46:test.c        **** #define leq(R,op)           {R = R<=op;}
+  47:test.c        **** #define gt(R,op)            {R = R>op;}
+  48:test.c        **** #define geq(R,op)           {R = R>=op;}
+  49:test.c        **** #define or(R,op)            {R ||= op;}
+  50:test.c        **** #define and(R,op)           {R &&= op;}
+  51:test.c        **** #define add(R,op)           {R += op;}
+  52:test.c        **** #define sub(R,op)           {R -= op;}
+  53:test.c        **** #define mul(R,op)           {R *= op;}
+  54:test.c        **** #define div(R,op)           {R /= op;}
+  55:test.c        **** #define mod(R,op)           {R %= op;}
+  56:test.c        **** 
+  57:test.c        **** 
+  58:test.c        **** /*
+  59:test.c        ****  * Local type definitions
+  60:test.c        ****  */
+  61:test.c        **** 
+  62:test.c        **** 
+  63:test.c        **** /*
+  64:test.c        ****  * Local prototypes
+  65:test.c        ****  */
+  66:test.c        **** 
+  67:test.c        **** 
+  68:test.c        **** /*
+  69:test.c        ****  * Data definitions
+  70:test.c        ****  */
+  71:test.c        **** 
+  72:test.c        **** 
+  73:test.c        **** /*
+  74:test.c        ****  * Function implementation
+  75:test.c        ****  */
+  76:test.c        **** 
+  77:test.c        **** /**
+  78:test.c        ****  * Application main entry point. The code from the fictive computer language can be run
+  79:test.c        ****  * with command line provided variable values. All variables, which do not get any value in
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 3
+
+
+  80:test.c        ****  * the computer program itself are considered external interfaces and are connected to the
+  81:test.c        ****  * command line. Each two consequetive command line arguments are a pair of variable name
+  82:test.c        ****  * and variable value. The value is a signed integer value and it is propgated to the
+  83:test.c        ****  * program variable of given name.
+  84:test.c        ****  *   @return
+  85:test.c        ****  * Always 0, no error conditions are implemented.
+  86:test.c        ****  *   @param noArgs
+  87:test.c        ****  * Number of command line arguments. Need to be even.
+  88:test.c        ****  *   @param argAry
+  89:test.c        ****  * Array of command line arguments.
+  90:test.c        ****  */
+  91:test.c        **** int main(int noArgs, const char * argAry[])
+  92:test.c        **** {
+  29              		.loc 1 92 0
+  30              		.cfi_startproc
+  31              	LVL0:
+  32 0000 55       		pushl	%ebp
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 5, -8
+  35 0001 89E5     		movl	%esp, %ebp
+  36              		.cfi_def_cfa_register 5
+  37 0003 57       		pushl	%edi
+  38 0004 56       		pushl	%esi
+  39 0005 53       		pushl	%ebx
+  40 0006 83E4F0   		andl	$-16, %esp
+  41 0009 83EC20   		subl	$32, %esp
+  42              		.cfi_offset 7, -12
+  43              		.cfi_offset 6, -16
+  44              		.cfi_offset 3, -20
+  45              		.loc 1 92 0
+  46 000c 8B5D08   		movl	8(%ebp), %ebx
+  47 000f 8B550C   		movl	12(%ebp), %edx
+  48 0012 89542418 		movl	%edx, 24(%esp)
+  49 0016 E8000000 		call	___main
+  49      00
+  50              	LVL1:
+  93:test.c        ****     /* Map of variables. */
+  94:test.c        ****     int cntLoops=0, show=0, x=0, y=0, z=0;
+  95:test.c        **** 
+  96:test.c        ****     /* The following variables is not assigned any value in the source program
+  97:test.c        ****        test.fcl. We consider them system inputs and connect them
+  98:test.c        ****        to the application interface. */
+  99:test.c        ****     int _idxArg;
+ 100:test.c        ****     for(_idxArg=1; _idxArg+1<noArgs; _idxArg+=2)
+  51              		.loc 1 100 0
+  52 001b 83FB02   		cmpl	$2, %ebx
+  53 001e 0F8EF000 		jle	L9
+  53      0000
+  54 0024 83EB03   		subl	$3, %ebx
+  55 0027 C7442414 		movl	$0, 20(%esp)
+  55      00000000 
+ 101:test.c        ****     {
+ 102:test.c        ****         if(strcmp(argAry[_idxArg], "z") == 0)	z = atoi(argAry[_idxArg+1]);
+  56              		.loc 1 102 0
+  57 002f 8B542418 		movl	24(%esp), %edx
+  58 0033 83E3FE   		andl	$-2, %ebx
+  59 0036 8D4303   		leal	3(%ebx), %eax
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 4
+
+
+ 100:test.c        ****     {
+  60              		.loc 1 100 0
+  61 0039 BB010000 		movl	$1, %ebx
+  61      00
+  62 003e 8944241C 		movl	%eax, 28(%esp)
+  63 0042 EB09     		jmp	L4
+  64              	LVL2:
+  65              		.p2align 4,,10
+  66              	L3:
+ 100:test.c        ****     {
+  67              		.loc 1 100 0 is_stmt 0 discriminator 2
+  68 0044 83C302   		addl	$2, %ebx
+  69              	LVL3:
+  70 0047 3B5C241C 		cmpl	28(%esp), %ebx
+  71 004b 7432     		je	L2
+  72              	LVL4:
+  73              	L4:
+  74              		.loc 1 102 0 is_stmt 1
+  75 004d 8B349A   		movl	(%edx,%ebx,4), %esi
+  76 0050 BF000000 		movl	$LC0, %edi
+  76      00
+  77 0055 B9020000 		movl	$2, %ecx
+  77      00
+  78 005a F3A6     		repz cmpsb
+  79 005c 75E6     		jne	L3
+  80              		.loc 1 102 0 is_stmt 0 discriminator 1
+  81 005e 8B449A04 		movl	4(%edx,%ebx,4), %eax
+  82 0062 89542418 		movl	%edx, 24(%esp)
+ 100:test.c        ****     {
+  83              		.loc 1 100 0 is_stmt 1 discriminator 1
+  84 0066 83C302   		addl	$2, %ebx
+  85              	LVL5:
+  86              		.loc 1 102 0 discriminator 1
+  87 0069 890424   		movl	%eax, (%esp)
+  88 006c E8000000 		call	_atoi
+  88      00
+  89              	LVL6:
+ 100:test.c        ****     {
+  90              		.loc 1 100 0 discriminator 1
+  91 0071 3B5C241C 		cmpl	28(%esp), %ebx
+  92              		.loc 1 102 0 discriminator 1
+  93 0075 89442414 		movl	%eax, 20(%esp)
+  94              	LVL7:
+  95 0079 8B542418 		movl	24(%esp), %edx
+  96              	LVL8:
+ 100:test.c        ****     {
+  97              		.loc 1 100 0 discriminator 1
+  98 007d 75CE     		jne	L4
+  99              	LVL9:
+ 100              	L2:
+ 103:test.c        ****     }
+ 104:test.c        **** 
+ 105:test.c        ****     /* Definition of temporary variables for expression evaluation. */
+ 106:test.c        ****     int _R00, _R01, _R02, _R03, _R04, _R05, _R06, _R07;
+ 107:test.c        **** 
+ 108:test.c        ****     /* A simple test program */
+ 109:test.c        ****     load(_R02, -1)
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 5
+
+
+ 110:test.c        ****     mul(_R02, y)
+ 111:test.c        ****     load(_R01, 23)
+ 112:test.c        ****     sub(_R01, _R02)
+ 113:test.c        ****     load(_R03, -1)
+ 114:test.c        ****     mul(_R03, z)
+ 115:test.c        ****     load(_R02, -7)
+ 116:test.c        ****     add(_R02, _R03)
+ 101              		.loc 1 116 0
+ 102 007f BBF9FFFF 		movl	$-7, %ebx
+ 102      FF
+ 103 0084 2B5C2414 		subl	20(%esp), %ebx
+ 104              	LVL10:
+ 117:test.c        ****     mul(_R01, _R02)
+ 105              		.loc 1 117 0
+ 106 0088 6BDB17   		imull	$23, %ebx, %ebx
+ 107              	LVL11:
+ 118:test.c        ****     load(_R00, 38)
+ 119:test.c        ****     add(_R00, _R01)
+ 120:test.c        ****     add(_R00, 1)
+ 108              		.loc 1 120 0
+ 109 008b 83C327   		addl	$39, %ebx
+ 110              	LVL12:
+ 111 008e 89DA     		movl	%ebx, %edx
+ 112 0090 C1FA1F   		sarl	$31, %edx
+ 113 0093 89D0     		movl	%edx, %eax
+ 114 0095 31D8     		xorl	%ebx, %eax
+ 115 0097 29D0     		subl	%edx, %eax
+ 116 0099 31D2     		xorl	%edx, %edx
+ 117              	LVL13:
+ 118              	L8:
+ 121:test.c        ****     load(_R01, x)
+ 122:test.c        ****     mod(_R01, 23)
+ 123:test.c        ****     add(_R00, _R01)
+ 124:test.c        ****     store(x, _R00)
+ 125:test.c        ****     store(show, x)
+ 126:test.c        ****     store(cntLoops, 0)
+ 127:test.c        ****     load(_R00, x)
+ 128:test.c        ****     lt(_R00, 0)
+ 129:test.c        ****     brneq(_R00, _if_1)
+ 130:test.c        ****     jmp(_end_if_1)
+ 131:test.c        ****     _if_1:
+ 132:test.c        ****     load(_R00, -1)
+ 133:test.c        ****     mul(_R00, x)
+ 134:test.c        ****     store(x, _R00)
+ 135:test.c        ****     _end_if_1:
+ 136:test.c        ****     _loop_2:
+ 137:test.c        ****     load(_R00, cntLoops)
+ 138:test.c        ****     add(_R00, 1)
+ 119              		.loc 1 138 0
+ 120 009b 83C201   		addl	$1, %edx
+ 121              	LVL14:
+ 139:test.c        ****     store(cntLoops, _R00)
+ 140:test.c        ****     /* Since the loop itself doesn't have a condition will we always find */
+ 141:test.c        ****     /* an if clause with break statement somewhere inside the loop */
+ 142:test.c        ****     load(_R00, x)
+ 143:test.c        ****     leq(_R00, 0)
+ 144:test.c        ****     brneq(_R00, _if_3)
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 6
+
+
+ 122              		.loc 1 144 0
+ 123 009e 85C0     		testl	%eax, %eax
+ 124 00a0 741A     		je	L14
+ 125              	LVL15:
+ 126              	L17:
+ 127              	L5:
+ 145:test.c        ****     jmp(_end_if_3)
+ 146:test.c        ****     _if_3:
+ 147:test.c        ****     store(y, 9)
+ 148:test.c        ****     jmp(_exit_loop_2)
+ 149:test.c        ****     _end_if_3:
+ 150:test.c        ****     load(_R00, y)
+ 151:test.c        ****     add(_R00, x)
+ 152:test.c        ****     store(y, _R00)
+ 153:test.c        ****     /* An empty if or else branch should be possible */
+ 154:test.c        ****     load(_R00, x)
+ 155:test.c        ****     eq(_R00, 1)
+ 156:test.c        ****     brneq(_R00, _if_4)
+ 128              		.loc 1 156 0
+ 129 00a2 83F801   		cmpl	$1, %eax
+ 130 00a5 7469     		je	L10
+ 131              	LDL1:
+ 132              	LDL2:
+ 133              	LVL16:
+ 157:test.c        ****     load(_R00, x)
+ 158:test.c        ****     sub(_R00, 1)
+ 159:test.c        ****     store(x, _R00)
+ 160:test.c        ****     jmp(_end_if_4)
+ 161:test.c        ****     _if_4:
+ 162:test.c        ****     _end_if_4:
+ 163:test.c        ****     load(_R00, x)
+ 164:test.c        ****     eq(_R00, 2)
+ 165:test.c        ****     brneq(_R00, _if_5)
+ 134              		.loc 1 165 0
+ 135 00a7 8D48FE   		leal	-2(%eax), %ecx
+ 136 00aa 83F803   		cmpl	$3, %eax
+ 137 00ad B8000000 		movl	$0, %eax
+ 137      00
+ 138              	LVL17:
+ 139 00b2 0F45C1   		cmovne	%ecx, %eax
+ 140              	LVL18:
+ 138:test.c        ****     store(cntLoops, _R00)
+ 141              		.loc 1 138 0
+ 142 00b5 83C201   		addl	$1, %edx
+ 143              	LVL19:
+ 144:test.c        ****     jmp(_end_if_3)
+ 144              		.loc 1 144 0
+ 145 00b8 85C0     		testl	%eax, %eax
+ 146 00ba 75E6     		jne	L17
+ 147              	L7:
+ 148              	L6:
+ 149              	LVL20:
+ 150              	L14:
+ 151              	LDL3:
+ 152              	LDL4:
+ 166:test.c        ****     jmp(_end_if_5)
+ 167:test.c        ****     _if_5:
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 7
+
+
+ 168:test.c        ****     load(_R00, x)
+ 169:test.c        ****     sub(_R00, 1)
+ 170:test.c        ****     store(x, _R00)
+ 171:test.c        ****     _end_if_5:
+ 172:test.c        ****     load(_R00, x)
+ 173:test.c        ****     gt(_R00, 0)
+ 174:test.c        ****     brneq(_R00, _if_6)
+ 175:test.c        ****     jmp(_end_if_6)
+ 176:test.c        ****     _if_6:
+ 177:test.c        ****     load(_R00, x)
+ 178:test.c        ****     sub(_R00, 1)
+ 179:test.c        ****     store(x, _R00)
+ 180:test.c        ****     _end_if_6:
+ 181:test.c        ****     jmp(_loop_2)
+ 182:test.c        ****     _exit_loop_2:
+ 183:test.c        ****     /* A final comment */
+ 184:test.c        **** 
+ 185:test.c        **** 
+ 186:test.c        ****     /* All variables are printed at the end as a kind of program output. */
+ 187:test.c        ****     printf("cntLoops = %d\n", cntLoops);
+ 153              		.loc 1 187 0
+ 154 00bc 89542404 		movl	%edx, 4(%esp)
+ 155 00c0 C7042402 		movl	$LC1, (%esp)
+ 155      000000
+ 156 00c7 E8000000 		call	_printf
+ 156      00
+ 157              	LVL21:
+ 188:test.c        ****     printf("show = %d\n", show);
+ 158              		.loc 1 188 0
+ 159 00cc 895C2404 		movl	%ebx, 4(%esp)
+ 160 00d0 C7042411 		movl	$LC2, (%esp)
+ 160      000000
+ 161 00d7 E8000000 		call	_printf
+ 161      00
+ 162              	LVL22:
+ 189:test.c        ****     printf("x = %d\n", x);
+ 163              		.loc 1 189 0
+ 164 00dc C7442404 		movl	$0, 4(%esp)
+ 164      00000000 
+ 165 00e4 C704241C 		movl	$LC3, (%esp)
+ 165      000000
+ 166 00eb E8000000 		call	_printf
+ 166      00
+ 167              	LVL23:
+ 190:test.c        ****     printf("y = %d\n", y);
+ 168              		.loc 1 190 0
+ 169 00f0 C7442404 		movl	$9, 4(%esp)
+ 169      09000000 
+ 170 00f8 C7042424 		movl	$LC4, (%esp)
+ 170      000000
+ 171 00ff E8000000 		call	_printf
+ 171      00
+ 172              	LVL24:
+ 191:test.c        **** 
+ 192:test.c        ****     return 0;
+ 193:test.c        **** }...
+ 173              		.loc 1 193 0
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 8
+
+
+ 174 0104 8D65F4   		leal	-12(%ebp), %esp
+ 175              	LVL25:
+ 176 0107 31C0     		xorl	%eax, %eax
+ 177 0109 5B       		popl	%ebx
+ 178              		.cfi_remember_state
+ 179              		.cfi_restore 3
+ 180              	LVL26:
+ 181 010a 5E       		popl	%esi
+ 182              		.cfi_restore 6
+ 183 010b 5F       		popl	%edi
+ 184              		.cfi_restore 7
+ 185 010c 5D       		popl	%ebp
+ 186              		.cfi_restore 5
+ 187              		.cfi_def_cfa 4, 4
+ 188              	LVL27:
+ 189 010d C3       		ret
+ 190              	LVL28:
+ 191 010e 6690     		.p2align 4,,10
+ 192              	L10:
+ 193              		.cfi_restore_state
+ 194 0110 31C0     		xorl	%eax, %eax
+ 195              	LVL29:
+ 196 0112 EB87     		jmp	L8
+ 197              	LVL30:
+ 198              	L9:
+  94:test.c        ****     int cntLoops=0, show=0, x=0, y=0, z=0;
+ 199              		.loc 1 94 0
+ 200 0114 C7442414 		movl	$0, 20(%esp)
+ 200      00000000 
+ 201 011c E95EFFFF 		jmp	L2
+ 201      FF
+ 202              		.cfi_endproc
+ 203              	LFE26:
+ 204              		.section	.text.unlikely,"x"
+ 205              	LCOLDE5:
+ 206              		.section	.text.startup,"x"
+ 207              	LHOTE5:
+ 208 0121 90909090 		.text
+ 208      90909090 
+ 208      90909090 
+ 208      909090
+ 209              	Letext0:
+ 210              		.section	.text.unlikely,"x"
+ 211              	Letext_cold0:
+ 212              		.file 2 "c:/programfiles/octave/octave-4.0.3/include/stdlib.h"
+ 213              		.file 3 "c:/programfiles/octave/octave-4.0.3/include/stdio.h"
+ 214              		.section	.debug_info,"dr"
+ 215              	Ldebug_info0:
+ 216 0000 AD030000 		.long	0x3ad
+ 217 0004 0400     		.word	0x4
+ 218 0006 00000000 		.secrel32	Ldebug_abbrev0
+ 219 000a 04       		.byte	0x4
+ 220 000b 01       		.uleb128 0x1
+ 221 000c 474E5520 		.ascii "GNU C 4.9.3 -mavx -mtune=generic -march=pentiumpro -g -O2\0"
+ 221      4320342E 
+ 221      392E3320 
+ 221      2D6D6176 
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 9
+
+
+ 221      78202D6D 
+ 222 0046 01       		.byte	0x1
+ 223 0047 74657374 		.ascii "test.c\0"
+ 223      2E6300
+ 224 004e 433A5C75 		.ascii "C:\\user\\vranken\\projects\\ST4ForOctaveAtSourceForge\\trunk\\samples\\compiler\0"
+ 224      7365725C 
+ 224      7672616E 
+ 224      6B656E5C 
+ 224      70726F6A 
+ 225 0098 00000000 		.secrel32	Ldebug_ranges0+0
+ 226 009c 00000000 		.long	0
+ 227 00a0 00000000 		.secrel32	Ldebug_line0
+ 228 00a4 02       		.uleb128 0x2
+ 229 00a5 01       		.byte	0x1
+ 230 00a6 06       		.byte	0x6
+ 231 00a7 63686172 		.ascii "char\0"
+ 231      00
+ 232 00ac 02       		.uleb128 0x2
+ 233 00ad 04       		.byte	0x4
+ 234 00ae 07       		.byte	0x7
+ 235 00af 756E7369 		.ascii "unsigned int\0"
+ 235      676E6564 
+ 235      20696E74 
+ 235      00
+ 236 00bc 02       		.uleb128 0x2
+ 237 00bd 04       		.byte	0x4
+ 238 00be 05       		.byte	0x5
+ 239 00bf 696E7400 		.ascii "int\0"
+ 240 00c3 02       		.uleb128 0x2
+ 241 00c4 02       		.byte	0x2
+ 242 00c5 07       		.byte	0x7
+ 243 00c6 73686F72 		.ascii "short unsigned int\0"
+ 243      7420756E 
+ 243      7369676E 
+ 243      65642069 
+ 243      6E7400
+ 244 00d9 02       		.uleb128 0x2
+ 245 00da 04       		.byte	0x4
+ 246 00db 05       		.byte	0x5
+ 247 00dc 6C6F6E67 		.ascii "long int\0"
+ 247      20696E74 
+ 247      00
+ 248 00e5 02       		.uleb128 0x2
+ 249 00e6 08       		.byte	0x8
+ 250 00e7 05       		.byte	0x5
+ 251 00e8 6C6F6E67 		.ascii "long long int\0"
+ 251      206C6F6E 
+ 251      6720696E 
+ 251      7400
+ 252 00f6 02       		.uleb128 0x2
+ 253 00f7 04       		.byte	0x4
+ 254 00f8 07       		.byte	0x7
+ 255 00f9 73697A65 		.ascii "sizetype\0"
+ 255      74797065 
+ 255      00
+ 256 0102 02       		.uleb128 0x2
+ 257 0103 04       		.byte	0x4
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 10
+
+
+ 258 0104 07       		.byte	0x7
+ 259 0105 6C6F6E67 		.ascii "long unsigned int\0"
+ 259      20756E73 
+ 259      69676E65 
+ 259      6420696E 
+ 259      7400
+ 260 0117 02       		.uleb128 0x2
+ 261 0118 01       		.byte	0x1
+ 262 0119 08       		.byte	0x8
+ 263 011a 756E7369 		.ascii "unsigned char\0"
+ 263      676E6564 
+ 263      20636861 
+ 263      7200
+ 264 0128 02       		.uleb128 0x2
+ 265 0129 08       		.byte	0x8
+ 266 012a 04       		.byte	0x4
+ 267 012b 646F7562 		.ascii "double\0"
+ 267      6C6500
+ 268 0132 02       		.uleb128 0x2
+ 269 0133 04       		.byte	0x4
+ 270 0134 04       		.byte	0x4
+ 271 0135 666C6F61 		.ascii "float\0"
+ 271      7400
+ 272 013b 02       		.uleb128 0x2
+ 273 013c 0C       		.byte	0xc
+ 274 013d 04       		.byte	0x4
+ 275 013e 6C6F6E67 		.ascii "long double\0"
+ 275      20646F75 
+ 275      626C6500 
+ 276 014a 03       		.uleb128 0x3
+ 277 014b 6D61696E 		.ascii "main\0"
+ 277      00
+ 278 0150 01       		.byte	0x1
+ 279 0151 5B       		.byte	0x5b
+ 280 0152 BC000000 		.long	0xbc
+ 281 0156 00000000 		.long	LFB26
+ 282 015a 21010000 		.long	LFE26-LFB26
+ 283 015e 01       		.uleb128 0x1
+ 284 015f 9C       		.byte	0x9c
+ 285 0160 72030000 		.long	0x372
+ 286 0164 04       		.uleb128 0x4
+ 287 0165 6E6F4172 		.ascii "noArgs\0"
+ 287      677300
+ 288 016c 01       		.byte	0x1
+ 289 016d 5B       		.byte	0x5b
+ 290 016e BC000000 		.long	0xbc
+ 291 0172 02       		.uleb128 0x2
+ 292 0173 91       		.byte	0x91
+ 293 0174 00       		.sleb128 0
+ 294 0175 04       		.uleb128 0x4
+ 295 0176 61726741 		.ascii "argAry\0"
+ 295      727900
+ 296 017d 01       		.byte	0x1
+ 297 017e 5B       		.byte	0x5b
+ 298 017f 72030000 		.long	0x372
+ 299 0183 02       		.uleb128 0x2
+ 300 0184 91       		.byte	0x91
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 11
+
+
+ 301 0185 04       		.sleb128 4
+ 302 0186 05       		.uleb128 0x5
+ 303 0187 636E744C 		.ascii "cntLoops\0"
+ 303      6F6F7073 
+ 303      00
+ 304 0190 01       		.byte	0x1
+ 305 0191 5E       		.byte	0x5e
+ 306 0192 BC000000 		.long	0xbc
+ 307 0196 00000000 		.secrel32	LLST0
+ 308 019a 05       		.uleb128 0x5
+ 309 019b 73686F77 		.ascii "show\0"
+ 309      00
+ 310 01a0 01       		.byte	0x1
+ 311 01a1 5E       		.byte	0x5e
+ 312 01a2 BC000000 		.long	0xbc
+ 313 01a6 36000000 		.secrel32	LLST1
+ 314 01aa 05       		.uleb128 0x5
+ 315 01ab 7800     		.ascii "x\0"
+ 316 01ad 01       		.byte	0x1
+ 317 01ae 5E       		.byte	0x5e
+ 318 01af BC000000 		.long	0xbc
+ 319 01b3 A0000000 		.secrel32	LLST2
+ 320 01b7 05       		.uleb128 0x5
+ 321 01b8 7900     		.ascii "y\0"
+ 322 01ba 01       		.byte	0x1
+ 323 01bb 5E       		.byte	0x5e
+ 324 01bc BC000000 		.long	0xbc
+ 325 01c0 06010000 		.secrel32	LLST3
+ 326 01c4 05       		.uleb128 0x5
+ 327 01c5 7A00     		.ascii "z\0"
+ 328 01c7 01       		.byte	0x1
+ 329 01c8 5E       		.byte	0x5e
+ 330 01c9 BC000000 		.long	0xbc
+ 331 01cd 32010000 		.secrel32	LLST4
+ 332 01d1 05       		.uleb128 0x5
+ 333 01d2 5F696478 		.ascii "_idxArg\0"
+ 333      41726700 
+ 334 01da 01       		.byte	0x1
+ 335 01db 63       		.byte	0x63
+ 336 01dc BC000000 		.long	0xbc
+ 337 01e0 69010000 		.secrel32	LLST5
+ 338 01e4 05       		.uleb128 0x5
+ 339 01e5 5F523030 		.ascii "_R00\0"
+ 339      00
+ 340 01ea 01       		.byte	0x1
+ 341 01eb 6A       		.byte	0x6a
+ 342 01ec BC000000 		.long	0xbc
+ 343 01f0 AC010000 		.secrel32	LLST6
+ 344 01f4 05       		.uleb128 0x5
+ 345 01f5 5F523031 		.ascii "_R01\0"
+ 345      00
+ 346 01fa 01       		.byte	0x1
+ 347 01fb 6A       		.byte	0x6a
+ 348 01fc BC000000 		.long	0xbc
+ 349 0200 57020000 		.secrel32	LLST7
+ 350 0204 05       		.uleb128 0x5
+ 351 0205 5F523032 		.ascii "_R02\0"
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 12
+
+
+ 351      00
+ 352 020a 01       		.byte	0x1
+ 353 020b 6A       		.byte	0x6a
+ 354 020c BC000000 		.long	0xbc
+ 355 0210 89020000 		.secrel32	LLST8
+ 356 0214 05       		.uleb128 0x5
+ 357 0215 5F523033 		.ascii "_R03\0"
+ 357      00
+ 358 021a 01       		.byte	0x1
+ 359 021b 6A       		.byte	0x6a
+ 360 021c BC000000 		.long	0xbc
+ 361 0220 FB020000 		.secrel32	LLST9
+ 362 0224 06       		.uleb128 0x6
+ 363 0225 5F523034 		.ascii "_R04\0"
+ 363      00
+ 364 022a 01       		.byte	0x1
+ 365 022b 6A       		.byte	0x6a
+ 366 022c BC000000 		.long	0xbc
+ 367 0230 06       		.uleb128 0x6
+ 368 0231 5F523035 		.ascii "_R05\0"
+ 368      00
+ 369 0236 01       		.byte	0x1
+ 370 0237 6A       		.byte	0x6a
+ 371 0238 BC000000 		.long	0xbc
+ 372 023c 06       		.uleb128 0x6
+ 373 023d 5F523036 		.ascii "_R06\0"
+ 373      00
+ 374 0242 01       		.byte	0x1
+ 375 0243 6A       		.byte	0x6a
+ 376 0244 BC000000 		.long	0xbc
+ 377 0248 06       		.uleb128 0x6
+ 378 0249 5F523037 		.ascii "_R07\0"
+ 378      00
+ 379 024e 01       		.byte	0x1
+ 380 024f 6A       		.byte	0x6a
+ 381 0250 BC000000 		.long	0xbc
+ 382 0254 07       		.uleb128 0x7
+ 383 0255 5F69665F 		.ascii "_if_1\0"
+ 383      3100
+ 384 025b 01       		.byte	0x1
+ 385 025c 83       		.byte	0x83
+ 386 025d 07       		.uleb128 0x7
+ 387 025e 5F656E64 		.ascii "_end_if_1\0"
+ 387      5F69665F 
+ 387      3100
+ 388 0268 01       		.byte	0x1
+ 389 0269 87       		.byte	0x87
+ 390 026a 07       		.uleb128 0x7
+ 391 026b 5F6C6F6F 		.ascii "_loop_2\0"
+ 391      705F3200 
+ 392 0273 01       		.byte	0x1
+ 393 0274 88       		.byte	0x88
+ 394 0275 08       		.uleb128 0x8
+ 395 0276 5F69665F 		.ascii "_if_3\0"
+ 395      3300
+ 396 027c 01       		.byte	0x1
+ 397 027d 92       		.byte	0x92
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 13
+
+
+ 398 027e BC000000 		.long	LDL3
+ 399 0282 08       		.uleb128 0x8
+ 400 0283 5F656E64 		.ascii "_end_if_3\0"
+ 400      5F69665F 
+ 400      3300
+ 401 028d 01       		.byte	0x1
+ 402 028e 95       		.byte	0x95
+ 403 028f A2000000 		.long	L5
+ 404 0293 08       		.uleb128 0x8
+ 405 0294 5F657869 		.ascii "_exit_loop_2\0"
+ 405      745F6C6F 
+ 405      6F705F32 
+ 405      00
+ 406 02a1 01       		.byte	0x1
+ 407 02a2 B6       		.byte	0xb6
+ 408 02a3 BC000000 		.long	LDL4
+ 409 02a7 08       		.uleb128 0x8
+ 410 02a8 5F69665F 		.ascii "_if_4\0"
+ 410      3400
+ 411 02ae 01       		.byte	0x1
+ 412 02af A1       		.byte	0xa1
+ 413 02b0 A7000000 		.long	LDL1
+ 414 02b4 08       		.uleb128 0x8
+ 415 02b5 5F656E64 		.ascii "_end_if_4\0"
+ 415      5F69665F 
+ 415      3400
+ 416 02bf 01       		.byte	0x1
+ 417 02c0 A2       		.byte	0xa2
+ 418 02c1 A7000000 		.long	LDL2
+ 419 02c5 08       		.uleb128 0x8
+ 420 02c6 5F69665F 		.ascii "_if_5\0"
+ 420      3500
+ 421 02cc 01       		.byte	0x1
+ 422 02cd A7       		.byte	0xa7
+ 423 02ce BC000000 		.long	L6
+ 424 02d2 08       		.uleb128 0x8
+ 425 02d3 5F656E64 		.ascii "_end_if_5\0"
+ 425      5F69665F 
+ 425      3500
+ 426 02dd 01       		.byte	0x1
+ 427 02de AB       		.byte	0xab
+ 428 02df BC000000 		.long	L7
+ 429 02e3 07       		.uleb128 0x7
+ 430 02e4 5F69665F 		.ascii "_if_6\0"
+ 430      3600
+ 431 02ea 01       		.byte	0x1
+ 432 02eb B0       		.byte	0xb0
+ 433 02ec 07       		.uleb128 0x7
+ 434 02ed 5F656E64 		.ascii "_end_if_6\0"
+ 434      5F69665F 
+ 434      3600
+ 435 02f7 01       		.byte	0x1
+ 436 02f8 B4       		.byte	0xb4
+ 437 02f9 09       		.uleb128 0x9
+ 438 02fa 71000000 		.long	LVL6
+ 439 02fe 83030000 		.long	0x383
+ 440 0302 0A       		.uleb128 0xa
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 14
+
+
+ 441 0303 CC000000 		.long	LVL21
+ 442 0307 9A030000 		.long	0x39a
+ 443 030b 1A030000 		.long	0x31a
+ 444 030f 0B       		.uleb128 0xb
+ 445 0310 02       		.uleb128 0x2
+ 446 0311 74       		.byte	0x74
+ 447 0312 00       		.sleb128 0
+ 448 0313 05       		.uleb128 0x5
+ 449 0314 03       		.byte	0x3
+ 450 0315 02000000 		.long	LC1
+ 451 0319 00       		.byte	0
+ 452 031a 0A       		.uleb128 0xa
+ 453 031b DC000000 		.long	LVL22
+ 454 031f 9A030000 		.long	0x39a
+ 455 0323 39030000 		.long	0x339
+ 456 0327 0B       		.uleb128 0xb
+ 457 0328 02       		.uleb128 0x2
+ 458 0329 74       		.byte	0x74
+ 459 032a 00       		.sleb128 0
+ 460 032b 05       		.uleb128 0x5
+ 461 032c 03       		.byte	0x3
+ 462 032d 11000000 		.long	LC2
+ 463 0331 0B       		.uleb128 0xb
+ 464 0332 02       		.uleb128 0x2
+ 465 0333 74       		.byte	0x74
+ 466 0334 04       		.sleb128 4
+ 467 0335 02       		.uleb128 0x2
+ 468 0336 73       		.byte	0x73
+ 469 0337 00       		.sleb128 0
+ 470 0338 00       		.byte	0
+ 471 0339 0A       		.uleb128 0xa
+ 472 033a F0000000 		.long	LVL23
+ 473 033e 9A030000 		.long	0x39a
+ 474 0342 57030000 		.long	0x357
+ 475 0346 0B       		.uleb128 0xb
+ 476 0347 02       		.uleb128 0x2
+ 477 0348 74       		.byte	0x74
+ 478 0349 00       		.sleb128 0
+ 479 034a 05       		.uleb128 0x5
+ 480 034b 03       		.byte	0x3
+ 481 034c 1C000000 		.long	LC3
+ 482 0350 0B       		.uleb128 0xb
+ 483 0351 02       		.uleb128 0x2
+ 484 0352 74       		.byte	0x74
+ 485 0353 04       		.sleb128 4
+ 486 0354 01       		.uleb128 0x1
+ 487 0355 30       		.byte	0x30
+ 488 0356 00       		.byte	0
+ 489 0357 0C       		.uleb128 0xc
+ 490 0358 04010000 		.long	LVL24
+ 491 035c 9A030000 		.long	0x39a
+ 492 0360 0B       		.uleb128 0xb
+ 493 0361 02       		.uleb128 0x2
+ 494 0362 74       		.byte	0x74
+ 495 0363 00       		.sleb128 0
+ 496 0364 05       		.uleb128 0x5
+ 497 0365 03       		.byte	0x3
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 15
+
+
+ 498 0366 24000000 		.long	LC4
+ 499 036a 0B       		.uleb128 0xb
+ 500 036b 02       		.uleb128 0x2
+ 501 036c 74       		.byte	0x74
+ 502 036d 04       		.sleb128 4
+ 503 036e 01       		.uleb128 0x1
+ 504 036f 39       		.byte	0x39
+ 505 0370 00       		.byte	0
+ 506 0371 00       		.byte	0
+ 507 0372 0D       		.uleb128 0xd
+ 508 0373 04       		.byte	0x4
+ 509 0374 78030000 		.long	0x378
+ 510 0378 0D       		.uleb128 0xd
+ 511 0379 04       		.byte	0x4
+ 512 037a 7E030000 		.long	0x37e
+ 513 037e 0E       		.uleb128 0xe
+ 514 037f A4000000 		.long	0xa4
+ 515 0383 0F       		.uleb128 0xf
+ 516 0384 61746F69 		.ascii "atoi\0"
+ 516      00
+ 517 0389 02       		.byte	0x2
+ 518 038a 5A01     		.word	0x15a
+ 519 038c BC000000 		.long	0xbc
+ 520 0390 9A030000 		.long	0x39a
+ 521 0394 10       		.uleb128 0x10
+ 522 0395 78030000 		.long	0x378
+ 523 0399 00       		.byte	0
+ 524 039a 11       		.uleb128 0x11
+ 525 039b 7072696E 		.ascii "printf\0"
+ 525      746600
+ 526 03a2 03       		.byte	0x3
+ 527 03a3 7A01     		.word	0x17a
+ 528 03a5 BC000000 		.long	0xbc
+ 529 03a9 10       		.uleb128 0x10
+ 530 03aa 78030000 		.long	0x378
+ 531 03ae 12       		.uleb128 0x12
+ 532 03af 00       		.byte	0
+ 533 03b0 00       		.byte	0
+ 534              		.section	.debug_abbrev,"dr"
+ 535              	Ldebug_abbrev0:
+ 536 0000 01       		.uleb128 0x1
+ 537 0001 11       		.uleb128 0x11
+ 538 0002 01       		.byte	0x1
+ 539 0003 25       		.uleb128 0x25
+ 540 0004 08       		.uleb128 0x8
+ 541 0005 13       		.uleb128 0x13
+ 542 0006 0B       		.uleb128 0xb
+ 543 0007 03       		.uleb128 0x3
+ 544 0008 08       		.uleb128 0x8
+ 545 0009 1B       		.uleb128 0x1b
+ 546 000a 08       		.uleb128 0x8
+ 547 000b 55       		.uleb128 0x55
+ 548 000c 17       		.uleb128 0x17
+ 549 000d 11       		.uleb128 0x11
+ 550 000e 01       		.uleb128 0x1
+ 551 000f 10       		.uleb128 0x10
+ 552 0010 17       		.uleb128 0x17
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 16
+
+
+ 553 0011 00       		.byte	0
+ 554 0012 00       		.byte	0
+ 555 0013 02       		.uleb128 0x2
+ 556 0014 24       		.uleb128 0x24
+ 557 0015 00       		.byte	0
+ 558 0016 0B       		.uleb128 0xb
+ 559 0017 0B       		.uleb128 0xb
+ 560 0018 3E       		.uleb128 0x3e
+ 561 0019 0B       		.uleb128 0xb
+ 562 001a 03       		.uleb128 0x3
+ 563 001b 08       		.uleb128 0x8
+ 564 001c 00       		.byte	0
+ 565 001d 00       		.byte	0
+ 566 001e 03       		.uleb128 0x3
+ 567 001f 2E       		.uleb128 0x2e
+ 568 0020 01       		.byte	0x1
+ 569 0021 3F       		.uleb128 0x3f
+ 570 0022 19       		.uleb128 0x19
+ 571 0023 03       		.uleb128 0x3
+ 572 0024 08       		.uleb128 0x8
+ 573 0025 3A       		.uleb128 0x3a
+ 574 0026 0B       		.uleb128 0xb
+ 575 0027 3B       		.uleb128 0x3b
+ 576 0028 0B       		.uleb128 0xb
+ 577 0029 27       		.uleb128 0x27
+ 578 002a 19       		.uleb128 0x19
+ 579 002b 49       		.uleb128 0x49
+ 580 002c 13       		.uleb128 0x13
+ 581 002d 11       		.uleb128 0x11
+ 582 002e 01       		.uleb128 0x1
+ 583 002f 12       		.uleb128 0x12
+ 584 0030 06       		.uleb128 0x6
+ 585 0031 40       		.uleb128 0x40
+ 586 0032 18       		.uleb128 0x18
+ 587 0033 9642     		.uleb128 0x2116
+ 588 0035 19       		.uleb128 0x19
+ 589 0036 01       		.uleb128 0x1
+ 590 0037 13       		.uleb128 0x13
+ 591 0038 00       		.byte	0
+ 592 0039 00       		.byte	0
+ 593 003a 04       		.uleb128 0x4
+ 594 003b 05       		.uleb128 0x5
+ 595 003c 00       		.byte	0
+ 596 003d 03       		.uleb128 0x3
+ 597 003e 08       		.uleb128 0x8
+ 598 003f 3A       		.uleb128 0x3a
+ 599 0040 0B       		.uleb128 0xb
+ 600 0041 3B       		.uleb128 0x3b
+ 601 0042 0B       		.uleb128 0xb
+ 602 0043 49       		.uleb128 0x49
+ 603 0044 13       		.uleb128 0x13
+ 604 0045 02       		.uleb128 0x2
+ 605 0046 18       		.uleb128 0x18
+ 606 0047 00       		.byte	0
+ 607 0048 00       		.byte	0
+ 608 0049 05       		.uleb128 0x5
+ 609 004a 34       		.uleb128 0x34
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 17
+
+
+ 610 004b 00       		.byte	0
+ 611 004c 03       		.uleb128 0x3
+ 612 004d 08       		.uleb128 0x8
+ 613 004e 3A       		.uleb128 0x3a
+ 614 004f 0B       		.uleb128 0xb
+ 615 0050 3B       		.uleb128 0x3b
+ 616 0051 0B       		.uleb128 0xb
+ 617 0052 49       		.uleb128 0x49
+ 618 0053 13       		.uleb128 0x13
+ 619 0054 02       		.uleb128 0x2
+ 620 0055 17       		.uleb128 0x17
+ 621 0056 00       		.byte	0
+ 622 0057 00       		.byte	0
+ 623 0058 06       		.uleb128 0x6
+ 624 0059 34       		.uleb128 0x34
+ 625 005a 00       		.byte	0
+ 626 005b 03       		.uleb128 0x3
+ 627 005c 08       		.uleb128 0x8
+ 628 005d 3A       		.uleb128 0x3a
+ 629 005e 0B       		.uleb128 0xb
+ 630 005f 3B       		.uleb128 0x3b
+ 631 0060 0B       		.uleb128 0xb
+ 632 0061 49       		.uleb128 0x49
+ 633 0062 13       		.uleb128 0x13
+ 634 0063 00       		.byte	0
+ 635 0064 00       		.byte	0
+ 636 0065 07       		.uleb128 0x7
+ 637 0066 0A       		.uleb128 0xa
+ 638 0067 00       		.byte	0
+ 639 0068 03       		.uleb128 0x3
+ 640 0069 08       		.uleb128 0x8
+ 641 006a 3A       		.uleb128 0x3a
+ 642 006b 0B       		.uleb128 0xb
+ 643 006c 3B       		.uleb128 0x3b
+ 644 006d 0B       		.uleb128 0xb
+ 645 006e 00       		.byte	0
+ 646 006f 00       		.byte	0
+ 647 0070 08       		.uleb128 0x8
+ 648 0071 0A       		.uleb128 0xa
+ 649 0072 00       		.byte	0
+ 650 0073 03       		.uleb128 0x3
+ 651 0074 08       		.uleb128 0x8
+ 652 0075 3A       		.uleb128 0x3a
+ 653 0076 0B       		.uleb128 0xb
+ 654 0077 3B       		.uleb128 0x3b
+ 655 0078 0B       		.uleb128 0xb
+ 656 0079 11       		.uleb128 0x11
+ 657 007a 01       		.uleb128 0x1
+ 658 007b 00       		.byte	0
+ 659 007c 00       		.byte	0
+ 660 007d 09       		.uleb128 0x9
+ 661 007e 898201   		.uleb128 0x4109
+ 662 0081 00       		.byte	0
+ 663 0082 11       		.uleb128 0x11
+ 664 0083 01       		.uleb128 0x1
+ 665 0084 31       		.uleb128 0x31
+ 666 0085 13       		.uleb128 0x13
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 18
+
+
+ 667 0086 00       		.byte	0
+ 668 0087 00       		.byte	0
+ 669 0088 0A       		.uleb128 0xa
+ 670 0089 898201   		.uleb128 0x4109
+ 671 008c 01       		.byte	0x1
+ 672 008d 11       		.uleb128 0x11
+ 673 008e 01       		.uleb128 0x1
+ 674 008f 31       		.uleb128 0x31
+ 675 0090 13       		.uleb128 0x13
+ 676 0091 01       		.uleb128 0x1
+ 677 0092 13       		.uleb128 0x13
+ 678 0093 00       		.byte	0
+ 679 0094 00       		.byte	0
+ 680 0095 0B       		.uleb128 0xb
+ 681 0096 8A8201   		.uleb128 0x410a
+ 682 0099 00       		.byte	0
+ 683 009a 02       		.uleb128 0x2
+ 684 009b 18       		.uleb128 0x18
+ 685 009c 9142     		.uleb128 0x2111
+ 686 009e 18       		.uleb128 0x18
+ 687 009f 00       		.byte	0
+ 688 00a0 00       		.byte	0
+ 689 00a1 0C       		.uleb128 0xc
+ 690 00a2 898201   		.uleb128 0x4109
+ 691 00a5 01       		.byte	0x1
+ 692 00a6 11       		.uleb128 0x11
+ 693 00a7 01       		.uleb128 0x1
+ 694 00a8 31       		.uleb128 0x31
+ 695 00a9 13       		.uleb128 0x13
+ 696 00aa 00       		.byte	0
+ 697 00ab 00       		.byte	0
+ 698 00ac 0D       		.uleb128 0xd
+ 699 00ad 0F       		.uleb128 0xf
+ 700 00ae 00       		.byte	0
+ 701 00af 0B       		.uleb128 0xb
+ 702 00b0 0B       		.uleb128 0xb
+ 703 00b1 49       		.uleb128 0x49
+ 704 00b2 13       		.uleb128 0x13
+ 705 00b3 00       		.byte	0
+ 706 00b4 00       		.byte	0
+ 707 00b5 0E       		.uleb128 0xe
+ 708 00b6 26       		.uleb128 0x26
+ 709 00b7 00       		.byte	0
+ 710 00b8 49       		.uleb128 0x49
+ 711 00b9 13       		.uleb128 0x13
+ 712 00ba 00       		.byte	0
+ 713 00bb 00       		.byte	0
+ 714 00bc 0F       		.uleb128 0xf
+ 715 00bd 2E       		.uleb128 0x2e
+ 716 00be 01       		.byte	0x1
+ 717 00bf 3F       		.uleb128 0x3f
+ 718 00c0 19       		.uleb128 0x19
+ 719 00c1 03       		.uleb128 0x3
+ 720 00c2 08       		.uleb128 0x8
+ 721 00c3 3A       		.uleb128 0x3a
+ 722 00c4 0B       		.uleb128 0xb
+ 723 00c5 3B       		.uleb128 0x3b
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 19
+
+
+ 724 00c6 05       		.uleb128 0x5
+ 725 00c7 27       		.uleb128 0x27
+ 726 00c8 19       		.uleb128 0x19
+ 727 00c9 49       		.uleb128 0x49
+ 728 00ca 13       		.uleb128 0x13
+ 729 00cb 3C       		.uleb128 0x3c
+ 730 00cc 19       		.uleb128 0x19
+ 731 00cd 01       		.uleb128 0x1
+ 732 00ce 13       		.uleb128 0x13
+ 733 00cf 00       		.byte	0
+ 734 00d0 00       		.byte	0
+ 735 00d1 10       		.uleb128 0x10
+ 736 00d2 05       		.uleb128 0x5
+ 737 00d3 00       		.byte	0
+ 738 00d4 49       		.uleb128 0x49
+ 739 00d5 13       		.uleb128 0x13
+ 740 00d6 00       		.byte	0
+ 741 00d7 00       		.byte	0
+ 742 00d8 11       		.uleb128 0x11
+ 743 00d9 2E       		.uleb128 0x2e
+ 744 00da 01       		.byte	0x1
+ 745 00db 3F       		.uleb128 0x3f
+ 746 00dc 19       		.uleb128 0x19
+ 747 00dd 03       		.uleb128 0x3
+ 748 00de 08       		.uleb128 0x8
+ 749 00df 3A       		.uleb128 0x3a
+ 750 00e0 0B       		.uleb128 0xb
+ 751 00e1 3B       		.uleb128 0x3b
+ 752 00e2 05       		.uleb128 0x5
+ 753 00e3 27       		.uleb128 0x27
+ 754 00e4 19       		.uleb128 0x19
+ 755 00e5 49       		.uleb128 0x49
+ 756 00e6 13       		.uleb128 0x13
+ 757 00e7 3C       		.uleb128 0x3c
+ 758 00e8 19       		.uleb128 0x19
+ 759 00e9 00       		.byte	0
+ 760 00ea 00       		.byte	0
+ 761 00eb 12       		.uleb128 0x12
+ 762 00ec 18       		.uleb128 0x18
+ 763 00ed 00       		.byte	0
+ 764 00ee 00       		.byte	0
+ 765 00ef 00       		.byte	0
+ 766 00f0 00       		.byte	0
+ 767              		.section	.debug_loc,"dr"
+ 768              	Ldebug_loc0:
+ 769              	LLST0:
+ 770 0000 1B000000 		.long	LVL1
+ 771 0004 9B000000 		.long	LVL13
+ 772 0008 0200     		.word	0x2
+ 773 000a 30       		.byte	0x30
+ 774 000b 9F       		.byte	0x9f
+ 775 000c 9B000000 		.long	LVL13
+ 776 0010 CB000000 		.long	LVL21-1
+ 777 0014 0100     		.word	0x1
+ 778 0016 52       		.byte	0x52
+ 779 0017 0E010000 		.long	LVL28
+ 780 001b 14010000 		.long	LVL30
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 20
+
+
+ 781 001f 0100     		.word	0x1
+ 782 0021 52       		.byte	0x52
+ 783 0022 14010000 		.long	LVL30
+ 784 0026 21010000 		.long	LFE26
+ 785 002a 0200     		.word	0x2
+ 786 002c 30       		.byte	0x30
+ 787 002d 9F       		.byte	0x9f
+ 788 002e 00000000 		.long	0
+ 789 0032 00000000 		.long	0
+ 790              	LLST1:
+ 791 0036 1B000000 		.long	LVL1
+ 792 003a 8E000000 		.long	LVL12
+ 793 003e 0200     		.word	0x2
+ 794 0040 30       		.byte	0x30
+ 795 0041 9F       		.byte	0x9f
+ 796 0042 8E000000 		.long	LVL12
+ 797 0046 0A010000 		.long	LVL26
+ 798 004a 0100     		.word	0x1
+ 799 004c 53       		.byte	0x53
+ 800 004d 0A010000 		.long	LVL26
+ 801 0051 0D010000 		.long	LVL27
+ 802 0055 1000     		.word	0x10
+ 803 0057 09       		.byte	0x9
+ 804 0058 F9       		.byte	0xf9
+ 805 0059 75       		.byte	0x75
+ 806 005a 74       		.sleb128 -12
+ 807 005b 09       		.byte	0x9
+ 808 005c F0       		.byte	0xf0
+ 809 005d 1A       		.byte	0x1a
+ 810 005e 3C       		.byte	0x3c
+ 811 005f 1C       		.byte	0x1c
+ 812 0060 06       		.byte	0x6
+ 813 0061 1C       		.byte	0x1c
+ 814 0062 47       		.byte	0x47
+ 815 0063 1E       		.byte	0x1e
+ 816 0064 23       		.byte	0x23
+ 817 0065 27       		.uleb128 0x27
+ 818 0066 9F       		.byte	0x9f
+ 819 0067 0D010000 		.long	LVL27
+ 820 006b 0E010000 		.long	LVL28
+ 821 006f 1000     		.word	0x10
+ 822 0071 09       		.byte	0x9
+ 823 0072 F9       		.byte	0xf9
+ 824 0073 74       		.byte	0x74
+ 825 0074 70       		.sleb128 -16
+ 826 0075 09       		.byte	0x9
+ 827 0076 F0       		.byte	0xf0
+ 828 0077 1A       		.byte	0x1a
+ 829 0078 3C       		.byte	0x3c
+ 830 0079 1C       		.byte	0x1c
+ 831 007a 06       		.byte	0x6
+ 832 007b 1C       		.byte	0x1c
+ 833 007c 47       		.byte	0x47
+ 834 007d 1E       		.byte	0x1e
+ 835 007e 23       		.byte	0x23
+ 836 007f 27       		.uleb128 0x27
+ 837 0080 9F       		.byte	0x9f
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 21
+
+
+ 838 0081 0E010000 		.long	LVL28
+ 839 0085 14010000 		.long	LVL30
+ 840 0089 0100     		.word	0x1
+ 841 008b 53       		.byte	0x53
+ 842 008c 14010000 		.long	LVL30
+ 843 0090 21010000 		.long	LFE26
+ 844 0094 0200     		.word	0x2
+ 845 0096 30       		.byte	0x30
+ 846 0097 9F       		.byte	0x9f
+ 847 0098 00000000 		.long	0
+ 848 009c 00000000 		.long	0
+ 849              	LLST2:
+ 850 00a0 1B000000 		.long	LVL1
+ 851 00a4 8E000000 		.long	LVL12
+ 852 00a8 0200     		.word	0x2
+ 853 00aa 30       		.byte	0x30
+ 854 00ab 9F       		.byte	0x9f
+ 855 00ac 8E000000 		.long	LVL12
+ 856 00b0 9B000000 		.long	LVL13
+ 857 00b4 0100     		.word	0x1
+ 858 00b6 53       		.byte	0x53
+ 859 00b7 9B000000 		.long	LVL13
+ 860 00bb A7000000 		.long	LVL16
+ 861 00bf 0100     		.word	0x1
+ 862 00c1 50       		.byte	0x50
+ 863 00c2 A7000000 		.long	LVL16
+ 864 00c6 B2000000 		.long	LVL17
+ 865 00ca 0300     		.word	0x3
+ 866 00cc 70       		.byte	0x70
+ 867 00cd 7F       		.sleb128 -1
+ 868 00ce 9F       		.byte	0x9f
+ 869 00cf B2000000 		.long	LVL17
+ 870 00d3 B5000000 		.long	LVL18
+ 871 00d7 0300     		.word	0x3
+ 872 00d9 71       		.byte	0x71
+ 873 00da 01       		.sleb128 1
+ 874 00db 9F       		.byte	0x9f
+ 875 00dc B5000000 		.long	LVL18
+ 876 00e0 CB000000 		.long	LVL21-1
+ 877 00e4 0100     		.word	0x1
+ 878 00e6 50       		.byte	0x50
+ 879 00e7 0E010000 		.long	LVL28
+ 880 00eb 12010000 		.long	LVL29
+ 881 00ef 0100     		.word	0x1
+ 882 00f1 50       		.byte	0x50
+ 883 00f2 14010000 		.long	LVL30
+ 884 00f6 21010000 		.long	LFE26
+ 885 00fa 0200     		.word	0x2
+ 886 00fc 30       		.byte	0x30
+ 887 00fd 9F       		.byte	0x9f
+ 888 00fe 00000000 		.long	0
+ 889 0102 00000000 		.long	0
+ 890              	LLST3:
+ 891 0106 1B000000 		.long	LVL1
+ 892 010a 9B000000 		.long	LVL13
+ 893 010e 0200     		.word	0x2
+ 894 0110 30       		.byte	0x30
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 22
+
+
+ 895 0111 9F       		.byte	0x9f
+ 896 0112 BC000000 		.long	LVL20
+ 897 0116 0E010000 		.long	LVL28
+ 898 011a 0200     		.word	0x2
+ 899 011c 39       		.byte	0x39
+ 900 011d 9F       		.byte	0x9f
+ 901 011e 14010000 		.long	LVL30
+ 902 0122 21010000 		.long	LFE26
+ 903 0126 0200     		.word	0x2
+ 904 0128 30       		.byte	0x30
+ 905 0129 9F       		.byte	0x9f
+ 906 012a 00000000 		.long	0
+ 907 012e 00000000 		.long	0
+ 908              	LLST4:
+ 909 0132 1B000000 		.long	LVL1
+ 910 0136 44000000 		.long	LVL2
+ 911 013a 0200     		.word	0x2
+ 912 013c 30       		.byte	0x30
+ 913 013d 9F       		.byte	0x9f
+ 914 013e 44000000 		.long	LVL2
+ 915 0142 79000000 		.long	LVL7
+ 916 0146 0200     		.word	0x2
+ 917 0148 74       		.byte	0x74
+ 918 0149 14       		.sleb128 20
+ 919 014a 7D000000 		.long	LVL8
+ 920 014e 7F000000 		.long	LVL9
+ 921 0152 0100     		.word	0x1
+ 922 0154 50       		.byte	0x50
+ 923 0155 14010000 		.long	LVL30
+ 924 0159 21010000 		.long	LFE26
+ 925 015d 0200     		.word	0x2
+ 926 015f 30       		.byte	0x30
+ 927 0160 9F       		.byte	0x9f
+ 928 0161 00000000 		.long	0
+ 929 0165 00000000 		.long	0
+ 930              	LLST5:
+ 931 0169 1B000000 		.long	LVL1
+ 932 016d 44000000 		.long	LVL2
+ 933 0171 0200     		.word	0x2
+ 934 0173 31       		.byte	0x31
+ 935 0174 9F       		.byte	0x9f
+ 936 0175 44000000 		.long	LVL2
+ 937 0179 69000000 		.long	LVL5
+ 938 017d 0100     		.word	0x1
+ 939 017f 53       		.byte	0x53
+ 940 0180 69000000 		.long	LVL5
+ 941 0184 7D000000 		.long	LVL8
+ 942 0188 0300     		.word	0x3
+ 943 018a 73       		.byte	0x73
+ 944 018b 7E       		.sleb128 -2
+ 945 018c 9F       		.byte	0x9f
+ 946 018d 7D000000 		.long	LVL8
+ 947 0191 7F000000 		.long	LVL9
+ 948 0195 0100     		.word	0x1
+ 949 0197 53       		.byte	0x53
+ 950 0198 14010000 		.long	LVL30
+ 951 019c 21010000 		.long	LFE26
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 23
+
+
+ 952 01a0 0200     		.word	0x2
+ 953 01a2 31       		.byte	0x31
+ 954 01a3 9F       		.byte	0x9f
+ 955 01a4 00000000 		.long	0
+ 956 01a8 00000000 		.long	0
+ 957              	LLST6:
+ 958 01ac 7F000000 		.long	LVL9
+ 959 01b0 8E000000 		.long	LVL12
+ 960 01b4 0B00     		.word	0xb
+ 961 01b6 09       		.byte	0x9
+ 962 01b7 F9       		.byte	0xf9
+ 963 01b8 74       		.byte	0x74
+ 964 01b9 14       		.sleb128 20
+ 965 01ba 06       		.byte	0x6
+ 966 01bb 1C       		.byte	0x1c
+ 967 01bc 47       		.byte	0x47
+ 968 01bd 1E       		.byte	0x1e
+ 969 01be 23       		.byte	0x23
+ 970 01bf 26       		.uleb128 0x26
+ 971 01c0 9F       		.byte	0x9f
+ 972 01c1 8E000000 		.long	LVL12
+ 973 01c5 9B000000 		.long	LVL13
+ 974 01c9 0200     		.word	0x2
+ 975 01cb 30       		.byte	0x30
+ 976 01cc 9F       		.byte	0x9f
+ 977 01cd 9B000000 		.long	LVL13
+ 978 01d1 9E000000 		.long	LVL14
+ 979 01d5 0100     		.word	0x1
+ 980 01d7 52       		.byte	0x52
+ 981 01d8 9E000000 		.long	LVL14
+ 982 01dc A2000000 		.long	LVL15
+ 983 01e0 0800     		.word	0x8
+ 984 01e2 70       		.byte	0x70
+ 985 01e3 00       		.sleb128 0
+ 986 01e4 30       		.byte	0x30
+ 987 01e5 29       		.byte	0x29
+ 988 01e6 08       		.byte	0x8
+ 989 01e7 FF       		.byte	0xff
+ 990 01e8 1A       		.byte	0x1a
+ 991 01e9 9F       		.byte	0x9f
+ 992 01ea A2000000 		.long	LVL15
+ 993 01ee A7000000 		.long	LVL16
+ 994 01f2 0800     		.word	0x8
+ 995 01f4 70       		.byte	0x70
+ 996 01f5 00       		.sleb128 0
+ 997 01f6 31       		.byte	0x31
+ 998 01f7 29       		.byte	0x29
+ 999 01f8 08       		.byte	0x8
+ 1000 01f9 FF       		.byte	0xff
+ 1001 01fa 1A       		.byte	0x1a
+ 1002 01fb 9F       		.byte	0x9f
+ 1003 01fc A7000000 		.long	LVL16
+ 1004 0200 B2000000 		.long	LVL17
+ 1005 0204 0800     		.word	0x8
+ 1006 0206 70       		.byte	0x70
+ 1007 0207 00       		.sleb128 0
+ 1008 0208 33       		.byte	0x33
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 24
+
+
+ 1009 0209 29       		.byte	0x29
+ 1010 020a 08       		.byte	0x8
+ 1011 020b FF       		.byte	0xff
+ 1012 020c 1A       		.byte	0x1a
+ 1013 020d 9F       		.byte	0x9f
+ 1014 020e B2000000 		.long	LVL17
+ 1015 0212 B5000000 		.long	LVL18
+ 1016 0216 0800     		.word	0x8
+ 1017 0218 71       		.byte	0x71
+ 1018 0219 00       		.sleb128 0
+ 1019 021a 31       		.byte	0x31
+ 1020 021b 29       		.byte	0x29
+ 1021 021c 08       		.byte	0x8
+ 1022 021d FF       		.byte	0xff
+ 1023 021e 1A       		.byte	0x1a
+ 1024 021f 9F       		.byte	0x9f
+ 1025 0220 B5000000 		.long	LVL18
+ 1026 0224 B8000000 		.long	LVL19
+ 1027 0228 0100     		.word	0x1
+ 1028 022a 52       		.byte	0x52
+ 1029 022b B8000000 		.long	LVL19
+ 1030 022f BC000000 		.long	LVL20
+ 1031 0233 0800     		.word	0x8
+ 1032 0235 70       		.byte	0x70
+ 1033 0236 00       		.sleb128 0
+ 1034 0237 30       		.byte	0x30
+ 1035 0238 29       		.byte	0x29
+ 1036 0239 08       		.byte	0x8
+ 1037 023a FF       		.byte	0xff
+ 1038 023b 1A       		.byte	0x1a
+ 1039 023c 9F       		.byte	0x9f
+ 1040 023d 0E010000 		.long	LVL28
+ 1041 0241 12010000 		.long	LVL29
+ 1042 0245 0800     		.word	0x8
+ 1043 0247 70       		.byte	0x70
+ 1044 0248 00       		.sleb128 0
+ 1045 0249 31       		.byte	0x31
+ 1046 024a 29       		.byte	0x29
+ 1047 024b 08       		.byte	0x8
+ 1048 024c FF       		.byte	0xff
+ 1049 024d 1A       		.byte	0x1a
+ 1050 024e 9F       		.byte	0x9f
+ 1051 024f 00000000 		.long	0
+ 1052 0253 00000000 		.long	0
+ 1053              	LLST7:
+ 1054 0257 7F000000 		.long	LVL9
+ 1055 025b 8B000000 		.long	LVL11
+ 1056 025f 0900     		.word	0x9
+ 1057 0261 09       		.byte	0x9
+ 1058 0262 F9       		.byte	0xf9
+ 1059 0263 74       		.byte	0x74
+ 1060 0264 14       		.sleb128 20
+ 1061 0265 06       		.byte	0x6
+ 1062 0266 1C       		.byte	0x1c
+ 1063 0267 47       		.byte	0x47
+ 1064 0268 1E       		.byte	0x1e
+ 1065 0269 9F       		.byte	0x9f
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 25
+
+
+ 1066 026a 8B000000 		.long	LVL11
+ 1067 026e 8E000000 		.long	LVL12
+ 1068 0272 0100     		.word	0x1
+ 1069 0274 53       		.byte	0x53
+ 1070 0275 8E000000 		.long	LVL12
+ 1071 0279 14010000 		.long	LVL30
+ 1072 027d 0200     		.word	0x2
+ 1073 027f 30       		.byte	0x30
+ 1074 0280 9F       		.byte	0x9f
+ 1075 0281 00000000 		.long	0
+ 1076 0285 00000000 		.long	0
+ 1077              	LLST8:
+ 1078 0289 7F000000 		.long	LVL9
+ 1079 028d 88000000 		.long	LVL10
+ 1080 0291 0700     		.word	0x7
+ 1081 0293 09       		.byte	0x9
+ 1082 0294 F9       		.byte	0xf9
+ 1083 0295 74       		.byte	0x74
+ 1084 0296 14       		.sleb128 20
+ 1085 0297 06       		.byte	0x6
+ 1086 0298 1C       		.byte	0x1c
+ 1087 0299 9F       		.byte	0x9f
+ 1088 029a 88000000 		.long	LVL10
+ 1089 029e 8B000000 		.long	LVL11
+ 1090 02a2 0100     		.word	0x1
+ 1091 02a4 53       		.byte	0x53
+ 1092 02a5 8B000000 		.long	LVL11
+ 1093 02a9 07010000 		.long	LVL25
+ 1094 02ad 0700     		.word	0x7
+ 1095 02af 09       		.byte	0x9
+ 1096 02b0 F9       		.byte	0xf9
+ 1097 02b1 74       		.byte	0x74
+ 1098 02b2 14       		.sleb128 20
+ 1099 02b3 06       		.byte	0x6
+ 1100 02b4 1C       		.byte	0x1c
+ 1101 02b5 9F       		.byte	0x9f
+ 1102 02b6 07010000 		.long	LVL25
+ 1103 02ba 0D010000 		.long	LVL27
+ 1104 02be 0C00     		.word	0xc
+ 1105 02c0 09       		.byte	0x9
+ 1106 02c1 F9       		.byte	0xf9
+ 1107 02c2 75       		.byte	0x75
+ 1108 02c3 74       		.sleb128 -12
+ 1109 02c4 09       		.byte	0x9
+ 1110 02c5 F0       		.byte	0xf0
+ 1111 02c6 1A       		.byte	0x1a
+ 1112 02c7 3C       		.byte	0x3c
+ 1113 02c8 1C       		.byte	0x1c
+ 1114 02c9 06       		.byte	0x6
+ 1115 02ca 1C       		.byte	0x1c
+ 1116 02cb 9F       		.byte	0x9f
+ 1117 02cc 0D010000 		.long	LVL27
+ 1118 02d0 0E010000 		.long	LVL28
+ 1119 02d4 0C00     		.word	0xc
+ 1120 02d6 09       		.byte	0x9
+ 1121 02d7 F9       		.byte	0xf9
+ 1122 02d8 74       		.byte	0x74
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 26
+
+
+ 1123 02d9 70       		.sleb128 -16
+ 1124 02da 09       		.byte	0x9
+ 1125 02db F0       		.byte	0xf0
+ 1126 02dc 1A       		.byte	0x1a
+ 1127 02dd 3C       		.byte	0x3c
+ 1128 02de 1C       		.byte	0x1c
+ 1129 02df 06       		.byte	0x6
+ 1130 02e0 1C       		.byte	0x1c
+ 1131 02e1 9F       		.byte	0x9f
+ 1132 02e2 0E010000 		.long	LVL28
+ 1133 02e6 14010000 		.long	LVL30
+ 1134 02ea 0700     		.word	0x7
+ 1135 02ec 09       		.byte	0x9
+ 1136 02ed F9       		.byte	0xf9
+ 1137 02ee 74       		.byte	0x74
+ 1138 02ef 14       		.sleb128 20
+ 1139 02f0 06       		.byte	0x6
+ 1140 02f1 1C       		.byte	0x1c
+ 1141 02f2 9F       		.byte	0x9f
+ 1142 02f3 00000000 		.long	0
+ 1143 02f7 00000000 		.long	0
+ 1144              	LLST9:
+ 1145 02fb 7F000000 		.long	LVL9
+ 1146 02ff 07010000 		.long	LVL25
+ 1147 0303 0500     		.word	0x5
+ 1148 0305 74       		.byte	0x74
+ 1149 0306 14       		.sleb128 20
+ 1150 0307 06       		.byte	0x6
+ 1151 0308 1F       		.byte	0x1f
+ 1152 0309 9F       		.byte	0x9f
+ 1153 030a 07010000 		.long	LVL25
+ 1154 030e 0D010000 		.long	LVL27
+ 1155 0312 0A00     		.word	0xa
+ 1156 0314 75       		.byte	0x75
+ 1157 0315 74       		.sleb128 -12
+ 1158 0316 09       		.byte	0x9
+ 1159 0317 F0       		.byte	0xf0
+ 1160 0318 1A       		.byte	0x1a
+ 1161 0319 3C       		.byte	0x3c
+ 1162 031a 1C       		.byte	0x1c
+ 1163 031b 06       		.byte	0x6
+ 1164 031c 1F       		.byte	0x1f
+ 1165 031d 9F       		.byte	0x9f
+ 1166 031e 0D010000 		.long	LVL27
+ 1167 0322 0E010000 		.long	LVL28
+ 1168 0326 0A00     		.word	0xa
+ 1169 0328 74       		.byte	0x74
+ 1170 0329 70       		.sleb128 -16
+ 1171 032a 09       		.byte	0x9
+ 1172 032b F0       		.byte	0xf0
+ 1173 032c 1A       		.byte	0x1a
+ 1174 032d 3C       		.byte	0x3c
+ 1175 032e 1C       		.byte	0x1c
+ 1176 032f 06       		.byte	0x6
+ 1177 0330 1F       		.byte	0x1f
+ 1178 0331 9F       		.byte	0x9f
+ 1179 0332 0E010000 		.long	LVL28
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 27
+
+
+ 1180 0336 14010000 		.long	LVL30
+ 1181 033a 0500     		.word	0x5
+ 1182 033c 74       		.byte	0x74
+ 1183 033d 14       		.sleb128 20
+ 1184 033e 06       		.byte	0x6
+ 1185 033f 1F       		.byte	0x1f
+ 1186 0340 9F       		.byte	0x9f
+ 1187 0341 00000000 		.long	0
+ 1188 0345 00000000 		.long	0
+ 1189              		.section	.debug_aranges,"dr"
+ 1190 0000 1C000000 		.long	0x1c
+ 1191 0004 0200     		.word	0x2
+ 1192 0006 00000000 		.secrel32	Ldebug_info0
+ 1193 000a 04       		.byte	0x4
+ 1194 000b 00       		.byte	0
+ 1195 000c 0000     		.word	0
+ 1196 000e 0000     		.word	0
+ 1197 0010 00000000 		.long	LFB26
+ 1198 0014 21010000 		.long	LFE26-LFB26
+ 1199 0018 00000000 		.long	0
+ 1200 001c 00000000 		.long	0
+ 1201              		.section	.debug_ranges,"dr"
+ 1202              	Ldebug_ranges0:
+ 1203 0000 00000000 		.long	LFB26
+ 1204 0004 21010000 		.long	LFE26
+ 1205 0008 00000000 		.long	0
+ 1206 000c 00000000 		.long	0
+ 1207              		.section	.debug_line,"dr"
+ 1208              	Ldebug_line0:
+ 1209 0000 C4000000 		.section	.debug_str,"dr"
+ 1209      02006000 
+ 1209      00000101 
+ 1209      FB0E0D00 
+ 1209      01010101 
+ 1210              		.ident	"GCC: (GNU) 4.9.3"
+ 1211              		.def	_atoi;	.scl	2;	.type	32;	.endef
+ 1212              		.def	_printf;	.scl	2;	.type	32;	.endef
+GAS LISTING c:\tmp\ccnSEM0y.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 test.c
+   c:\tmp\ccnSEM0y.s:26     .text.startup:00000000 _main
+
+UNDEFINED SYMBOLS
+___main
+_atoi
+_printf

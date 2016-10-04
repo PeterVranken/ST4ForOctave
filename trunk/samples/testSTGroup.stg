@@ -1,0 +1,106 @@
+//
+// testSTGroup.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Some simple templates for testing/demonstrating the StringTemplate interface for Octave.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+// Test this template by passing in two named strings, greeting and name
+hello(greeting, name) ::= <<
+<greeting> <name>!
+>>
+
+// Test this template by passing in a linear cell array of strings or a linear arry of
+// numbers
+list(l) ::= <<
+  <l; separator=", ", wrap>
+>>
+
+// Test this template by passing in a Java object, which has public fields. The field names
+// are known to the template, anonymous objects can't be rendered. Call e.g. javac
+// Struct.java on Struct.java in the local directory to get a suitable class, which can
+// then be instantiated from Octave with s=javaObject('Struct'). Struct.java can look like:
+//
+// import java.util.*;
+//   
+//   public class Struct
+//   {
+//       public String name = "<name not set>";
+//       public int asInt = 0;
+//       public double value = 0.0;
+//   }
+//
+struct(s) ::= <<
+  Name: <s.name>, value: <s.value> or <s.asInt> as an integer
+>>
+
+nativeStruct(s) ::= <<
+  Name: <s.name>, pi=<s.Pi; format="%.9f">, e=<s.e; format="%8.3e">, NaN=<s.NaN>, inf=<s.inf>
+>>
+
+// Access to dedicated field by name
+value(c) ::= "<c.value>"
+
+// Recursion: Sum of all addends in list l
+sum(l) ::= <<
+<if(trunc(l))>(<sum(trunc(l))>) + <endif><last(l).asInt>
+>>
+
+// Test this template by passing in a list or array of Java objects. The same holds for the
+// objects as in the previous step; the array can be instantiated from Octave with:
+// list=javaArray('Struct', noObjects)
+// list(1)=javaObject('Struct')
+// list(2)=javaObject('Struct')
+structList(l) ::= <<
+<! :{} - Pipelining used to append a newline to every list element's expansion !>
+  <l:struct():{s|<s><\n>}><! Please note the double indention in the output! !><\\>
+The sum of all constants: (<l:value(); separator=" + ">) ~= <sum(l)>
+>>
+
+// A template to print the version of Octave. Pass e.g.
+//   versionInfo = st4Render('testSTGroup.stg', false, '/octaveVersion', 'ver', ver)
+octaveVersion(ver) ::= <<
+<ver:{pkgVer|Package <pkgVer.Name>: Version <pkgVer.Version> as of <pkgVer.Date><\n>}> 
+>>
+
+// Test of recursive, generic rendering of MATLAB data requires an also recursive template
+// expansion. Show all leaves of a data structure of lists and maps.
+genericDataStructure(d) ::= <<
+<if(first(d) && d.(first(d)))>
+struct:
+  <d:{key|<key> = <genericDataStructure(d.(key))><\n>}><\\>
+end of struct
+<elseif(rest(d))>
+list (<length(d)> elements):
+  <d:{elem|<genericDataStructure(elem)><\n>}><\\>
+end of list
+<else>
+scalar item or list of length 1:
+  <if(d)><d:{item|<if(item)>\><item>\<<else>(null element)<endif>}><else>(null)<endif>
+<endif>
+>>
+
+test(d) ::= <<
+d.list: <d.list>
+>>
+
+t1(l) ::= <<
+l: <l:{el|elem <i>: <el:{elInner|<elInner>}> }><\n>
+>>
+

@@ -1,0 +1,16 @@
+% This file defines the Java class path for Octave. It make Octave find
+% the StringTemplate V4 library.
+%   Please note, this file is considered only if the directory it resides
+% in is the current working directory when the Octave application is
+% started. This condition is met if you use the Windows shortcut in this
+% directory to open Octave. If you open Octave from the Windows Start menu
+% and then cd here, it won't read this file and it won't be able to locate
+% the StringTemplate jar file.
+%   Please refer to
+% https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html
+% to get more information how to set the class path in your local
+% environment.
+StringTemplate\ST-4.0.8.jar
+samples
+samples\templates
+samples\compiler\templates
