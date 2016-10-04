@@ -1,0 +1,55 @@
+//
+// testNumberRenderer.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Test and demonstrate the StringTemplate V4 Number renderer capabilities.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+renderFPN(x) ::= <<
+Your number: <x>
+Your number as floating point: <x; format="%.8f">
+Your number in scientific notation: <x; format="%.6e">
+Your number using %g: <x; format="%g">
+Your number right aligned: |<x; format="%30.3f">|
+Your number left aligned: |<x; format="%-30.3f">|
+Your number looks like an integer: <x; format="%.0f">
+Your number uses digit grouping: <x; format="%,.6f">
+>>
+
+renderInt(d) ::= <<
+Your number: <d>
+Your number with enforced sign: <d; format="%+d">
+Your number right aligned: |<d; format="%30d">|
+Your number left aligned: |<d; format="%-30d">|
+Your number with enforced sign left aligned: |<d; format="%+-20d">|
+Your number uses digit grouping: <d; format="%,12d">
+>>
+
+testIntRendering(d) ::= <<
+Integer right aligned with enforced sign: |<d; format="%+30d">|<\n>
+>>
+
+testBoolean(bPos, bLarge, bHuge, n) ::= <<
+<n> is <if(bPos)>positive<else>negative<endif>.
+<if(!bLarge && !bHuge)><n> is a small number.<endif>
+<if(bPos && bLarge && !bHuge)><n> is a positive large number.<endif>
+<if(bPos && bLarge && bHuge)><n> is a positive huge number.<endif>
+<if(!bPos && bLarge && !bHuge)><n> is a negative large number.<endif>
+<if(!bPos && bHuge)><n> is a negative huge number.<endif>
+>>

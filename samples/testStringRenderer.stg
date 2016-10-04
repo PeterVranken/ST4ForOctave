@@ -1,0 +1,52 @@
+//
+// testStringRenderer.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Test and demonstrate the StringTemplate V4 String renderer capabilities.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "$", "$"
+
+renderString(s) ::= <<
+Your string: $s$
+Your string in lower case: $s; format="lower"$
+Your string in upper case: $s; format="upper"$
+Your string capitalized: $s; format="cap"$
+Your string in an HTML environment: $s; format="xml-encode"$
+Your string as a URL: $s; format="url-encode"$$\n$
+>>
+
+html(s) ::= <<
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="octave-generates-html-using-stringtemplate-v4-as-backend">Octave generates HTML using StringTemplate V4 as backend</h1>
+<p>Your input was: <code>$s$</code></p>
+<p>Your input rendered as HTML: $s; format="xml-encode"$</p>
+</body>
+</html>
+>>

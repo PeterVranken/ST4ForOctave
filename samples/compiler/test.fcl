@@ -1,0 +1,31 @@
+# A simple test program
+x=4*8+2*3+(23--y)*(-7+-z)+(8<=100)+x%23
+show = x
+cntLoops = 0
+if x<0
+    x = -x
+end
+loop
+    cntLoops = cntLoops + 1 
+    # Since the loop itself doesn't have a condition will we always find
+    # an if clause with break statement somewhere inside the loop
+    if x<=0
+        y = 9
+        break
+    end
+    y=y+x
+    # An empty if or else branch should be possible
+    if x=1
+    else
+        x = x - 1
+    end
+    if x=2
+        x = x - 1
+    else
+    end
+    if x>0
+        x = x-1
+    else
+    end
+end
+# A final comment
