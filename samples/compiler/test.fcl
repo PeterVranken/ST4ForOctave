@@ -1,31 +1,124 @@
+x=!4*8+2*3+!(23--y)*(-7+-z)+!(8<=100)+x%23
 # A simple test program
-x=4*8+2*3+(23--y)*(-7+-z)+(8<=100)+x%23
 show = x
 cntLoops = 0
 if x<0
     x = -x
 end
+testOkay = x > 0 | x = 0
+if testOkay
+    x = 99
+end
 loop
-    cntLoops = cntLoops + 1 
     # Since the loop itself doesn't have a condition will we always find
     # an if clause with break statement somewhere inside the loop
-    if x<=0
+    if x=0
         y = 9
         break
+    else
+        x = x-(x>0)
+        if x<=0 break end
     end
+
+    cntLoops = cntLoops + 1
+
     y=y+x
+    
     # An empty if or else branch should be possible
-    if x=1
+    if testOkay
     else
         x = x - 1
+        testOkay = !testOkay
     end
-    if x=2
+    if !testOkay
         x = x - 1
+        testOkay = !testOkay
     else
     end
-    if x>0
+    if x<=0
         x = x-1
+        testOkay = 0
     else
     end
+    
+    # Test all the operations. Operations on literals are evaluated at
+    # compile time, operations with one variable at least are evaluated at
+    # run time. We need to test both situations.
+    a = 100 # Surely greater than x
+    b = 0   # Surely less than x
+
+    # Test of run time expressions
+    testOkay = testOkay & (a|x)=1
+    testOkay = testOkay & (a|!x)=1
+    testOkay = testOkay & (!a|!x)=0 
+    testOkay = testOkay & (!a|x)=1
+    testOkay = testOkay & (a&b)=0 
+    testOkay = testOkay & (a&!b)=1 
+    testOkay = testOkay & (!a&b)=0 
+    testOkay = testOkay & (!a&!b)=0 
+    testOkay = testOkay & (a+b+1)=101 
+    testOkay = testOkay & (b-a)=-100
+    testOkay = testOkay & (a-b)=-(b-a)
+    testOkay = testOkay & (a*b)=0
+    testOkay = testOkay & (a*(b+12))=1200
+    testOkay = testOkay & (12/a)=0
+    testOkay = testOkay & (1300/a)=13
+    testOkay = testOkay & (1300%a)=0
+    testOkay = testOkay & (a%1300)=a
+    testOkay = testOkay & (a%17+17*(a/17))=a
+    testOkay = testOkay & (b<a)=1
+    testOkay = testOkay & (b>a)=0
+    testOkay = testOkay & (b=a)=0
+    testOkay = testOkay & (b=a-100)=1
+    testOkay = testOkay & (b<>a)=1
+    testOkay = testOkay & (b<>a-100)=0
+    testOkay = testOkay & (b<=b)=1
+    testOkay = testOkay & (b<=b+1)=1
+    testOkay = testOkay & (b<=b-1)=0
+    testOkay = testOkay & (a>=a)=1
+    testOkay = testOkay & (a>=a+1)=0
+    testOkay = testOkay & (a>=a-1)=1
+
+    # Test of compile time expressions
+    testOkay = testOkay & (100|x)=1
+    testOkay = testOkay & (100|!x)=1
+    testOkay = testOkay & (!100|!x)=0
+    testOkay = testOkay & (!100|x)=1
+    testOkay = testOkay & (100&0)=0
+    testOkay = testOkay & (100&!0)=1
+    testOkay = testOkay & (!100&0)=0
+    testOkay = testOkay & (!100&!0)=0
+    testOkay = testOkay & (100+0+1)=101
+    testOkay = testOkay & (0-100)=-100
+    testOkay = testOkay & (100-0)=-(0-100)
+    testOkay = testOkay & (100*0)=0
+    testOkay = testOkay & (100*(0+12))=1200
+    testOkay = testOkay & (12/100)=0
+    testOkay = testOkay & (9/4)=2
+    testOkay = testOkay & (4/9)=0
+    testOkay = testOkay & (-9/4)=-2
+    testOkay = testOkay & (-9/-2)=4
+    testOkay = testOkay & (9/-2)=-4
+    testOkay = testOkay & (13%5)=3
+    testOkay = testOkay & (-13%5)=-3
+    testOkay = testOkay & (-13%-5)=-3
+    testOkay = testOkay & (13%-5)=3
+    testOkay = testOkay & (1300/100)=13
+    testOkay = testOkay & (1300%100)=0
+    testOkay = testOkay & (100%1300)=100
+    testOkay = testOkay & (100%17+17*(100/17))=100
+    testOkay = testOkay & (0<100)=1
+    testOkay = testOkay & (0>100)=0
+    testOkay = testOkay & (0=100)=0
+    testOkay = testOkay & (0=100-100)=1
+    testOkay = testOkay & (0<>100)=1
+    testOkay = testOkay & (0<>100-100)=0
+    testOkay = testOkay & (0<=0)=1
+    testOkay = testOkay & (0<=0+1)=1
+    testOkay = testOkay & (0<=0-1)=0
+    testOkay = testOkay & (100>=100)=1
+    testOkay = testOkay & (100>=100+1)=0
+    testOkay = testOkay & (100>=100-1)=1
 end
+testOkay = testOkay & cntLoops = 98
 # A final comment

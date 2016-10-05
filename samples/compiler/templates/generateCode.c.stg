@@ -1,0 +1,216 @@
+//
+// displayProg.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Compiler back-end: Generate C code from enhanced parse tree.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+generateCode(p) ::= <<
+<variablesDef(p.mapOfVars)><\\>
+<applicationInterfaceEntry(p.mapOfVars)>
+<tmpVariablesDef(p.listOfRegisters)><\\>
+<codeSequence(p.parseTree)><\n>
+<applicationInterfaceExit(p.mapOfVars)>
+>>
+
+variablesDef(mapOfVars) ::= <<
+<if(mapOfVars)>
+/* Map of variables. */
+int <mapOfVars:{name|<name>=0}; separator=", ", wrap="\n    ">;<\n>
+<endif>
+>>
+
+tmpVariablesDef(listOfRegisters) ::= <<
+<if(listOfRegisters)>
+/* Definition of temporary variables for expression evaluation. */
+int <listOfRegisters:tmpVar(); separator=", ", wrap="\n    ">;<\n>
+<endif>
+>>
+
+
+applicationInterfaceEntry(mapOfVars) ::= <<
+/* The following variables is not assigned any value in the source program
+   <file.source>. We consider them system inputs and connect them
+   to the application interface. */
+int _idxArg;
+for(_idxArg=1; _idxArg+1\<noArgs; _idxArg+=2)
+{
+<mapOfVars:{name|<if(!mapOfVars.(name))>    if(strcmp(argAry[_idxArg], "<name>") == 0)<\t><name> = atoi(argAry[_idxArg+1]);<\n><endif>}><\\>
+}
+
+>>
+
+applicationInterfaceExit(mapOfVars) ::= <<
+/* All variables are printed at the end as a kind of program output. */
+<mapOfVars:{name|<if(mapOfVars.(name))>printf("<name> = %d\n", <name>);<\n><endif>}>
+>>
+
+codeSequence(t) ::= <<
+<t:statement()>
+>>
+
+statement(s) ::= <<
+<if(s.isComment)>/* <s.expr> */
+<elseif(s.isLoop)><\\>
+_loop_<s.label>:
+<codeSequence(s.seq)><\\>
+jmp(_loop_<s.label>)
+_exit_loop_<s.label>:
+<elseif(s.isBreak)><\\>
+jmp(_exit_loop_<s.label>)
+<elseif(s.isIf)><\\>
+<expression(s.expr)><\\>
+brneq(<valueOfExpr(s.expr)>, _if_<s.label>)
+<codeSequence(s.seqElse)><\\>
+jmp(_end_if_<s.label>)
+_if_<s.label>:
+<codeSequence(s.seq)><\\>
+_end_if_<s.label>:
+<elseif(s.isAssignment)><\\>
+<! <store(s.variable,s.expr)> !>
+<expression(s.expr)><\\>
+store(<s.variable>, <valueOfExpr(s.expr)>)
+<endif>
+>>
+
+
+
+expression(e) ::= <<
+<if(e.operation)><\\>
+<expression(e.leftExpr)><\\>
+<expression(e.rightExpr)><\\>
+<if(!e.leftExpr.operation)><load(e)><endif><\\>
+<e.operation>(<tmpVar(e.depth)>, <valueOfExpr(e.rightExpr)>)
+<endif>
+>>
+
+load(e) ::= <<
+load(<tmpVar(e.depth)>, <valueOfExpr(e.leftExpr)>)<\n>
+>>
+
+valueOfExpr(e) ::= <<
+<if(e.operation)><tmpVar(e.depth)><\\>
+<elseif(e.number)><e.number><\\>
+<elseif(e.variable)><e.variable><\\>
+<endif>
+>>
+
+
+tmpVar(idx) ::= <<
+_R<idx; format="%02d">
+>>
+
+
+main(file,p) ::= <<
+/**
+ * @file <file.rawOutputFileName>.c
+ * C code generated from program <file.source> written in a fictive
+ * computer language.
+ *
+ * Copyright (C) <file.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see \<http://www.gnu.org/licenses/>.
+ */
+/* Module interface
+ * Local functions
+ */
+
+/*
+ * Include files
+ */
+
+#include \<stdlib.h>
+#include \<stdio.h>
+#include \<string.h>
+
+
+/*
+ * Defines
+ */
+
+/* Definition of the pseudo assembler statements. */
+#define jmp(target)         {goto target;}
+#define brneq(cond,target)  {if(cond) goto target;}
+#define load(R,val)         {(R) = (val);}
+#define store(sym,val)      {sym = (val);}
+#define eq(R,op)            {(R) = (R)==(op);}
+#define neq(R,op)           {(R) = (R)!=(op);}
+#define lt(R,op)            {(R) = (R)\<(op);}
+#define leq(R,op)           {(R) = (R)\<=(op);}
+#define gt(R,op)            {(R) = (R)>(op);}
+#define geq(R,op)           {(R) = (R)>=(op);}
+#define or(R,op)            {(R) = (R)||(op);}
+#define and(R,op)           {(R) = (R)&&(op);}
+#define add(R,op)           {(R) += (op);}
+#define sub(R,op)           {(R) -= (op);}
+#define mul(R,op)           {(R) *= (op);}
+#define div(R,op)           {(R) /= (op);}
+#define mod(R,op)           {(R) %= (op);}
+
+
+/*
+ * Local type definitions
+ */
+
+
+/*
+ * Local prototypes
+ */
+
+
+/*
+ * Data definitions
+ */
+
+
+/*
+ * Function implementation
+ */
+
+/**
+ * Application main entry point. The code from the fictive computer language can be run
+ * with command line provided variable values. All variables, which do not get any value in
+ * the computer program itself are considered external interfaces and are connected to the
+ * command line. Each two consequetive command line arguments are a pair of variable name
+ * and variable value. The value is a signed integer value and it is propgated to the
+ * program variable of given name.
+ *   @return
+ * Always 0, no error conditions are implemented.
+ *   @param noArgs
+ * Number of command line arguments. Need to be even.
+ *   @param argAry
+ * Array of command line arguments.
+ */
+int main(int noArgs, const char * argAry[])
+{
+    <generateCode(p)>
+    return 0;
+}
+>>

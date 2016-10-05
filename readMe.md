@@ -31,9 +31,10 @@ class is available by principle). All the processing is done recursively so
 that really deeply nested data object can be passed to the template engine
 just like that.
 
-A major sample presents a simple compiler, which passes its complete parse
-tree as a single "attribute" -- i.e. the rendered data object in the
-terminology of StringTemplate -- to the template engine for code generation.
+A major sample presents a compiler fragment, which passes its complete
+parse tree as a single "attribute" -- the rendered data object in the
+terminology of StringTemplate -- to the template engine for code
+generation.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
@@ -65,6 +66,16 @@ terminology of StringTemplate -- to the template engine for code generation.
 -   If the basic samples are running well you can have a closer look at
     the major sample `compiler`
     
+# Documentation #
+
+-   In Octave, type `help st4Render` to get the online help about the
+    StringTemplate interface for Octave
+-   See folder `doc`. Some help on the StringTemplate engine has been added.
+    You will need to study the documentation in order to learn about
+    templates and template expressions
+-   Study the well documented source code of the interface script and the
+    samples
+
 # Please note #
 
 The data structures, which can be exchanged with the StringTemplate engine
@@ -78,7 +89,10 @@ The limitations won't be very painful but it means that you must not
 expect to reuse all of your existing data models without any kind of
 re-work when passing the data to the template engine.
 
-The interface can be used with MATLAB, too.
+The interface can be used with MATLAB, too. Besides the documented
+limitations of the StringTemplate V4 interface itself lack elder MATLAB
+revisions the 64 Bit integer operations, which are required to run some of
+the samples.
 
 As of today, Sep 30, 2016, no archive has been created for the SourceForge
 download page, which would bundle all required files in a stable revision.
