@@ -137,17 +137,17 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %   Copyright (C) 2015-2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
-%   under the terms of the GNU General Public License as published by the
-%   Free Software Foundation, either version 3 of the License, or (at your
-%   option) any later version.
-%
-%   This program is distributed in the hope that it will be useful, but
-%   WITHOUT ANY WARRANTY; without even the implied warranty of
-%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-%   General Public License for more details.
-%
-%   You should have received a copy of the GNU General Public License along
-%   with this program. If not, see <http://www.gnu.org/licenses/>.
+%   under the terms of the GNU Lesser General Public License as published by the
+%   Free Software Foundation, either version 3 of the License, or any later
+%   version.
+%  
+%   This program is distributed in the hope that it will be useful, but WITHOUT
+%   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+%   FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+%   for more details.
+%  
+%   You should have received a copy of the GNU Lesser General Public License
+%   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     % Flag verbose is optional. We recognize its presence from the data type. If it isn't
     % then the the further arguments are shifted. Reorder them here to have more meaningful
@@ -205,6 +205,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     else
         try
             stg = javaObject('org.stringtemplate.v4.STGroupFile', templateGroupFileName);
+
             % TODO How to get a Java Class object of the abstract class Number? This would
             % save all the distinct assignments of the renderer.
             % TODO Why is java.lang.Byte not accepted? And indeed, Octave's int8/uint8
@@ -224,14 +225,16 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
                                 );
             mapOfTFilesByName.put(key, stg);
         catch exc
-            error(['Couldn''t access the StringTemplate V4 library. The most probable' ...
+            error(['Couldn''t open the StringTemplate V4 template group file ' ...
+                   templateGroupFileName '. Either' ...
+                   ' the file or the engine is not accessible. The most probable' ...
                    ' reason is the Java class path not being set appropriately. Please' ...
                    ' refer to' ...
                    ' https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html' ...
                    ' to find out how to set the class path. The ST4 library' ...
                    ' ST-4.0.8.jar is found in a sub-directory of this Octave script.' ...
-                   ' Add this file to the class path and restart Octave. Exception' ...
-                   ' caught: ' exc.message] ...
+                   ' Add this file and the directories containg your template files to' ...
+                   ' the class path and restart Octave. Exception caught: ' exc.message] ...
                  );
         end
     end

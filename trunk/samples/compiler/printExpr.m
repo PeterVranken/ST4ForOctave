@@ -45,14 +45,6 @@ function [txt] = printExpr(expr)
             txt(end+1) = '|';
         case 'and'
             txt(end+1) = '&';
-        case 'add'
-            txt(end+1) = '+';
-        case 'sub'
-            txt(end+1) = '-';
-        case 'mul'
-            txt(end+1) = '*';
-        case 'div'
-            txt(end+1) = '/';
         case 'eq'
             txt(end+1) = '=';
         case 'neq'
@@ -65,6 +57,14 @@ function [txt] = printExpr(expr)
             txt(end+1) = '>';
         case 'geq'
             txt = [txt '>='];
+        case 'add'
+            txt(end+1) = '+';
+        case 'sub'
+            txt(end+1) = '-';
+        case 'mul'
+            txt(end+1) = '*';
+        case 'div'
+            txt(end+1) = '/';
         case 'mod'
             txt(end+1) = '%';
         otherwise

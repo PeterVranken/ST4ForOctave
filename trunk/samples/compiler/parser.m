@@ -14,7 +14,7 @@ function [p] = parser(c)
 %                     boolExpr ::= sumExpr [('=' | '<>' | '<' | '>' | '<=' | '>=') boolExpr]
 %                     sumExpr ::= mulExpr [('+' | '-') sumExpr]
 %                     mulExpr ::= signExpr [('*' | '/' | '%') mulExpr]
-%                     signExpr ::= ['-'] terminalExpression
+%                     signExpr ::= ['-' | '!'] terminalExpression
 %                     terminalExpr ::= '(' expression ')' | variable | number
 %                     number ::= digit {digit}
 %                     loop ::= 'loop' program 'end'
@@ -124,7 +124,7 @@ function s = new(dataType)
                   , 'listOfRegisters', []                                               ...
                   );
         % A cell array can not easily be the argument of a call of struct().
-        s.t = new('sequence');
+        s.parseTree = new('sequence');
     otherwise
         error(['Internal error, undefined type ' dataType ' demanded'])
         
@@ -432,21 +432,29 @@ function [t c] = signExpr(c)
 % Parse 'signExpr' and return the parse tree and the unconsumed input.
 %   Throws an error if any syntax error appears.
 
-    if c(1) == '-'
-        isNeg = true;
+    % Sign can be a numeric or a Boolean sign but not both at a time.
+    isSign = strcmp(c(1), {'-' '!'});
+    if any(isSign)
         c = strtrim(c(2:end));
-    else
-        isNeg = false;
     end
     [t c] = terminalExpr(c);
-    if isNeg
-        tMinusOne = new('expression');
-        tMinusOne.number = int64(-1);
-        
+    if any(isSign)
         tNew = new('expression');
-        tNew.operation = 'mul';
-        tNew.leftExpr = tMinusOne;        
-        tNew.rightExpr = t;
+        tConstant = new('expression');
+
+        if isSign(1)
+            % Numeric negation: times -1
+            tConstant.number = int64(-1);
+            tNew.operation = 'mul';
+        else
+            % Boolean negation: != 0
+            tConstant.number = int64(0);
+            tNew.operation = 'eq';
+        end
+        
+        tNew.leftExpr = t;        
+        tNew.rightExpr = tConstant;
+
         t = tNew;
     end
 end % signExpr

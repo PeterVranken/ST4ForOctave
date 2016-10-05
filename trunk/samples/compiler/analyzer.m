@@ -53,13 +53,13 @@ function [p] = analyzer(p)
     %   be an alternative concept
     % - The statement break is not directly by syntax linked to the loop it has to act on.
     %   The backend requires the direct link and we have to find and add it
-    [p.parseTree p.mapOfVars maxExprDepth] = analyseSequence( p.parseTree ...
-                                                            , struct ...
-                                                            , int64(1) ...
-                                                            , int64(0) ...
-                                                            , int64(-1) ...
-                                                            );
-    p.listOfRegisters = int64([0:maxExprDepth]);
+    [p.parseTree p.mapOfVars nextLabel maxExprDepth] = analyseSequence( p.parseTree ...
+                                                                      , struct ...
+                                                                      , int32(1) ...
+                                                                      , int32(0) ...
+                                                                      , int32(-1) ...
+                                                                      );
+    p.listOfRegisters = int32([0:maxExprDepth]);
     
 end % of function analyzer.
 
@@ -125,11 +125,11 @@ function [t mapOfVars nextLabel maxExprDepth] = analyseSequence( t ...
         % If this statement make use of a (numeric) expression then this expression is now
         % handled.
         if ~isempty(s.expr)
-            [t{idxStatement}.expr mapOfVars maxExprDepth] = analyseExpr( s.expr ...
-                                                                       , uint32(0) ...
-                                                                       , mapOfVars ...
-                                                                       , maxExprDepth ...
-                                                                       );
+            [t{idxStatement}.expr mapOfVars exprDepth] = analyseExpr( s.expr ...
+                                                                    , int32(0) ...
+                                                                    , mapOfVars ...
+                                                                    );
+            maxExprDepth = max(maxExprDepth, exprDepth);
         end
         
         if s.isAssignment
@@ -196,7 +196,7 @@ end % of function analyseSequence.
 
 
 
-function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDepth)
+function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
 
 % Analysis of an expression in order to find the depth of each node. This depth can be used
 % by the backend to easily decide on (re-)usable storage for intermediate results.
@@ -209,14 +209,17 @@ function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDe
 %   Return value mapOfVars:
 % The same map of variables object is continuously updated, thus taken as argument and
 % returned with contents as function result.
-%   Parameter maxExprDepth:
-% The maximum expression depth used at function exit.
+%   Return value maxDepth:
+% The maximum depth of the expression including the entered node and all its sub-nodes. The
+% returned depth can be both, more or less than the proposed depth found in parameter
+% 'depth'. The returned value is the depth of the complete expression when eventually
+% returning from the recursion.
 %   Parameter mapOfVars:
 % A map of variables. All variables mentioned somewhere in an expression are listed.
-%   Parameter maxExprDepth:
-% The maximum expression depth used so far at function entry. This parameter in combination
-% with the return value of same name is nothing else as a global maximum of expression
-% depths.
+%   Parameter depth:
+% The depth proposed for the entered node in the expression. If the node is a terminal, not
+% doing a computation then it may not consume the proposed depth and respond with a lower
+% actual depth.
 
     % Keep track of use of variables.
     if ~isempty(e.variable)
@@ -235,6 +238,8 @@ function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDe
     
     % Terminals don't need further handling.
     if isempty(e.operation)
+        % Terminals don't consume any element from the computation/register stack.
+        maxDepth = int32(-1);
         return
     end
 
@@ -243,24 +248,26 @@ function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDe
     % the left operand, so the left operand can use the same storage as this node, while
     % the right node requires a higher depth, i.e. a new storage locatioe.
     assert(~isempty(e.leftExpr) && ~isempty(e.rightExpr))
-    [e.leftExpr mapOfVars maxExprDepth] = analyseExpr( e.leftExpr ...
+    [e.leftExpr mapOfVars maxDepthLeft] = analyseExpr( e.leftExpr ...
                                                      , depth ...
                                                      , mapOfVars ...
-                                                     , maxExprDepth ...
                                                      );
-    [e.rightExpr mapOfVars maxExprDepth] = analyseExpr( e.rightExpr ...
-                                                      , depth+1 ...
-                                                      , mapOfVars ...
-                                                      , maxExprDepth ...
-                                                      );
+    [e.rightExpr mapOfVars maxDepthRight] = analyseExpr( e.rightExpr ...
+                                                       , depth+1 ...
+                                                       , mapOfVars ...
+                                                       );
 
     % A tiny optimization: operations on numericals can be evaluated immediately and the
     % operation is replaced by a terminal. This is in practice mainly relevant to remove
-    % the negation operation instead of a negative literal.
+    % the negation operation and make it a negative literal.
     %   We take this step after the recursion of the sub-expressions in order to find more
     % compile-time known sub-expressions -even if this barely has relevance in practice.
     if ~isempty(e.leftExpr.number)  &&  ~isempty(e.rightExpr.number)
-        % Numeric overruns don't matter in this demonstrative software.
+        % Numeric overruns don't matter in this demonstrative software. Actually the
+        % overrun behavior of these Octave operations at compile time differs from the
+        % overrun behavior at run time of the generated C code. For a real compiler would
+        % this be inacceptable: the same computation will yield a different result when
+        % done once with literals and then with variables.
         switch e.operation
         case 'or'
             e.number = int64(e.leftExpr.number ~= 0  ||  e.rightExpr.number ~= 0);
@@ -285,9 +292,18 @@ function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDe
         case 'mul'
             e.number = e.leftExpr.number * e.rightExpr.number;
         case 'div'
-            e.number = e.leftExpr.number / e.rightExpr.number;
+            % Octave's operation / is defined different to the intended integer division
+            % operator, which rounds towards zero for noth signs. This behavior is modeled
+            % by Octave's idivide.
+            e.number = idivide(e.leftExpr.number, e.rightExpr.number);
         case 'mod'
-            e.number = mod(e.leftExpr.number, e.rightExpr.number);
+            % Octave's operation mod(a,b) is defined different to the intended integer
+            % modulus operator, which should behave as defined in language C. The operation
+            % is done signless and the result gets the sign of the first operand.
+            e.number = mod(abs(e.leftExpr.number), abs(e.rightExpr.number));
+            if e.leftExpr.number < 0
+                e.number = -e.number;
+            end
         otherwise
             assert(false)
         end
@@ -296,12 +312,16 @@ function [e mapOfVars maxExprDepth] = analyseExpr(e, depth, mapOfVars, maxExprDe
         e.leftExpr = [];
         e.rightExpr = [];
         assert(isempty(e.variable) && isempty(e.depth))
+        
+        % This node becomes a terminal and doesn't consume any element from the
+        % computation/register stack - regardless of what we had computed above for the
+        % left and right branches.
+        assert(maxDepthLeft == -1  &&  maxDepthRight == -1)
+        maxDepth = int32(-1);
     else
         % This node doesn't simplify to a numeral, so enter the found depth and keep track
         % of the maximum.
         e.depth = depth;
-        if depth > maxExprDepth
-            maxExprDepth = depth;
-        end
+        maxDepth = max([depth; maxDepthRight; maxDepthLeft]);
     end
 end % of function analyseExpr
