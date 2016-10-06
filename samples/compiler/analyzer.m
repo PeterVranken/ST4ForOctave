@@ -53,12 +53,34 @@ function [p] = analyzer(p)
     %   be an alternative concept
     % - The statement break is not directly by syntax linked to the loop it has to act on.
     %   The backend requires the direct link and we have to find and add it
-    [p.parseTree p.mapOfVars nextLabel maxExprDepth] = analyseSequence( p.parseTree ...
-                                                                      , struct ...
-                                                                      , int32(1) ...
-                                                                      , int32(0) ...
-                                                                      , int32(-1) ...
-                                                                      );
+    [p.parseTree mapOfVars nextLabel maxExprDepth] = analyseSequence( p.parseTree ...
+                                                                    , struct ...
+                                                                    , int32(1) ...
+                                                                    , int32(0) ...
+                                                                    , int32(-1) ...
+                                                                    );
+                                                                    
+    % The map of variables is iterated. The parser output specifies two lists of variables
+    % instead: The variables, which is assigned a value and those which are only read. The
+    % two groups can be understood as program outputs and inputs, respectively.
+    %   In principle, it would be possible to use the map (which is an Octave struct) as it
+    % is in the interface to StringTemplate. However, inside the templates is not so easy
+    % to safely filter the map for the one or other kind of variables. In a template, two
+    % separate lists are much easier to handle. Data model should in general consider the
+    % capabilities of the template expressions.
+    for fieldName = fieldnames(mapOfVars).'
+        fieldName = fieldName{1};
+        if mapOfVars.(fieldName)
+            p.listVariablesWr{end+1} = fieldName;
+        else
+            p.listVariablesRd{end+1} = fieldName;
+        end
+    end    
+    
+    % Provide the list of temporary storages required for expression evaluation. Here, we
+    % can safely use an Octave array (not a cell array) since it is of numeric type.
+    % Numeric arrays of any length, including 0 or 1, can be safely iterated in a
+    % StringTemplate V4 template - opposed to arrays of struct objects.
     p.listOfRegisters = int32([0:maxExprDepth]);
     
 end % of function analyzer.

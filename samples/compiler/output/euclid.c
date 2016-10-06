@@ -1,8 +1,11 @@
-//(not yet implemented)
 /**
  * @file euclid.c
+ *
  * C code generated from program euclid.fcl written in a fictive
  * computer language.
+ *
+ * This file has been created with st4Render.m, see
+ * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
  * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
@@ -18,9 +21,6 @@
  *
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/* Module interface
- * Local functions
  */
 
 /*
@@ -38,9 +38,9 @@
 
 /* Definition of the pseudo assembler statements. */
 #define jmp(target)         {goto target;}
-#define brneq(cond,target)  {if(cond) goto target;}
+#define breq(cond,target)   {if((cond)==0) goto target;}
 #define load(R,val)         {(R) = (val);}
-#define store(sym,val)      {sym = (val);}
+#define store(sym,val)      {(sym) = (val);}
 #define eq(R,op)            {(R) = (R)==(op);}
 #define neq(R,op)           {(R) = (R)!=(op);}
 #define lt(R,op)            {(R) = (R)<(op);}
@@ -79,8 +79,8 @@
  * Application main entry point. The code from the fictive computer language can be run
  * with command line provided variable values. All variables, which do not get any value in
  * the computer program itself are considered external interfaces and are connected to the
- * command line. Each two consequetive command line arguments are a pair of variable name
- * and variable value. The value is a signed integer value and it is propgated to the
+ * command line. Each two consecutive command line arguments are a pair of variable name
+ * and variable value. The value is a signed integer value and it is propagated to the
  * program variable of given name.
  *   @return
  * Always 0, no error conditions are implemented.
@@ -91,18 +91,20 @@
  */
 int main(int noArgs, const char * argAry[])
 {
-    /* Map of variables. */
-    int a=0, b=0, h=0, i=0, j=0;
+    /* Initialization of required variables. */
+    int i=0, j=0, a=0, b=0, h=0;
+
 
     /* The following variables is not assigned any value in the source program
-       euclid.fcl. We consider them system inputs and connect them
-       to the application interface. */
+       euclid.fcl. We consider them system inputs and connect them to the
+       application interface. */
     int _idxArg;
     for(_idxArg=1; _idxArg+1<noArgs; _idxArg+=2)
     {
-        if(strcmp(argAry[_idxArg], "i") == 0)	i = atoi(argAry[_idxArg+1]);
-        if(strcmp(argAry[_idxArg], "j") == 0)	j = atoi(argAry[_idxArg+1]);
+       if(strcmp(argAry[_idxArg], "i") == 0)	i = atoi(argAry[_idxArg+1]);
+       if(strcmp(argAry[_idxArg], "j") == 0)	j = atoi(argAry[_idxArg+1]);
     }
+
 
     /* Definition of temporary variables for expression evaluation. */
     int _R00;
@@ -118,10 +120,10 @@ int main(int noArgs, const char * argAry[])
     _loop_1:
     load(_R00, b)
     eq(_R00, 0)
-    brneq(_R00, _if_2)
-    jmp(_end_if_2)
-    _if_2:
+    breq(_R00, _else_2)
     jmp(_exit_loop_1)
+    jmp(_end_if_2)
+    _else_2:
     _end_if_2:
     /* h always has the sign of a. */
     load(_R00, a)
@@ -139,5 +141,7 @@ int main(int noArgs, const char * argAry[])
     printf("b = %d\n", b);
     printf("h = %d\n", h);
 
+
     return 0;
-}
+
+} /* End of main */

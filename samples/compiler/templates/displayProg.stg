@@ -21,15 +21,18 @@
 
 delimiters "<", ">"
 
-displayProg(p) ::= <<
+displayProg(info,p) ::= <<
+Compilation of <info.sourceFileName> into <info.outputFileName> on <info.date>
+
 Map of variables:
-<displayMapOfVars(p.mapOfVars)>
+  <displayListOfVars(p.listVariablesRd,p.listVariablesWr)>
 Tree of program statements:
-<displaySequence(p.parseTree)>
+  <displaySequence(p.parseTree)>
 >>
 
-displayMapOfVars(mapOfVars) ::= <<
-<mapOfVars:{name|<name><if(!mapOfVars.(name))>: not assigned, understood as system input<endif><\n>}>
+displayListOfVars(listRd, listWr) ::= <<
+<listRd:{name|<name>: not assigned, understood as system input<\n>}><\\>
+<listWr:{name|<name><\n>}>
 >>
 
 displaySequence(t) ::= <<
@@ -39,16 +42,65 @@ Sequence:
 
 displayStatement(s) ::= <<
 <if(s.isComment)># <s.expr>
-<elseif(s.isLoop)>loop <s.label>
+<elseif(s.isLoop)>loop [<s.label>]
   <displaySequence(s.seq)>
-end of loop <s.label>
-<elseif(s.isBreak)>break of loop <s.label>
-<elseif(s.isIf)>if <s.label>
+end of loop [<s.label>]
+<elseif(s.isBreak)>break of loop [<s.label>]
+<elseif(s.isIf)>if [<s.label>] <expression(s.expr)>
   <displaySequence(s.seq)>
-<if(s.seqElse)>else <s.label>
+<if(s.seqElse)>else [<s.label>]
   <displaySequence(s.seqElse)>
 <endif>
-end of if <s.label>
-<elseif(s.isAssignment)><s.variable> = ...
+end of if [<s.label>]
+<elseif(s.isAssignment)><s.variable> = <expression(s.expr)>
 <endif>
 >>
+
+expression(e) ::= <<
+<if(e.number)><e.number><\\>
+<elseif(e.variable)><e.variable><\\>
+<else>(<expression(e.leftExpr)> <operation.(e.operation)>[<e.depth>] <expression(e.rightExpr)>)<endif>
+>>
+
+operation ::=
+    [ "or": "|"     
+    , "and": "&"     
+    , "eq": "="     
+    , "neq": "<>"    
+    , "lt": "<"     
+    , "leq": "<="    
+    , "gt": ">"     
+    , "geq": ">="    
+    , "add": "+"     
+    , "sub": "-"     
+    , "mul": "*"     
+    , "div": "/"     
+    , "mod": "%"
+    , default: "internal error, unknown operation encountered"
+    ]
+            
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 

@@ -153,8 +153,10 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     % then the the further arguments are shifted. Reorder them here to have more meaningful
     % program code down here.
     if nargin >= 2  &&  ~strcmp(class(verbose), 'logical')
-        % verbose is not present and the right hand side need a shift.
-        varargin = [{templateName} varargin];
+        % verbose is not present and the right hand side needs a shift.
+        if nargin >= 3
+            varargin = [{templateName} varargin];
+        end
         templateName = verbose;
         verbose = false;
     end
@@ -178,7 +180,9 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     persistent mapOfTFilesByName
     if nargin <= 2  &&  strcmp(templateGroupFileName, 'clear')
         mapOfTFilesByName = [];
-        text = '';
+        if nargout >= 1
+            text = '';
+        end
         if nargin > 1  && verbose
             fprintf('st4Render: All cached ST4 group files are cleared from memory\n');
         end
@@ -191,8 +195,6 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     if isempty(mapOfTFilesByName)
         mapOfTFilesByName = javaObject('java.util.HashMap');
     end
-    % TODO canonicalize_file_name, not available in MATLAB, would avoid that the group file
-    % is reparsed if the same file is addressed to with another name/path.
     key = canonicalizeFileName(templateGroupFileName);
     if mapOfTFilesByName.containsKey(key)
         stg = mapOfTFilesByName.get(key);
@@ -204,6 +206,11 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
         end
     else
         try
+            if verbose
+                fprintf( 'st4Render: ST4 group file object is created for file %s\n'    ...
+                       , templateGroupFileName                                          ...
+                       );
+            end
             stg = javaObject('org.stringtemplate.v4.STGroupFile', templateGroupFileName);
 
             % TODO How to get a Java Class object of the abstract class Number? This would
@@ -327,15 +334,20 @@ function [canonicalizedfileName] = canonicalizeFileName(fileName)
 %   Parameter fileName:
 % The file name to unambiguate.
 
+    % No effective solution is known. fileparts with cd and pwd can be found as idea e.g.
+    % at https://de.mathworks.com/matlabcentral/newsreader/view_thread/237707 (Sep 23,
+    % 2016) but is expensive in in terms of run time and inappropriate. A solution is
+    % however not essential, not having a canonicalized file name just means less cache
+    % hits and higher likelihood of useless reparsing of ST4 files in the group file map.
     if isOctave
-        canonicalizedfileName = canonicalize_file_name(fileName);
+        % canonicalize_file_name will work only with existing files. It's not a string
+        % operation just looking for and resolving patterns like . or .. The file names in
+        % question are normally "non existing" in that they are not found via the Octave
+        % search path but via the Java class path. Therefore the Octave function
+        % canonicalize_file_name can't be applied.
+        %canonicalizedfileName = canonicalize_file_name(fileName)
+        canonicalizedfileName = fileName;
     else
-        % No effective solution known for MATLAB. fileparts with cd and pwd can be found as
-        % idea e.g. at https://de.mathworks.com/matlabcentral/newsreader/view_thread/237707
-        % (Sep 23, 2016) but is expensive in in terms of run time and inappropriate. A
-        % solution is however not essential, not having a canonicalized file name just
-        % means less cache hits and higher liekelihood of useless reparsing of ST4 files in
-        % the group file map.
         canonicalizedfileName = fileName;
     end
 end % of function canonicalizeFileName.
@@ -434,19 +446,11 @@ function [st4Object] = octave2Java(value, verbose)
             else
                 st4Object = javaObject('java.util.HashMap');
             end
-% Why should thi cause a problem? Is it perhapy worth a warning? What about struct in
-% Octave, which are used as maps - a common work around missing collections in the M script
-% language? Such a map can easily be empty - and the struct has no fields.
-%            if isempty(fieldnames(value))
-%                error(['A struct with no fields can''t be represented in Java' ...
-%                       ' compatible with the StringTemplate V4 template engine'] ...
-%                     );
-%            end
             for fieldName = fieldnames(value).'
                 fieldName = fieldName{1};
                 % The MATLAB interface fails to put fields with names of length 1 properly
                 % into the Map. The reason is unclear and Octave works fine. We issue a
-                % warning. MATLAB user should avoid such short field names or only use the
+                % warning. MATLAB users should avoid such short field names or only use the
                 % Map iteration operator, which seems not affected.
                 if ~isOctave &&  length(fieldName) == 1
                     warning(['Fieldname ' fieldName ' found in a MATLAB struct, which is' ...
@@ -467,22 +471,14 @@ function [st4Object] = octave2Java(value, verbose)
                        );
             end
         else
-            % The data element is of a basic type.
-            %   The basic types, which could usually be passed to the Java methods as are,
-            % need some attention yet as not all numeric types seem to be properly handled
-            % by the Octave-Java interface. Using uint32 we saw crashes of the complete
-            % Ocatve process - Ocatve disappeared without any error message.
+            % The data element is of a basic type. These are mostly supported as are by the
+            % Octave->Java interface. We simply pass them to this interface.
             switch class(value)
             case {'int8' 'uint8'}
                 % The eight Bit numbers are propagated as 16 to become java.lang.Short for
                 % the template engine - otherwise the number renderer doesn't operate on
                 % them.
                 st4Object = int16(value);
-%            case {'uint32' 'int32' 'int64'}
-%                st4Object = javaObject('java.lang.Long', value);
-%            case {'uint64'}
-%                % Java cannot represent 64 Bit unsigned integers
-%                error('Can''t process data type uint64. Java doesn''t know this data type');
             otherwise
                 % As long as we don't see a problem we trust the Octave->Java interface to
                 % handle the data type properly.

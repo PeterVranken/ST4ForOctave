@@ -1,0 +1,207 @@
+//
+// mod.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// The templates in this file model the frame of different generated output file
+// types, e.g. of a C source code file.
+//   Caution: A prerequiste of these templates is that the general information
+// is available under the default template attribute name "info".
+//
+// Copyright (C) 2015-2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+// The frame of a C implementation file.
+modC() ::= <<
+/**
+ * @file <info.rawOutputFileName>.c
+ *
+<@description()>
+ *
+ * This file has been created with st4Render.m, see
+ * https://sourceforge.net/projects/stringtemplate-for-octave/
+ *
+<@copyright>
+ * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see \<http://www.gnu.org/licenses/>.
+<@end>
+ */
+
+/*
+ * Include files
+ */
+
+<@includes()>
+
+/*
+ * Defines
+ */
+
+<@defines()>
+
+/*
+ * Local type definitions
+ */
+
+<@typedefs()>
+
+/*
+ * Local prototypes
+ */
+
+<@prototypes()>
+
+/*
+ * Data definitions
+ */
+
+<@data()>
+
+/*
+ * Function implementation
+ */
+
+>>
+
+
+
+
+// The frame of a C header file.
+modH() ::= <<
+#ifndef <info.rawOutputName; format="upper">_DEFINED
+#define <info.rawOutputName; format="upper">_DEFINED
+/**
+ * @file <info.rawOutputFileName>.h
+ *
+<@description()>
+ *
+ * This file has been created with st4Render.m, see
+ * https://sourceforge.net/projects/stringtemplate-for-octave/
+ *
+<@copyright>
+ * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see \<http://www.gnu.org/licenses/>.
+<@end>
+ */
+
+/*
+ * Include files
+ */
+
+<@includes()>
+
+/*
+ * Defines
+ */
+
+<@defines()>
+
+/*
+ * Type definitions
+ */
+
+<@typedefs()>
+
+/*
+ * Data declarations
+ */
+
+<@data()>
+
+/*
+ * Function declarations
+ */
+
+<@prototypes()>
+#endif // !defined(<info.rawOutputName; format="upper">_DEFINED)
+>>
+
+
+// The frame of an Octave function file. Regions to fill optionally are:
+//   @modM.signature() ::= <<
+//   @modM.description() ::= <<
+//   @modM.inputArguments() ::= <<
+//   @modM.returnArguments() ::= <<
+//   @modM.throws() ::= <<
+//   @modM.examples() ::= <<
+//   @modM.code() ::= <<
+//   @modM.localCode() ::= <<
+//
+modM() ::= <<
+function <@signature><info.rawOutputFileName><@end>
+% <info.rawOutputFileName>:
+<@description()>
+%
+%   Input argument(s):
+<@inputArguments()>
+%
+%   Return argument(s):
+<@returnArguments()>
+%
+%   Throws:
+<@throws()>
+%
+%   Example(s):
+<@examples()>
+%
+<@copyright>
+%   Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%
+%   This program is free software: you can redistribute it and/or modify it
+%   under the terms of the GNU General Public License as published by the
+%   Free Software Foundation, either version 3 of the License, or (at your
+%   option) any later version.
+%
+%   This program is distributed in the hope that it will be useful, but
+%   WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+%   General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License along
+%   with this program. If not, see \<http://www.gnu.org/licenses/>.
+<@end>
+
+<@code>
+    y = x**2;
+<@end>
+end % of function mod.
+
+<@localCode()>
+>>

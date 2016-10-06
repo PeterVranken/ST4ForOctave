@@ -21,18 +21,20 @@
 
 delimiters "<", ">"
 
+import "mod.stg"
+
 generateCode(p) ::= <<
-<variablesDef(p.mapOfVars)><\\>
-<applicationInterfaceEntry(p.mapOfVars)>
+<variablesDef([p.listVariablesRd,p.listVariablesWr])><\\>
+<applicationInterfaceEntry(p.listVariablesRd)>
 <tmpVariablesDef(p.listOfRegisters)><\\>
 <codeSequence(p.parseTree)><\n>
-<applicationInterfaceExit(p.mapOfVars)>
+<applicationInterfaceExit(p.listVariablesWr)>
 >>
 
-variablesDef(mapOfVars) ::= <<
-<if(mapOfVars)>
-/* Map of variables. */
-int <mapOfVars:{name|<name>=0}; separator=", ", wrap="\n    ">;<\n>
+variablesDef(listOfVariables) ::= <<
+<if(listOfVariables)>
+/* Initialization of required variables. */
+int <listOfVariables:{name|<name>=0}; separator=", ", wrap="\n    ">;<\n>
 <endif>
 >>
 
@@ -44,21 +46,26 @@ int <listOfRegisters:tmpVar(); separator=", ", wrap="\n    ">;<\n>
 >>
 
 
-applicationInterfaceEntry(mapOfVars) ::= <<
+applicationInterfaceEntry(listVariablesRd) ::= <<
+<if(listVariablesRd)>
 /* The following variables is not assigned any value in the source program
-   <file.source>. We consider them system inputs and connect them
-   to the application interface. */
+   <info.sourceFileName>. We consider them system inputs and connect them to the
+   application interface. */
 int _idxArg;
 for(_idxArg=1; _idxArg+1\<noArgs; _idxArg+=2)
 {
-<mapOfVars:{name|<if(!mapOfVars.(name))>    if(strcmp(argAry[_idxArg], "<name>") == 0)<\t><name> = atoi(argAry[_idxArg+1]);<\n><endif>}><\\>
+<listVariablesRd:{name|    if(strcmp(argAry[_idxArg], "<name>") == 0)<\t><name> = atoi(argAry[_idxArg+1]);<\n>}><\\>
 }
 
+<endif>
 >>
 
-applicationInterfaceExit(mapOfVars) ::= <<
+applicationInterfaceExit(listVariablesWr) ::= <<
+<if(listVariablesWr)>
 /* All variables are printed at the end as a kind of program output. */
-<mapOfVars:{name|<if(mapOfVars.(name))>printf("<name> = %d\n", <name>);<\n><endif>}>
+<listVariablesWr:{name|printf("<name> = %d\n", <name>);<\n>}><\\>
+
+<endif>
 >>
 
 codeSequence(t) ::= <<
@@ -76,20 +83,17 @@ _exit_loop_<s.label>:
 jmp(_exit_loop_<s.label>)
 <elseif(s.isIf)><\\>
 <expression(s.expr)><\\>
-brneq(<valueOfExpr(s.expr)>, _if_<s.label>)
-<codeSequence(s.seqElse)><\\>
-jmp(_end_if_<s.label>)
-_if_<s.label>:
+breq(<valueOfExpr(s.expr)>, _else_<s.label>)
 <codeSequence(s.seq)><\\>
+jmp(_end_if_<s.label>)
+_else_<s.label>:
+<codeSequence(s.seqElse)><\\>
 _end_if_<s.label>:
 <elseif(s.isAssignment)><\\>
-<! <store(s.variable,s.expr)> !>
 <expression(s.expr)><\\>
 store(<s.variable>, <valueOfExpr(s.expr)>)
 <endif>
 >>
-
-
 
 expression(e) ::= <<
 <if(e.operation)><\\>
@@ -117,49 +121,24 @@ _R<idx; format="%02d">
 >>
 
 
-main(file,p) ::= <<
-/**
- * @file <file.rawOutputFileName>.c
- * C code generated from program <file.source> written in a fictive
+// C file generation: Configure the elements of the module template.
+@modC.description() ::= <<
+ * C code generated from program <info.sourceFileName> written in a fictive
  * computer language.
- *
- * Copyright (C) <file.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
- *
- * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program. If not, see \<http://www.gnu.org/licenses/>.
- */
-/* Module interface
- * Local functions
- */
+>>
 
-/*
- * Include files
- */
-
+@modC.includes() ::= <<
 #include \<stdlib.h>
 #include \<stdio.h>
-#include \<string.h>
+#include \<string.h><\n>
+>>
 
-
-/*
- * Defines
- */
-
+@modC.defines() ::= <<
 /* Definition of the pseudo assembler statements. */
 #define jmp(target)         {goto target;}
-#define brneq(cond,target)  {if(cond) goto target;}
+#define breq(cond,target)   {if((cond)==0) goto target;}
 #define load(R,val)         {(R) = (val);}
-#define store(sym,val)      {sym = (val);}
+#define store(sym,val)      {(sym) = (val);}
 #define eq(R,op)            {(R) = (R)==(op);}
 #define neq(R,op)           {(R) = (R)!=(op);}
 #define lt(R,op)            {(R) = (R)\<(op);}
@@ -172,34 +151,17 @@ main(file,p) ::= <<
 #define sub(R,op)           {(R) -= (op);}
 #define mul(R,op)           {(R) *= (op);}
 #define div(R,op)           {(R) /= (op);}
-#define mod(R,op)           {(R) %= (op);}
+#define mod(R,op)           {(R) %= (op);}<\n>
+>>
 
-
-/*
- * Local type definitions
- */
-
-
-/*
- * Local prototypes
- */
-
-
-/*
- * Data definitions
- */
-
-
-/*
- * Function implementation
- */
-
+main(info,p) ::= <<
+<modC()>
 /**
  * Application main entry point. The code from the fictive computer language can be run
  * with command line provided variable values. All variables, which do not get any value in
  * the computer program itself are considered external interfaces and are connected to the
- * command line. Each two consequetive command line arguments are a pair of variable name
- * and variable value. The value is a signed integer value and it is propgated to the
+ * command line. Each two consecutive command line arguments are a pair of variable name
+ * and variable value. The value is a signed integer value and it is propagated to the
  * program variable of given name.
  *   @return
  * Always 0, no error conditions are implemented.
@@ -212,5 +174,6 @@ int main(int noArgs, const char * argAry[])
 {
     <generateCode(p)>
     return 0;
-}
+
+} /* End of main */
 >>

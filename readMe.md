@@ -52,10 +52,11 @@ generation.
     
     Several ways exist to modify the Java class path of Octave. You may do
     this on the fly with Octave command `javaaddpath` or you rely on the
-    startup file `javaclasspath.txt`. We provide a suitable file to you
-    but it'll work only if the Octave executable is started from this
-    directory. Windows users can have a look at (and double-click)
-    `Octave.cmd` to do so. Everybody should consult
+    startup file `javaclasspath.txt`. We provide you a template for this
+    file but it needs customization before use and it'll work only if the
+    Octave executable is started from this directory. Windows users can
+    have a look at (and double-click) `Octave.cmd` to do so. Everybody
+    should consult
     <https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html>
     to get the whole story on setting the Java class path
     
