@@ -28,7 +28,7 @@ While this is straight forward for linear lists (e.g. using a
 java.util.ArrayList) does it need much more consideration when it comes to
 Octave struct objects with run-time defined fields (i.e. no compiled Java
 class is available by principle). All the processing is done recursively so
-that really deeply nested data object can be passed to the template engine
+that deeply nested data objects can be passed to the template engine
 just like that.
 
 A major sample presents a compiler fragment, which passes its complete
@@ -38,10 +38,10 @@ generation.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
--   The interface is implemented by the single M script file
-    `st4Render.m`. Copy this file anywhere in your Octave search path - or
-    extend your search path by this directory. See Octave command
-    `addpath` for more
+-   The interface is implemented by the single M script file `st4Render.m`.
+    Copy this file anywhere in your Octave search path - or
+    extend your search path to make it capture its location. See Octave
+    command `addpath` for more
 -   Open an Octave session. Ensure that the Java class path contains
 
     -   the StringTemplate V4 jar file, `ST-4.0.8.jar`
