@@ -1,5 +1,5 @@
+# A simple test program for the compiler for our fictive computer language.
 x=!4*8+2*3+!(23--y)*(-7+-z)+!(8<=100)+x%23
-# A simple test program
 show = x
 cntLoops = 0
 if x<0
@@ -13,7 +13,7 @@ loop
     # Since the loop itself doesn't have a condition will we always find
     # an if clause with break statement somewhere inside the loop
     if x=0
-        y = 9
+        y = u
         break
     else
         x = x-(x>0)
@@ -63,6 +63,14 @@ loop
     testOkay = testOkay & (a*(b+12))=1200
     testOkay = testOkay & (12/a)=0
     testOkay = testOkay & (1300/a)=13
+    testOkay = testOkay & (-1300/a)=-13
+    testOkay = testOkay & (-1300/-a)=13
+    testOkay = testOkay & (1300/-a)=-13
+    testOkay = testOkay & (a/1300)=0
+    testOkay = testOkay & (1313%a)=13 # Sign of modulo is defined to be sign of first operand
+    testOkay = testOkay & (-1313%a)=-13
+    testOkay = testOkay & (-1313%-a)=-13
+    testOkay = testOkay & (1313%-a)=13
     testOkay = testOkay & (1300%a)=0
     testOkay = testOkay & (a%1300)=a
     testOkay = testOkay & (a%17+17*(a/17))=a
@@ -79,46 +87,48 @@ loop
     testOkay = testOkay & (a>=a+1)=0
     testOkay = testOkay & (a>=a-1)=1
 
-    # Test of compile time expressions
+    # Test of compile time expressions. This is a single (assignment)
+    # statement and you must not add a comment somewhere in the middle. In
+    # our language definition a comment always is a separate statement.
     testOkay = testOkay & (100|x)=1
-    testOkay = testOkay & (100|!x)=1
-    testOkay = testOkay & (!100|!x)=0
-    testOkay = testOkay & (!100|x)=1
-    testOkay = testOkay & (100&0)=0
-    testOkay = testOkay & (100&!0)=1
-    testOkay = testOkay & (!100&0)=0
-    testOkay = testOkay & (!100&!0)=0
-    testOkay = testOkay & (100+0+1)=101
-    testOkay = testOkay & (0-100)=-100
-    testOkay = testOkay & (100-0)=-(0-100)
-    testOkay = testOkay & (100*0)=0
-    testOkay = testOkay & (100*(0+12))=1200
-    testOkay = testOkay & (12/100)=0
-    testOkay = testOkay & (9/4)=2
-    testOkay = testOkay & (4/9)=0
-    testOkay = testOkay & (-9/4)=-2
-    testOkay = testOkay & (-9/-2)=4
-    testOkay = testOkay & (9/-2)=-4
-    testOkay = testOkay & (13%5)=3
-    testOkay = testOkay & (-13%5)=-3
-    testOkay = testOkay & (-13%-5)=-3
-    testOkay = testOkay & (13%-5)=3
-    testOkay = testOkay & (1300/100)=13
-    testOkay = testOkay & (1300%100)=0
-    testOkay = testOkay & (100%1300)=100
-    testOkay = testOkay & (100%17+17*(100/17))=100
-    testOkay = testOkay & (0<100)=1
-    testOkay = testOkay & (0>100)=0
-    testOkay = testOkay & (0=100)=0
-    testOkay = testOkay & (0=100-100)=1
-    testOkay = testOkay & (0<>100)=1
-    testOkay = testOkay & (0<>100-100)=0
-    testOkay = testOkay & (0<=0)=1
-    testOkay = testOkay & (0<=0+1)=1
-    testOkay = testOkay & (0<=0-1)=0
-    testOkay = testOkay & (100>=100)=1
-    testOkay = testOkay & (100>=100+1)=0
-    testOkay = testOkay & (100>=100-1)=1
+                        & (100|!x)=1
+                        & (!100|!x)=0
+                        & (!100|x)=1
+                        & (100&0)=0
+                        & (100&!0)=1
+                        & (!100&0)=0
+                        & (!100&!0)=0
+                        & (100+0+1)=101
+                        & (0-100)=-100
+                        & (100-0)=-(0-100)
+                        & (100*0)=0
+                        & (100*(0+12))=1200
+                        & (12/100)=0
+                        & (9/4)=2
+                        & (4/9)=0
+                        & (-9/4)=-2
+                        & (-9/-2)=4
+                        & (9/-2)=-4
+                        & (13%5)=3
+                        & (-13%5)=-3
+                        & (-13%-5)=-3
+                        & (13%-5)=3
+                        & (1300/100)=13
+                        & (1300%100)=0
+                        & (100%1300)=100
+                        & (100%17+17*(100/17))=100
+                        & (0<100)=1
+                        & (0>100)=0
+                        & (0=100)=0
+                        & (0=100-100)=1
+                        & (0<>100)=1
+                        & (0<>100-100)=0
+                        & (0<=0)=1
+                        & (0<=0+1)=1
+                        & (0<=0-1)=0
+                        & (100>=100)=1
+                        & (100>=100+1)=0
+                        & (100>=100-1)=1
 end
 testOkay = testOkay & cntLoops = 98
 # A final comment

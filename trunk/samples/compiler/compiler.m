@@ -10,6 +10,23 @@ function [success msg p] = compiler(programFile, sourceFile)
 %                   compatible with many native machine instruction sets. The compiler
 %                   could be configured for assembler code generation by rewriting the
 %                   templates.
+%
+%                   The syntax of the computer language is defined as such:
+%                     sequence ::= {statement}
+%                     statement ::= assignment | loop | 'break' | if | comment
+%                     comment ::= '#' character '\n'
+%                     assignment ::= variable '=' expression
+%                     variable ::= letter {letter}
+%                     expression ::= andExpr ['|' expression]
+%                     andExpr ::= boolExpr ['&' andExpr]
+%                     boolExpr ::= sumExpr [('=' | '<>' | '<' | '>' | '<=' | '>=') boolExpr]
+%                     sumExpr ::= mulExpr [('+' | '-') sumExpr]
+%                     mulExpr ::= signExpr [('*' | '/' | '%') mulExpr]
+%                     signExpr ::= ['-' | '!'] terminalExpression
+%                     terminalExpr ::= '(' expression ')' | variable | number
+%                     number ::= digit {digit}
+%                     loop ::= 'loop' program 'end'
+%                     if ::= 'if' expression program ['else' program] 'end'
 %                   
 %   Input argument(s):
 %       programFile The generated compiler output. The file name extension decides, which
@@ -55,14 +72,16 @@ function [success msg p] = compiler(programFile, sourceFile)
         s = file(sourceFile);
         p = parser(s);
         p = analyzer(p);
+        
+        % To support the development of the compiler's ST4 templates we enforce re-loading
+        % of these in every run of the compiler. Once the development is done this
+        % statement should be commented out.
         st4Render clear
-%        log = st4Render( 'displayProg.stg' ...
-%                       , 'displayProg' ...
-%                       , 'p', p ...
-%                       );
+
         [path rawSrcFileName] = fileparts(sourceFile);
         [path rawOutputFileName ext] = fileparts(programFile);
-        
+        logFile = fullfile(path, [rawSrcFileName '.log']);
+
         % Which target language to generate?
         switch upper(ext)
         case '.C'
@@ -83,28 +102,30 @@ function [success msg p] = compiler(programFile, sourceFile)
         % in the generated text.
         today = date;
         year = today(8:end);
-        fileInfo = struct( 'source', sourceFile ...
-                         , 'rawSrcFileName', rawSrcFileName ...
-                         , 'output', programFile ...
+        fileInfo = struct( 'sourceFileName', sourceFile ...
+                         , 'rawSourceFileName', rawSrcFileName ...
+                         , 'outputFileName', programFile ...
                          , 'rawOutputFileName', rawOutputFileName ...
+                         , 'logFileName', logFile ...
                          , 'isC', isC ...
                          , 'isOctave', isOctave ...
                          , 'date', today ...
                          , 'year', year ...
                          );
-
+        log = st4Render( 'displayProg.stg' ...
+                       , 'displayProg' ...
+                       , 'info', fileInfo ...
+                       , 'p', p ...
+                       );
         code = st4Render( tmplGrpFile ...
                         , 'main' ...
-                        , 'file', fileInfo ...
+                        , 'info', fileInfo ...
                         , 'p', p ...
                         );
-        % Temporary test only
-        if length(p.parseTree) >= 1  &&  p.parseTree{1}.isAssignment
-            expr = printExpr(p.parseTree{1}.expr);
-        else
-            expr = '(not yet implemented)';
-        end
-        file(programFile, ['//' expr char(13) char(10) code]);
+
+        % Write generated code into files.
+        file(logFile, log);
+        file(programFile, code);
         msg = '';
         success = true;
     catch exc

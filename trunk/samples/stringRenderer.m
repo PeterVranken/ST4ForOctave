@@ -43,7 +43,7 @@ fid = fopen('stringRenderer.html', 'wt');
 if fid >= 0
     fwrite(fid, HTML);
     fclose(fid);
-    system('stringRenderer.html');
+    system('stringRenderer.html', false, 'async');
 end
 
 

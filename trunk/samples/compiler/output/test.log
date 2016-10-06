@@ -1,0 +1,128 @@
+Compilation of test.fcl into output\test.c on 06-Oct-2016
+
+Map of variables:
+  z: not assigned, understood as system input
+  u: not assigned, understood as system input
+  y
+  x
+  show
+  cntLoops
+  testOkay
+  a
+  b
+
+Tree of program statements:
+  Sequence:
+  # A simple test program for the compiler for our fictive computer language.
+  x = (((6 +[0] (((23 -[1] (y *[2] -1)) =[1] 0) *[1] (-7 +[2] (z *[3] -1)))) +[0] 0) +[0] (x %[1] 23))
+  show = x
+  cntLoops = 0
+  if [1] (x <[0] 0)
+    Sequence:
+    x = (x *[0] -1)
+
+  end of if [1]
+  testOkay = ((x >[0] 0) |[0] (x =[1] 0))
+  if [2] testOkay
+    Sequence:
+    x = 99
+
+  end of if [2]
+  loop [3]
+    Sequence:
+    # Since the loop itself doesn't have a condition will we always find
+    # an if clause with break statement somewhere inside the loop
+    if [4] (x =[0] 0)
+      Sequence:
+      y = u
+      break of loop [3]
+
+    else [4]
+      Sequence:
+      x = (x -[0] (x >[1] 0))
+      if [5] (x <=[0] 0)
+        Sequence:
+        break of loop [3]
+
+      end of if [5]
+
+    end of if [4]
+    cntLoops = (cntLoops +[0] 1)
+    y = (y +[0] x)
+    # An empty if or else branch should be possible
+    if [6] testOkay
+      Sequence:
+
+    else [6]
+      Sequence:
+      x = (x -[0] 1)
+      testOkay = (testOkay =[0] 0)
+
+    end of if [6]
+    if [7] (testOkay =[0] 0)
+      Sequence:
+      x = (x -[0] 1)
+      testOkay = (testOkay =[0] 0)
+
+    end of if [7]
+    if [8] (x <=[0] 0)
+      Sequence:
+      x = (x -[0] 1)
+      testOkay = 0
+
+    end of if [8]
+    # Test all the operations. Operations on literals are evaluated at
+    # compile time, operations with one variable at least are evaluated at
+    # run time. We need to test both situations.
+    a = 100
+    # Surely greater than x
+    b = 0
+    # Surely less than x
+    # Test of run time expressions
+    testOkay = (testOkay &[0] ((a |[1] x) =[1] 1))
+    testOkay = (testOkay &[0] ((a |[1] (x =[2] 0)) =[1] 1))
+    testOkay = (testOkay &[0] (((a =[1] 0) |[1] (x =[2] 0)) =[1] 0))
+    testOkay = (testOkay &[0] (((a =[1] 0) |[1] x) =[1] 1))
+    testOkay = (testOkay &[0] ((a &[1] b) =[1] 0))
+    testOkay = (testOkay &[0] ((a &[1] (b =[2] 0)) =[1] 1))
+    testOkay = (testOkay &[0] (((a =[1] 0) &[1] b) =[1] 0))
+    testOkay = (testOkay &[0] (((a =[1] 0) &[1] (b =[2] 0)) =[1] 0))
+    testOkay = (testOkay &[0] (((a +[1] b) +[1] 1) =[1] 101))
+    testOkay = (testOkay &[0] ((b -[1] a) =[1] -100))
+    testOkay = (testOkay &[0] ((a -[1] b) =[1] ((b -[2] a) *[2] -1)))
+    testOkay = (testOkay &[0] ((a *[1] b) =[1] 0))
+    testOkay = (testOkay &[0] ((a *[1] (b +[2] 12)) =[1] 1200))
+    testOkay = (testOkay &[0] ((12 /[1] a) =[1] 0))
+    testOkay = (testOkay &[0] ((1300 /[1] a) =[1] 13))
+    testOkay = (testOkay &[0] ((-1300 /[1] a) =[1] -13))
+    testOkay = (testOkay &[0] ((-1300 /[1] (a *[2] -1)) =[1] 13))
+    testOkay = (testOkay &[0] ((1300 /[1] (a *[2] -1)) =[1] -13))
+    testOkay = (testOkay &[0] ((a /[1] 1300) =[1] 0))
+    testOkay = (testOkay &[0] ((1313 %[1] a) =[1] 13))
+    # Sign of modulo is defined to be sign of first operand
+    testOkay = (testOkay &[0] ((-1313 %[1] a) =[1] -13))
+    testOkay = (testOkay &[0] ((-1313 %[1] (a *[2] -1)) =[1] -13))
+    testOkay = (testOkay &[0] ((1313 %[1] (a *[2] -1)) =[1] 13))
+    testOkay = (testOkay &[0] ((1300 %[1] a) =[1] 0))
+    testOkay = (testOkay &[0] ((a %[1] 1300) =[1] a))
+    testOkay = (testOkay &[0] (((a %[1] 17) +[1] (17 *[2] (a /[3] 17))) =[1] a))
+    testOkay = (testOkay &[0] ((b <[1] a) =[1] 1))
+    testOkay = (testOkay &[0] ((b >[1] a) =[1] 0))
+    testOkay = (testOkay &[0] ((b =[1] a) =[1] 0))
+    testOkay = (testOkay &[0] ((b =[1] (a -[2] 100)) =[1] 1))
+    testOkay = (testOkay &[0] ((b <>[1] a) =[1] 1))
+    testOkay = (testOkay &[0] ((b <>[1] (a -[2] 100)) =[1] 0))
+    testOkay = (testOkay &[0] ((b <=[1] b) =[1] 1))
+    testOkay = (testOkay &[0] ((b <=[1] (b +[2] 1)) =[1] 1))
+    testOkay = (testOkay &[0] ((b <=[1] (b -[2] 1)) =[1] 0))
+    testOkay = (testOkay &[0] ((a >=[1] a) =[1] 1))
+    testOkay = (testOkay &[0] ((a >=[1] (a +[2] 1)) =[1] 0))
+    testOkay = (testOkay &[0] ((a >=[1] (a -[2] 1)) =[1] 1))
+    # Test of compile time expressions. This is a single (assignment)
+    # statement and you must not add a comment somewhere in the middle. In
+    # our language definition a comment always is a separate statement.
+    testOkay = (((((((((((((((((((((((((((((((((((((((testOkay &[0] ((100 |[1] x) =[1] 1)) &[0] ((100 |[1] (x =[2] 0)) =[1] 1)) &[0] ((0 |[1] (x =[2] 0)) =[1] 0)) &[0] ((0 |[1] x) =[1] 1)) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1) &[0] 1)
+
+  end of loop [3]
+  testOkay = (testOkay &[0] (cntLoops =[1] 98))
+  # A final comment

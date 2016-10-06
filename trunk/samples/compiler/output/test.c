@@ -1,8 +1,11 @@
-//(((6 +[0] (((23 -[1] (y *[2] -1)) =[1] 0) *[1] (-7 +[2] (z *[3] -1)))) +[0] 0) +[0] (x %[1] 23))
 /**
  * @file test.c
+ *
  * C code generated from program test.fcl written in a fictive
  * computer language.
+ *
+ * This file has been created with st4Render.m, see
+ * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
  * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
@@ -18,9 +21,6 @@
  *
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/* Module interface
- * Local functions
  */
 
 /*
@@ -38,9 +38,9 @@
 
 /* Definition of the pseudo assembler statements. */
 #define jmp(target)         {goto target;}
-#define brneq(cond,target)  {if(cond) goto target;}
+#define breq(cond,target)   {if((cond)==0) goto target;}
 #define load(R,val)         {(R) = (val);}
-#define store(sym,val)      {sym = (val);}
+#define store(sym,val)      {(sym) = (val);}
 #define eq(R,op)            {(R) = (R)==(op);}
 #define neq(R,op)           {(R) = (R)!=(op);}
 #define lt(R,op)            {(R) = (R)<(op);}
@@ -79,8 +79,8 @@
  * Application main entry point. The code from the fictive computer language can be run
  * with command line provided variable values. All variables, which do not get any value in
  * the computer program itself are considered external interfaces and are connected to the
- * command line. Each two consequetive command line arguments are a pair of variable name
- * and variable value. The value is a signed integer value and it is propgated to the
+ * command line. Each two consecutive command line arguments are a pair of variable name
+ * and variable value. The value is a signed integer value and it is propagated to the
  * program variable of given name.
  *   @return
  * Always 0, no error conditions are implemented.
@@ -91,21 +91,25 @@
  */
 int main(int noArgs, const char * argAry[])
 {
-    /* Map of variables. */
-    int a=0, b=0, cntLoops=0, show=0, testOkay=0, x=0, y=0, z=0;
+    /* Initialization of required variables. */
+    int z=0, u=0, y=0, x=0, show=0, cntLoops=0, testOkay=0, a=0, b=0;
+
 
     /* The following variables is not assigned any value in the source program
-       test.fcl. We consider them system inputs and connect them
-       to the application interface. */
+       test.fcl. We consider them system inputs and connect them to the
+       application interface. */
     int _idxArg;
     for(_idxArg=1; _idxArg+1<noArgs; _idxArg+=2)
     {
-        if(strcmp(argAry[_idxArg], "z") == 0)	z = atoi(argAry[_idxArg+1]);
+       if(strcmp(argAry[_idxArg], "z") == 0)	z = atoi(argAry[_idxArg+1]);
+       if(strcmp(argAry[_idxArg], "u") == 0)	u = atoi(argAry[_idxArg+1]);
     }
+
 
     /* Definition of temporary variables for expression evaluation. */
     int _R00, _R01, _R02, _R03;
 
+    /* A simple test program for the compiler for our fictive computer language. */
     load(_R02, y)
     mul(_R02, -1)
     load(_R01, 23)
@@ -123,17 +127,16 @@ int main(int noArgs, const char * argAry[])
     mod(_R01, 23)
     add(_R00, _R01)
     store(x, _R00)
-    /* A simple test program */
     store(show, x)
     store(cntLoops, 0)
     load(_R00, x)
     lt(_R00, 0)
-    brneq(_R00, _if_1)
-    jmp(_end_if_1)
-    _if_1:
+    breq(_R00, _else_1)
     load(_R00, x)
     mul(_R00, -1)
     store(x, _R00)
+    jmp(_end_if_1)
+    _else_1:
     _end_if_1:
     load(_R00, x)
     gt(_R00, 0)
@@ -141,17 +144,21 @@ int main(int noArgs, const char * argAry[])
     eq(_R01, 0)
     or(_R00, _R01)
     store(testOkay, _R00)
-    brneq(testOkay, _if_2)
-    jmp(_end_if_2)
-    _if_2:
+    breq(testOkay, _else_2)
     store(x, 99)
+    jmp(_end_if_2)
+    _else_2:
     _end_if_2:
     _loop_3:
     /* Since the loop itself doesn't have a condition will we always find */
     /* an if clause with break statement somewhere inside the loop */
     load(_R00, x)
     eq(_R00, 0)
-    brneq(_R00, _if_4)
+    breq(_R00, _else_4)
+    store(y, u)
+    jmp(_exit_loop_3)
+    jmp(_end_if_4)
+    _else_4:
     load(_R01, x)
     gt(_R01, 0)
     load(_R00, x)
@@ -159,15 +166,11 @@ int main(int noArgs, const char * argAry[])
     store(x, _R00)
     load(_R00, x)
     leq(_R00, 0)
-    brneq(_R00, _if_5)
+    breq(_R00, _else_5)
+    jmp(_exit_loop_3)
     jmp(_end_if_5)
-    _if_5:
-    jmp(_exit_loop_3)
+    _else_5:
     _end_if_5:
-    jmp(_end_if_4)
-    _if_4:
-    store(y, 9)
-    jmp(_exit_loop_3)
     _end_if_4:
     load(_R00, cntLoops)
     add(_R00, 1)
@@ -176,37 +179,37 @@ int main(int noArgs, const char * argAry[])
     add(_R00, x)
     store(y, _R00)
     /* An empty if or else branch should be possible */
-    brneq(testOkay, _if_6)
+    breq(testOkay, _else_6)
+    jmp(_end_if_6)
+    _else_6:
     load(_R00, x)
     sub(_R00, 1)
     store(x, _R00)
     load(_R00, testOkay)
     eq(_R00, 0)
     store(testOkay, _R00)
-    jmp(_end_if_6)
-    _if_6:
     _end_if_6:
     load(_R00, testOkay)
     eq(_R00, 0)
-    brneq(_R00, _if_7)
-    jmp(_end_if_7)
-    _if_7:
+    breq(_R00, _else_7)
     load(_R00, x)
     sub(_R00, 1)
     store(x, _R00)
     load(_R00, testOkay)
     eq(_R00, 0)
     store(testOkay, _R00)
+    jmp(_end_if_7)
+    _else_7:
     _end_if_7:
     load(_R00, x)
     leq(_R00, 0)
-    brneq(_R00, _if_8)
-    jmp(_end_if_8)
-    _if_8:
+    breq(_R00, _else_8)
     load(_R00, x)
     sub(_R00, 1)
     store(x, _R00)
     store(testOkay, 0)
+    jmp(_end_if_8)
+    _else_8:
     _end_if_8:
     /* Test all the operations. Operations on literals are evaluated at */
     /* compile time, operations with one variable at least are evaluated at */
@@ -324,6 +327,63 @@ int main(int noArgs, const char * argAry[])
     load(_R00, testOkay)
     and(_R00, _R01)
     store(testOkay, _R00)
+    load(_R01, -1300)
+    div(_R01, a)
+    eq(_R01, -13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R02, a)
+    mul(_R02, -1)
+    load(_R01, -1300)
+    div(_R01, _R02)
+    eq(_R01, 13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R02, a)
+    mul(_R02, -1)
+    load(_R01, 1300)
+    div(_R01, _R02)
+    eq(_R01, -13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R01, a)
+    div(_R01, 1300)
+    eq(_R01, 0)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R01, 1313)
+    mod(_R01, a)
+    eq(_R01, 13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    /* Sign of modulo is defined to be sign of first operand */
+    load(_R01, -1313)
+    mod(_R01, a)
+    eq(_R01, -13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R02, a)
+    mul(_R02, -1)
+    load(_R01, -1313)
+    mod(_R01, _R02)
+    eq(_R01, -13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
+    load(_R02, a)
+    mul(_R02, -1)
+    load(_R01, 1313)
+    mod(_R01, _R02)
+    eq(_R01, 13)
+    load(_R00, testOkay)
+    and(_R00, _R01)
+    store(testOkay, _R00)
     load(_R01, 1300)
     mod(_R01, a)
     eq(_R01, 0)
@@ -431,138 +491,64 @@ int main(int noArgs, const char * argAry[])
     load(_R00, testOkay)
     and(_R00, _R01)
     store(testOkay, _R00)
-    /* Test of compile time expressions */
+    /* Test of compile time expressions. This is a single (assignment) */
+    /* statement and you must not add a comment somewhere in the middle. In */
+    /* our language definition a comment always is a separate statement. */
     load(_R01, 100)
     or(_R01, x)
     eq(_R01, 1)
     load(_R00, testOkay)
     and(_R00, _R01)
-    store(testOkay, _R00)
     load(_R02, x)
     eq(_R02, 0)
     load(_R01, 100)
     or(_R01, _R02)
     eq(_R01, 1)
-    load(_R00, testOkay)
     and(_R00, _R01)
-    store(testOkay, _R00)
     load(_R02, x)
     eq(_R02, 0)
     load(_R01, 0)
     or(_R01, _R02)
     eq(_R01, 0)
-    load(_R00, testOkay)
     and(_R00, _R01)
-    store(testOkay, _R00)
     load(_R01, 0)
     or(_R01, x)
     eq(_R01, 1)
-    load(_R00, testOkay)
     and(_R00, _R01)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
-    store(testOkay, _R00)
-    load(_R00, testOkay)
     and(_R00, 1)
     store(testOkay, _R00)
     jmp(_loop_3)
@@ -576,13 +562,15 @@ int main(int noArgs, const char * argAry[])
 
 
     /* All variables are printed at the end as a kind of program output. */
+    printf("y = %d\n", y);
+    printf("x = %d\n", x);
+    printf("show = %d\n", show);
+    printf("cntLoops = %d\n", cntLoops);
+    printf("testOkay = %d\n", testOkay);
     printf("a = %d\n", a);
     printf("b = %d\n", b);
-    printf("cntLoops = %d\n", cntLoops);
-    printf("show = %d\n", show);
-    printf("testOkay = %d\n", testOkay);
-    printf("x = %d\n", x);
-    printf("y = %d\n", y);
+
 
     return 0;
-}
+
+} /* End of main */
