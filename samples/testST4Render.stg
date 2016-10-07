@@ -1,0 +1,65 @@
+//
+// testST4Render.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Templates for the test cases of the Octzave to StringTemplate V4 interface.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+// Return the end of line character.
+EOL() ::= "<\n>"
+
+// Support of basic types for attributes.
+basicTypes(s,u64,i64,u32,i32,u16,i16,u8,i8,n) ::= <<
+n   = <n; format="%.4f">
+i8  = <i8>
+i16 = <i16>
+i32 = <i32>
+i64 = <i64>
+u8  = <u8>
+u16 = <u16>
+u32 = <u32>
+u64 = <u64>
+s   = <s><\n>
+>>
+basicTypesAsStruct(attrib) ::= <<
+n   = <attrib.n; format="%.4f">
+i8  = <attrib.i8>
+i16 = <attrib.i16>
+i32 = <attrib.i32>
+i64 = <attrib.i64>
+u8  = <attrib.u8>
+u16 = <attrib.u16>
+u32 = <attrib.u32>
+u64 = <attrib.u64>
+s   = <attrib.s><\n>
+>>
+
+// Simple, linear struct array.
+structAry(ary) ::= <<
+<ary:{struct|<struct.i64>}; separator="-">
+>>
+
+// 2-d array of structs. Actually a linear array of rows.
+structAryAry(M) ::= <<
+<M:row()>
+>>
+// 1-d array of structs. Can be a row of the 2-d array.
+row(r) ::= <<
+<r:{struct|(<struct.u8>,<struct.i8>)}; separator=" "><\n>
+>>

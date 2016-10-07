@@ -92,18 +92,37 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   value is associated with the key. A template can use the map access
 %                   expression like <map.key> to access the value. This is syntactically
 %                   identical with accessing a field of a real Java struct (which cannot be
-%                   build dynamically at run-time). Most constructs behave exactely as it
-%                   would for real Java struct objects - with the important exception of an
-%                   iteration. <obj:handleIt()> would pass the entire obj to the sub
-%                   template handleIt if obj is a real Java struct but will iterate all
-%                   keys of the map in case obj is a map; handleIt will be called
-%                   repeatedly, once for each key. Since we use the map as a model of the
-%                   Octave struct it means that the expression effectively is an iteration
-%                   along all fields of the original Octave struct. This makes it difficult
-%                   if not impossible to have templates operating on arrays of Octave
-%                   structs. (While cell arrays of Octace structs are uncritical.)
+%                   build dynamically at run-time). Most template constructs behave
+%                   exactely as it would for real Java struct objects - with the important
+%                   exception of an iteration. <obj:handleIt()> would pass the entire obj
+%                   to the sub template handleIt if obj is a real Java struct but will
+%                   iterate all keys of the map in case obj is a map; handleIt will be
+%                   called repeatedly, once for each key. Since we use the map as a model
+%                   of the Octave struct it means that the expression effectively is an
+%                   iteration along all fields of the original Octave struct. This makes it
+%                   difficult if not impossible to have templates operating on arrays of
+%                   Octave structs. (While cell arrays of Octave structs are less
+%                   critical.)
 %                     Two dimensional arrays are modeled as an ArrayList of rows, where
-%                   each row is an ArrayList in turn.
+%                   each row is an ArrayList in turn. Here, we encounter a problem if the
+%                   data can have arbitrary size. If a particular 2-d data set has a size
+%                   of 1xn or nx1 then the wrapper can't recoconize any more that this is
+%                   meant a two dimenisonal array and will wrap it as a 1-d vector. It
+%                   depends on the kind of data if a template written for the 2-d data
+%                   model will fail or not. It'll fail with struct objects (wrapped as Java
+%                   Map) but will likely succeed with many other objects. This is exactly
+%                   the same problem as discussed for 1-d arrays of struct objects but now
+%                   cell arrays are affected, too. Work arounds:
+%                     - Strictly avoid the sizes 1xn and nx1 for 2-d data
+%                     - Use 1-d cell arrays of 1-d cell arrays rather than 2-d cell arrays
+%                       already in your data model. This way you can safely model even
+%                       matrices of higher dimensions
+%                     - Wrap the data already in the client code of this function. Consider
+%                       to use the Octave function javaArray to do so. Your Java data
+%                       object would not be modified by this function. It doesn't matter if
+%                       this Java object becomes a StringTemplate template attribute on its
+%                       own or if it is located somewhere inside your larger Octave data
+%                       object
 %                     The elements of (cell) arrays and the fields of structs are processed
 %                   recursively in the same way until the scalar elements are reached.
 %                   These can be the basic data types or self-modeled Java objects.
@@ -269,31 +288,14 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
         name = varargin{i};
         value = varargin{i+1};
 
-        % If the client code has already done some Java wrapping of the input data to the
-        % template then we leave this data unprocessed. Otherwise we bring the data element
-        % into a form, which can be handled by the Octave->Java interface and which is
-        % compatible with the template engine. The transformed data object either is a
-        % Octave object, which we know to be handled properly by the interface (like a
-        % normal floating point value) or it is a Java object created with javaObject(),
-        % e.g. a Java List or other collection object.
-        %   TODO Double check if explicit distinction is required here. Won't a Java object
-        % be considered a scalar, non manipulated object by octave2Java anyway? What about
-        % the iscell, isstruct and size operators on Java objects? Anyway could it be
-        % better to place the decision into octave2Java.
-        if isjava(value)
-            if verbose
-                fprintf(['st4Render: Value of %s (class %s) is passed as is to the'     ...
-                         ' StringTemplate V4 template engine\n']                        ...
-                       , name                                                           ...
-                       , class(value)                                                   ...
-                       );
-            end
-            st.add(name, value);
-        else
-            % We make it either a Java object or a Octave data object, which so close to
-            % Java, that the Octave->Java interface will properly handle it.
-            st.add(name, octave2Java(value, verbose));
-        end
+        % We bring the data element into a form, which can be handled by the Octave->Java
+        % interface and which is compatible with the template engine. If the client code
+        % has already done some Java wrapping of the template input data then the wrapper
+        % function leaves this data unprocessed. Otherwise a transformation takes place
+        % that yields either an Octave object, which we know to be handled properly by the
+        % interface (like a normal floating point value) or a Java object created with
+        % javaObject() (like a Java List or other collection object).
+        st.add(name, octave2Java(value, verbose));
     end
 
     % Render the information using the template. Wrapping the lines of generated output
@@ -374,6 +376,11 @@ function [st4Object] = octave2Java(value, verbose)
     if nargin < 2
         verbose = false;
     end
+    % Data, which is already wrapped as Java object doesn't need further handling.
+    if isjava(value)
+        st4Object = value;
+        return
+    end 
     if isempty(value) && ~iscell(value) && ~isstruct(value)
         % We return the empty Octave object. This is not a Java null but will be translated
         % by the Octave->Java interface accordingly.
