@@ -1,0 +1,181 @@
+//
+// displayProg.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Compiler back-end: Generate C code from enhanced parse tree.
+//
+// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+import "mod.stg"
+
+generateCode(p) ::= <<
+<variablesDef(p.listVariablesWr)><\\>
+<codeSequence(p.parseTree)><\n>
+>>
+
+variablesDef(listVariablesWr) ::= <<
+<if(listVariablesWr)>
+% List of initialized variables.
+<listVariablesWr:{name|<name> = 0;<\n>}><\\>
+
+<endif>
+>>
+
+// The following variables is not assigned any value in the source program. We consider
+// them system inputs and connect them to the application interface.
+applicationInterfaceEntry(listVariablesRd) ::= <<
+<listVariablesRd:{name|<name>}; separator=", ">
+>>
+
+// All assigned variables are function outputs.
+applicationInterfaceExit(listVariablesWr) ::= <<
+<listVariablesWr:{name|<name>}; separator=" ">
+>>
+
+codeSequence(t) ::= <<
+<t:statement()>
+>>
+
+statement(s) ::= <<
+<if(s.isComment)>% <s.expr>
+<elseif(s.isLoop)>while true
+  <codeSequence(s.seq)>
+end
+<elseif(s.isBreak)>break
+<elseif(s.isIf)><\\>
+<expression(s.expr)><\\>
+if <valueOfExpr(s.expr)>
+    <codeSequence(s.seq)><\\>
+<if(s.seqElse)>else
+    <codeSequence(s.seqElse)><\\>
+<endif>
+end
+<elseif(s.isAssignment)><\\>
+<expression(s.expr)><\\>
+<s.variable> = <valueOfExpr(s.expr)>;
+<endif>
+>>
+
+operation ::=
+    [ "or": "||"
+    , "and": "&&"
+    , "eq": "=="
+    , "neq": "~="
+    , "lt": "<"
+    , "leq": "<="
+    , "gt": ">"
+    , "geq": ">="
+    , "add": "+"
+    , "sub": "-"
+    , "mul": "*"
+    , "div": false
+    , "mod": false
+    , default: "internal error, unknown operation encountered"
+    ]
+operationAsFct ::=
+    [ "div": "idivide"
+    , "mod": "cmod"
+    , default: "internal error, unknown operation encountered"
+    ]
+
+expression(e) ::= <<
+<if(e.operation)><\\>
+<expression(e.leftExpr)><\\>
+<expression(e.rightExpr)><\\>
+<if(!e.leftExpr.operation)><load(e)><endif><\\>
+<tmpVar(e.depth)> = <if(operation.(e.operation))><tmpVar(e.depth)> <operation.(e.operation)> <valueOfExpr(e.rightExpr)>;;<else><operationAsFct.(e.operation)>(<tmpVar(e.depth)>, <valueOfExpr(e.rightExpr)>);<endif>
+<endif>
+>>
+
+load(e) ::= <<
+<tmpVar(e.depth)> = <valueOfExpr(e.leftExpr)>;<\n>
+>>
+
+valueOfExpr(e) ::= "<if(e.operation)><tmpVar(e.depth)><elseif(e.number)><e.number><elseif(e.variable)><e.variable><endif>"
+
+
+tmpVar(idx) ::= <<
+_R<idx; format="%02d">
+>>
+
+
+// M file generation: Configure the elements of the module template.
+
+@modM.signature() ::= <<
+[<applicationInterfaceExit(p.listVariablesWr)>] = <info.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
+>>
+
+@modM.description() ::= <<
+<if(first(p.parseTree).isComment)>
+%                   <first(p.parseTree).expr><\n><endif>
+%
+%                   This Octave script implements the program written in the fictive
+%                   computer language. The structure of the compiler output resembles
+%                   machine code as much as possible for this compilation target:
+%                   Expression evaluation can be implemented as sequence of basic
+%                   instructions but the program flow can't be resolved; equivalents to the
+%                   jump and branch instructions of a machine instruction set aren't
+%                   available and we still need structural language elements like loops and
+%                   conditional clauses.
+%
+%                   The program can be run with variable values provided as function
+%                   arguments, see below. All values are signed integers.
+>>
+
+@modM.inputArguments() ::= <<
+%       <applicationInterfaceEntry(p.listVariablesRd)>
+%                   These are the input variables of the compiled program. Input variables
+%                   are considered all those variables, which are not at all assigned in
+%                   the program.
+%
+%                   Use these variables to control your program.
+>>
+
+@modM.returnArguments() ::= <<
+%       <applicationInterfaceExit(p.listVariablesWr)>
+%                   All variables of the compiled program, which are assigned a value in
+%                   the course of the program run, are considered outputs. All of these are
+%                   returned by this Octave function that implements the compiled program.
+>>
+
+@modM.throws() ::= <<
+%                   No errors are thrown
+>>
+
+@modM.examples() ::= <<
+%       [<applicationInterfaceExit(p.listVariablesWr)>] = <info.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
+>>
+
+@modM.code() ::= <<
+    <generateCode(p)>
+>>
+
+@modM.localCode() ::= <<
+<\n><\n>
+function [remainder] = cmod(a, b)
+% This function computes the remainder of a quotient with same sign definition as known for
+% the language C.
+    remainder = mod(abs(a), abs(b));
+    if a \< 0
+        remainder = -remainder;
+    end
+end % cmod
+>>
+
+main(info,p) ::= "<modM()>"
+
