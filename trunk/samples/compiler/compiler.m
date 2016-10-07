@@ -69,8 +69,14 @@ function [success msg p] = compiler(programFile, sourceFile)
 
     p = [];
     try
+        % Read the entire source file into a string.
         s = file(sourceFile);
+        
+        % Create the parse tree from the input.
         p = parser(s);
+        
+        % Enhance the parse tree with additional information required for target code
+        % generation. The parse tree is modified in place.
         p = analyzer(p);
         
         % To support the development of the compiler's ST4 templates we enforce re-loading
