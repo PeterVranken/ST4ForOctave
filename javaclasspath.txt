@@ -13,5 +13,4 @@
 % TODO Replace <installDirOfST4InterfaceForOctave> with your actual path
 <installDirOfST4InterfaceForOctave>\StringTemplate\ST-4.0.8.jar
 <installDirOfST4InterfaceForOctave>\samples
-<installDirOfST4InterfaceForOctave>\samples\templates
 <installDirOfST4InterfaceForOctave>\samples\compiler\templates
