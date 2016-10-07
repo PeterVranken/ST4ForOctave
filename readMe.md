@@ -94,9 +94,3 @@ The interface can be used with MATLAB, too. Besides the documented
 limitations of the StringTemplate V4 interface itself lack elder MATLAB
 revisions the 64 Bit integer operations, which are required to run some of
 the samples.
-
-As of today, Sep 30, 2016, no archive has been created for the SourceForge
-download page, which would bundle all required files in a stable revision.
-Testing and documentation has not been completed yet. For now, you will
-need to checkout the files from the SVN repository -- the single file
-`st4Render.m` will already suffice for experienced users.
