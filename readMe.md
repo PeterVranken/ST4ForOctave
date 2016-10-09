@@ -46,13 +46,13 @@ generation.
 
     -   the StringTemplate V4 jar file, `ST-4.0.8.jar`
     -   all directories with template files (`*.stg`)
-    
+
     The current Java class path can be double-checked with typing
     `javaclasspath` in the Octave command line window.
-    
+
     Some of the sample use absolute paths
     for template group files and are not affected, but
-    
+
     Several ways exist to modify the Java class path of Octave. You may do
     this on the fly with Octave command `javaaddpath` or you rely on the
     startup file `javaclasspath.txt`. We provide you a template for this
@@ -62,19 +62,19 @@ generation.
     should consult
     <https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html>
     to get the whole story on setting the Java class path
-    
+
 -   In Octave, `cd` to directory `samples` and run the different M scripts.
     They will easily throw an error if something is still wrong with the
     paths! Open the scripts in a text editor and find out what they want
     to demonstrate
 -   If the basic samples are running well you can have a closer look at
     the major sample `compiler`
-    
+
 ## **CAUTION**: Problems using Octave 4.0.3 for Windows? ##
 
 Using Octave 4.0.3 under Windows 7 we saw a very strange
 and untransparent dependency of the class path handling on the order
-of submitted Octave commands. 
+of submitted Octave commands.
 
 There seems to be an untransparent, malicious impact of using the command
 `javaclasspath`. See what happened. Each command sequence shown down here
@@ -82,14 +82,12 @@ was submitted in a new Octave session, i.e. the Octave application was
 reopened every time. The first two times, a properly configured file
 `javaclasspath.txt` was in place:
 
-~~~~~~~~~~~~~~~
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-testST4Render % Running the sample fails, java.lang.ClassNotFoundException
-javaclasspath % Shows empty static and dynamic class path
-addOctavePaths % Sets and displays correct dynamic CP, static CP is empty
-testST4Render % Re-running the sample succeeds
-~~~~~~~~~~~~~~~
+1.  `addpath(pwd) % Make Octave find st4Render.m`
+2.  `cd samples % Go to the sample`
+3.  `testST4Render % Running the sample fails, java.lang.ClassNotFoundException`
+4.  `javaclasspath % Shows empty static and dynamic class path`
+5.  `addOctavePaths % Sets and displays correct dynamic CP, static CP is empty`
+6.  `testST4Render % Re-running the sample succeeds`
 
 Although the static class path should be set because of the file
 `javaclassptha.txt` the Java virtual machine didn't find the
@@ -99,15 +97,13 @@ the static class path is empty. Where has it gone? In the second test --
 Octave re-opened -- we begin with double-checking the (static) class path,
 which should be configured by `javaclasspath.txt`:
 
-~~~~~~~~~~~~~~~
-javaclasspath % Displays correct static CP and empty dynamic CP
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-testST4Render % Running the sample fails, java.io.FileNotFoundException
-javaclasspath % Shows unchanged static and dynamic class paths
-addOctavePaths % Sets and shows correct dynamic CP, static CP is unchanged
-testST4Render % Re-running the sample still fails, group file not found
-~~~~~~~~~~~~~~~
+1.  `javaclasspath % Displays correct static CP and empty dynamic CP`
+2.  `addpath(pwd) % Make Octave find st4Render.m`
+3.  `cd samples % Go to the sample`
+4.  `testST4Render % Running the sample fails, java.io.FileNotFoundException`
+5.  `javaclasspath % Shows unchanged static and dynamic class paths`
+6.  `addOctavePaths % Sets and shows correct dynamic CP, static CP is unchanged`
+7.  `testST4Render % Re-running the sample still fails, group file not found`
 
 Only by displaying the class paths at the beginning the behavior changes.
 Now the Java virtual machine finds the StringTemplate V4 engine and runs
@@ -119,12 +115,10 @@ The situation is similar without a `javaclasspath.txt` in the Octave start
 directory. See the next two command sequences. The sample works well in
 the third sequence:
 
-~~~~~~~~~~~~~~~
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-addOctavePaths % Sets and shows correct dynamic CP, static CP is empty
-testST4Render % Sample succeeds
-~~~~~~~~~~~~~~~
+1.  `addpath(pwd) % Make Octave find st4Render.m`
+2.  `cd samples % Go to the sample`
+3.  `addOctavePaths % Sets and shows correct dynamic CP, static CP is empty`
+4.  `testST4Render % Sample succeeds`
 
 Only by issuing a 'javaclasspath' as very first command the behavior
 changes. The command `addOctavePaths` displays the wanted class path and
@@ -133,13 +127,11 @@ StringTemplate V4 jar file and class but the Java class StringTemplate
 can't locate the group file. Healing by repetition of addOctavePaths isn't
 possible in this situation.
 
-~~~~~~~~~~~~~~~
-javaclasspath % Shows empty static and dynamic class paths
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-addOctavePaths % Sets and shows correct dynamic CP, static CP is empty
-testST4Render % Running the sample fails, java.io.FileNotFoundException
-~~~~~~~~~~~~~~~
+1.  `javaclasspath % Shows empty static and dynamic class paths`
+2.  `addpath(pwd) % Make Octave find st4Render.m`
+3.  `cd samples % Go to the sample`
+4.  `addOctavePaths % Sets and shows correct dynamic CP, static CP is empty`
+5.  `testST4Render % Running the sample fails, java.io.FileNotFoundException`
 
 From the observations is looks as if the initial submission of command
 `javaclasspath` would freeze the static class path somehow, while an
