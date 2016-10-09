@@ -8,6 +8,5 @@ addpath(fullfile(here, '..'));
 javaaddpath(fullfile(here, '../StringTemplate/ST-4.0.8.jar'));
 % Find the template group files.
 javaaddpath(here);
-%javaaddpath(fullfile(here, 'templates'));
 disp('Java class path:')
 javaclasspath
