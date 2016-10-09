@@ -139,29 +139,123 @@ function testST4Render
     txt = st4Render('testST4Render.stg', 'row', 'r', structAry(:,2));
     assert(strcmp(txt, expectation), 'Test case failed: 1-d vertical struct array')
     % A horizontal extract.
-    vcAry = cellAry(3,:);
+    hcAry = cellAry(3,:);
     expectation = ['(3,1) (3,2) (3,3) (3,4) (3,5) (3,6) (3,7) (3,8) (3,9) (3,10) (3,11)' ...
                    ' (3,12) (3,13)' EOL];
-    txt = st4Render('testST4Render.stg', 'row', 'r', vcAry);
+    txt = st4Render('testST4Render.stg', 'row', 'r', hcAry);
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal cell array')
     txt = st4Render('testST4Render.stg', 'row', 'r', structAry(3,:));
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal struct array')
     % Length 2, cell
-    vcAry = vcAry([3 7]);
+    hcAry = hcAry([3 7]);
     expectation = ['(3,3) (3,7)' EOL];
-    txt = st4Render('testST4Render.stg', 'row', 'r', vcAry);
+    txt = st4Render('testST4Render.stg', 'row', 'r', hcAry);
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal cell array, len=2')
     % Length 1, cell
-    vcAry = vcAry([1]);
+    hcAry = hcAry([1]);
     expectation = ['(3,3)' EOL];
-    txt = st4Render('testST4Render.stg', 'row', 'r', vcAry);
+    txt = st4Render('testST4Render.stg', 'row', 'r', hcAry);
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal cell array, len=1')
     % Length 0, cell
-    vcAry = {};
+    hcAry = {};
     expectation = ['' EOL];
-    txt = st4Render('testST4Render.stg', 'row', 'r', vcAry);
+    txt = st4Render('testST4Render.stg', 'row', 'r', hcAry);
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal cell array, len=0')
     
+    % A 2-d cell array with size nx1: The template won't return a reasonable result as it
+    % doesn't get nested ArayList Objects as rows. Trying the iteration of the instaed
+    % received scalar Map objects yields empty template expressions - as many times as
+    % there are fields.
+    vcAry = cellAry(:,2);
+    expectation = [repmat('(,) ', 1, length(fieldnames(attrib))-1) '(,)' EOL];
+    expectation = repmat(expectation, 1, size(vcAry,1));
+    txt = st4Render('testST4Render.stg', 'structAryAry', 'M', vcAry);
+    assert(strcmp(txt, expectation), 'Test case failed:  nx1 cell array')
+    
+    % The not-regonized 2-d array in case of special sizes 1xn and nx1 can be avoided by
+    % using cell arrays of row cell arrays. Let's begin with a mxn with n,m ~= 1.
+    cAryAry = cell(0,1);
+    for rowIdx = [2 3 5 9]
+        cAryAry{end+1,1} = cellAry(rowIdx,:);
+    end
+    expectation = [ ...
+'(2,1) (2,2) (2,3) (2,4) (2,5) (2,6) (2,7) (2,8) (2,9) (2,10) (2,11) (2,12) (2,13)' EOL ...
+'(3,1) (3,2) (3,3) (3,4) (3,5) (3,6) (3,7) (3,8) (3,9) (3,10) (3,11) (3,12) (3,13)' EOL ...
+'(5,1) (5,2) (5,3) (5,4) (5,5) (5,6) (5,7) (5,8) (5,9) (5,10) (5,11) (5,12) (5,13)' EOL ...
+'(9,1) (9,2) (9,3) (9,4) (9,5) (9,6) (9,7) (9,8) (9,9) (9,10) (9,11) (9,12) (9,13)' EOL ...
+];
+    txt = st4Render('testST4Render.stg', 'structAryAry', 'M', cAryAry);
+    assert(strcmp(txt, expectation), 'Test case failed: 2-d cell array of cell array')
+    % The same with a single row.
+    cAryAry = cAryAry(2,:);
+    expectation = [ ...
+'(3,1) (3,2) (3,3) (3,4) (3,5) (3,6) (3,7) (3,8) (3,9) (3,10) (3,11) (3,12) (3,13)' EOL ...
+];
+    txt = st4Render('testST4Render.stg', 'structAryAry', 'M', cAryAry);
+    assert(strcmp(txt, expectation), 'Test case failed: 2-d cell array of cell array')
+
+    % Use Java objects. st4Render should only pass these on. 'Struct' is a simple class
+    % defined in this directory by compiled Java source code.
+    javaAryAry = javaArray('Struct', 7, 5);
+    for r=1:7
+        for c=1:5
+            javaAryAry(r,c) = javaObject('Struct');
+            setfield(javaAryAry(r,c), 'name',  ['r' num2str(r) 'c' num2str(c)]);
+            setfield(javaAryAry(r,c), 'value', (c-1)+(r-1)*5+1);
+            setfield(javaAryAry(r,c), 'asInt', int32(getfield(javaAryAry(r,c), 'value')));
+        end
+    end
+    expectation = [ ...
+'r1c1:1.00=1 r1c2:2.00=2 r1c3:3.00=3 r1c4:4.00=4 r1c5:5.00=5' EOL ...
+'r2c1:6.00=6 r2c2:7.00=7 r2c3:8.00=8 r2c4:9.00=9 r2c5:10.00=10' EOL ...
+'r3c1:11.00=11 r3c2:12.00=12 r3c3:13.00=13 r3c4:14.00=14 r3c5:15.00=15' EOL ...
+'r4c1:16.00=16 r4c2:17.00=17 r4c3:18.00=18 r4c4:19.00=19 r4c5:20.00=20' EOL ...
+'r5c1:21.00=21 r5c2:22.00=22 r5c3:23.00=23 r5c4:24.00=24 r5c5:25.00=25' EOL ...
+'r6c1:26.00=26 r6c2:27.00=27 r6c3:28.00=28 r6c4:29.00=29 r6c5:30.00=30' EOL ...
+'r7c1:31.00=31 r7c2:32.00=32 r7c3:33.00=33 r7c4:34.00=34 r7c5:35.00=35' EOL ...
+];
+    txt = st4Render('testST4Render.stg', 'javaAryAry', 'M', javaAryAry);
+    assert(strcmp(txt, expectation), 'Test case failed: 2-d Java array')
+    
+    % This technique should work for 1xn and nx1, too. Even if the template receives a
+    % linear array only, and even if the rows are no lists but single objects, will the
+    % iteration along the row object succeed.
+    javaAryAry = javaArray('Struct', 1, 5);
+    for r=1
+        for c=1:5
+            javaAryAry(r,c) = javaObject('Struct');
+            setfield(javaAryAry(r,c), 'name',  ['r' num2str(r) 'c' num2str(c)]);
+            setfield(javaAryAry(r,c), 'value', (c-1)+(r-1)*5+1);
+            setfield(javaAryAry(r,c), 'asInt', int32(getfield(javaAryAry(r,c), 'value')));
+        end
+    end
+    expectation = [ ...
+'r1c1:1.00=1 r1c2:2.00=2 r1c3:3.00=3 r1c4:4.00=4 r1c5:5.00=5' EOL ...
+];
+    txt = st4Render('testST4Render.stg', 'javaAryAry', 'M', javaAryAry);
+    assert(strcmp(txt, expectation), 'Test case failed: 2-d Java array')
+    % A vertical Java array.
+    javaAryAry = javaArray('Struct', 7, 1);
+    for r=1:7
+        for c=1
+            javaAryAry(r,c) = javaObject('Struct');
+            setfield(javaAryAry(r,c), 'name',  ['r' num2str(r) 'c' num2str(c)]);
+            setfield(javaAryAry(r,c), 'value', (c-1)+(r-1)*1+1);
+            setfield(javaAryAry(r,c), 'asInt', int32(getfield(javaAryAry(r,c), 'value')));
+        end
+    end
+    expectation = [ ...
+'r1c1:1.00=1' EOL ...
+'r2c1:2.00=2' EOL ...
+'r3c1:3.00=3' EOL ...
+'r4c1:4.00=4' EOL ...
+'r5c1:5.00=5' EOL ...
+'r6c1:6.00=6' EOL ...
+'r7c1:7.00=7' EOL ...
+];
+    txt = st4Render('testST4Render.stg', 'javaAryAry', 'M', javaAryAry);
+    assert(strcmp(txt, expectation), 'Test case failed: 2-d Java array')
+
 end % of function testST4Render.
 
 
