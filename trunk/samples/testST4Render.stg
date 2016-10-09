@@ -63,3 +63,12 @@ structAryAry(M) ::= <<
 row(r) ::= <<
 <r:{struct|(<struct.u8>,<struct.i8>)}; separator=" "><\n>
 >>
+
+
+javaAryAry(M) ::= <<
+<M:rowStruct()>
+>>
+// 1-d array of Java objects Struct. Can be a row of the 2-d array.
+rowStruct(r) ::= <<
+<r:{struct|<struct.name>:<struct.value; format="%.2f">=<struct.asInt>}; separator=" "><\n>
+>>
