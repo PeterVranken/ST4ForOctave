@@ -44,32 +44,40 @@
 <h2 id="caution-problems-using-octave-4.0.3-for-windows"><strong>CAUTION</strong>: Problems using Octave 4.0.3 for Windows?</h2>
 <p>Using Octave 4.0.3 under Windows 7 we saw a very strange and untransparent dependency of the class path handling on the order of submitted Octave commands.</p>
 <p>There seems to be an untransparent, malicious impact of using the command <code>javaclasspath</code>. See what happened. Each command sequence shown down here was submitted in a new Octave session, i.e. the Octave application was reopened every time. The first two times, a properly configured file <code>javaclasspath.txt</code> was in place:</p>
-<pre><code>addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-testST4Render % Running the sample fails, java.lang.ClassNotFoundException
-javaclasspath % Shows empty static and dynamic class path
-addOctavePaths % Sets and displays correct dynamic CP, static CP is empty
-testST4Render % Re-running the sample succeeds</code></pre>
+<ol type="1">
+<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
+<li><code>cd samples % Go to the sample</code></li>
+<li><code>testST4Render % Running the sample fails, java.lang.ClassNotFoundException</code></li>
+<li><code>javaclasspath % Shows empty static and dynamic class path</code></li>
+<li><code>addOctavePaths % Sets and displays correct dynamic CP, static CP is empty</code></li>
+<li><code>testST4Render % Re-running the sample succeeds</code></li>
+</ol>
 <p>Although the static class path should be set because of the file <code>javaclassptha.txt</code> the Java virtual machine didn’t find the StringTemplate V4 jar file and class. Healing by setting the dynamic class path was possible. It’s however striking that after setting the dynamic class path the static class path is empty. Where has it gone? In the second test – Octave re-opened – we begin with double-checking the (static) class path, which should be configured by <code>javaclasspath.txt</code>:</p>
-<pre><code>javaclasspath % Displays correct static CP and empty dynamic CP
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-testST4Render % Running the sample fails, java.io.FileNotFoundException
-javaclasspath % Shows unchanged static and dynamic class paths
-addOctavePaths % Sets and shows correct dynamic CP, static CP is unchanged
-testST4Render % Re-running the sample still fails, group file not found</code></pre>
+<ol type="1">
+<li><code>javaclasspath % Displays correct static CP and empty dynamic CP</code></li>
+<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
+<li><code>cd samples % Go to the sample</code></li>
+<li><code>testST4Render % Running the sample fails, java.io.FileNotFoundException</code></li>
+<li><code>javaclasspath % Shows unchanged static and dynamic class paths</code></li>
+<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is unchanged</code></li>
+<li><code>testST4Render % Re-running the sample still fails, group file not found</code></li>
+</ol>
 <p>Only by displaying the class paths at the beginning the behavior changes. Now the Java virtual machine finds the StringTemplate V4 engine and runs it but StringTemplate V4 doesn’t find the group file (which is however in the displayed static class path). Healing by setting the dynamic class path is impossible, the behavior is unchanged.</p>
 <p>The situation is similar without a <code>javaclasspath.txt</code> in the Octave start directory. See the next two command sequences. The sample works well in the third sequence:</p>
-<pre><code>addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-addOctavePaths % Sets and shows correct dynamic CP, static CP is empty
-testST4Render % Sample succeeds</code></pre>
+<ol type="1">
+<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
+<li><code>cd samples % Go to the sample</code></li>
+<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is empty</code></li>
+<li><code>testST4Render % Sample succeeds</code></li>
+</ol>
 <p>Only by issuing a ‘javaclasspath’ as very first command the behavior changes. The command <code>addOctavePaths</code> displays the wanted class path and the class path is alright to let the Java virtual machine find the StringTemplate V4 jar file and class but the Java class StringTemplate can’t locate the group file. Healing by repetition of addOctavePaths isn’t possible in this situation.</p>
-<pre><code>javaclasspath % Shows empty static and dynamic class paths
-addpath(pwd) % Make Octave find st4Render.m
-cd samples % Go to the sample
-addOctavePaths % Sets and shows correct dynamic CP, static CP is empty
-testST4Render % Running the sample fails, java.io.FileNotFoundException</code></pre>
+<ol type="1">
+<li><code>javaclasspath % Shows empty static and dynamic class paths</code></li>
+<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
+<li><code>cd samples % Go to the sample</code></li>
+<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is empty</code></li>
+<li><code>testST4Render % Running the sample fails, java.io.FileNotFoundException</code></li>
+</ol>
 <p>From the observations is looks as if the initial submission of command <code>javaclasspath</code> would freeze the static class path somehow, while an earlier use of <code>javaaddpath</code> (as part of our <code>addOctavePaths</code>) seems to discard it. First setting the dynamic class path and then issuing <code>javaclasspath</code> shows an empty static class path. Furthermore, the Java class StringTemplate seems to find template files only through the dynamic class path and only if the static class path has not been “frozen” before.</p>
 <p>As a conclusion and if your environment shows the same behavior, a recipe could be:</p>
 <ul>
