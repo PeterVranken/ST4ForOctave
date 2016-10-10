@@ -72,3 +72,9 @@ javaAryAry(M) ::= <<
 rowStruct(r) ::= <<
 <r:{struct|<struct.name>:<struct.value; format="%.2f">=<struct.asInt>}; separator=" "><\n>
 >>
+
+structWithJavaAryAry(s) ::= <<
+Name: <s.name> (ID: <s.id>)
+<javaAryAry(s.map)><\\>
+Size: <s.size>
+>>
