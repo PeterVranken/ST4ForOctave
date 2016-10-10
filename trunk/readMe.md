@@ -25,7 +25,7 @@ engine.
 The interface presented automates this concept. It wraps widely arbitrary
 Octave data objects with appropriate Java data types and collections.
 While this is straight forward for linear lists (e.g. using a
-java.util.ArrayList) does it need much more consideration when it comes to
+`java.util.ArrayList`) does it need much more consideration when it comes to
 Octave struct objects with run-time defined fields (i.e. no compiled Java
 class is available by principle). All the processing is done recursively so
 that deeply nested data objects can be passed to the template engine
@@ -35,6 +35,11 @@ A major sample presents a compiler fragment, which passes its complete
 parse tree as a single "attribute" -- the rendered data object in the
 terminology of StringTemplate -- to the template engine for code
 generation.
+
+# Current revision #
+
+The current revision of the downloadable files is SVN r13. Please refer to
+the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
