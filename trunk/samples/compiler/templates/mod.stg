@@ -31,7 +31,7 @@ modC() ::= <<
  *
 <@description()>
  *
- * This file has been created with st4Render.m, see
+ * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>
@@ -100,7 +100,7 @@ modH() ::= <<
  *
 <@description()>
  *
- * This file has been created with st4Render.m, see
+ * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>

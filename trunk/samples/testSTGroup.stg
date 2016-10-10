@@ -82,11 +82,11 @@ octaveVersion(ver) ::= <<
 // Test of recursive, generic rendering of MATLAB data requires an also recursive template
 // expansion. Show all leaves of a data structure of lists and maps.
 genericDataStructure(d) ::= <<
-<if(first(d) && d.(first(d)))>
+<if(first(d))><if(d.(first(d)))>
 struct:
   <d:{key|<key> = <genericDataStructure(d.(key))><\n>}><\\>
 end of struct
-<elseif(rest(d))>
+<endif><endif><if(rest(d))>
 list (<length(d)> elements):
   <d:{elem|<genericDataStructure(elem)><\n>}><\\>
 end of list
