@@ -288,8 +288,8 @@ function testST4Render
     expectation = ['Name: ' s.name ' (ID: ' sprintf('%.1f', s.id) ')' EOL ...
                    expectation ...
                    'Size: ' sprintf('%d', s.size) ...
-                  ]
-    txt = st4Render('testST4Render.stg', 'structWithJavaAryAry', 's', s)
+                  ];
+    txt = st4Render('testST4Render.stg', 'structWithJavaAryAry', 's', s);
     assert(strcmp(txt, expectation), 'Test case failed: Octave struct with Java object');
     
 end % of function testST4Render.

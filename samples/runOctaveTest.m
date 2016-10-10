@@ -16,6 +16,8 @@
 %   You should have received a copy of the GNU General Public License along
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
+addOctavePaths
+
 % Force reloading of template files.
 st4Render('clear', true);
 
@@ -90,12 +92,13 @@ disp(['Recursive data structure:' char(10) text])
 % Render the empty object and an array with empty elements.
 text = st4Render(tFile, false, '/genericDataStructure', 'd', []);
 disp(['[]:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', {1 [] 2 [] 3 {} 4});
-disp(['[..]:' char(10) text])
+text = st4Render(tFile, false, '/genericDataStructure', 'd', {});
+disp(['{}:' char(10) text])
 text = st4Render(tFile, false, '/genericDataStructure', 'd', NaN);
 disp(['NaN:' char(10) text])
 text = st4Render(tFile, false, '/genericDataStructure', 'd', inf);
 disp(['inf:' char(10) text])
 text = st4Render(tFile, false, '/genericDataStructure', 'd', [1 inf 2 NaN 3]);
 disp(['[NaN ... inf]:' char(10) text])
-
+text = st4Render(tFile, false, '/genericDataStructure', 'd', {1 [] 2 [] 3 {} 4});
+disp(['[..]:' char(10) text])

@@ -3,10 +3,10 @@
 StringTemplate-for-Octave is a SourceForge open source project, which
 presents an interface between GNU Octave (<http://www.Octave.org>) and
 StringTemplate V4 (<http://www.stringtemplate.org>). Although Octave is
-basically an environment for data processing and development of
-mathematical algorithms is it due to its convenient and very efficient
-scripting language well suited for general scripting and text processing,
-too. (Here, "very efficient" is meant in terms of development effort and
+basically an environment for data analysis and development of mathematical
+algorithms is it due to its convenient and very efficient scripting
+language well suited for general scripting and text processing, too.
+(Here, "very efficient" is meant in terms of development effort and
 progress.) In this context, a template engine is a useful component.
 
 StringTemplate V4 is a popular Java implementation of a powerful and
@@ -25,11 +25,11 @@ engine.
 The interface presented automates this concept. It wraps widely arbitrary
 Octave data objects with appropriate Java data types and collections.
 While this is straight forward for linear lists (e.g. using a
-`java.util.ArrayList`) does it need much more consideration when it comes to
-Octave struct objects with run-time defined fields (i.e. no compiled Java
-class is available by principle). All the processing is done recursively so
-that deeply nested data objects can be passed to the template engine
-just like that.
+`java.util.ArrayList`) does it need much more consideration when it
+comes to Octave struct objects with run-time defined fields (i.e. no
+compiled Java class is available by principle). All the processing is done
+recursively so that deeply nested data objects can be passed to the
+template engine just like that.
 
 A major sample presents a compiler fragment, which passes its complete
 parse tree as a single "attribute" -- the rendered data object in the
@@ -38,7 +38,7 @@ generation.
 
 # Current revision #
 
-The current revision of the downloadable files is SVN r13. Please refer to
+The current revision of the downloadable files is SVN r14. Please refer to
 the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
