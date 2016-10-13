@@ -1,12 +1,12 @@
 function [success msg p] = compiler(programFile, sourceFile)
 
-%   compiler() - This sample implements the compiler for a most simple demonstrative
+%   compiler() -    This sample implements the compiler for a most simple demonstrative
 %                   computer language. A handwritten parser is connected to a
 %                   StringTemplate V4 back-end. The use of a template engine permits easy
 %                   configuration of different output formats; in our sample the compiler
 %                   does a translation in a sequence of either simple C statements or
-%                   simple M script statements. This permits immediate try out. However, the
-%                   structure of the generated code is such simple that it would be
+%                   simple M script statements. This permits immediate try out. However,
+%                   the structure of the generated code is such simple that it would be
 %                   compatible with many native machine instruction sets. The compiler
 %                   could be configured for assembler code generation by rewriting the
 %                   templates.
@@ -22,16 +22,16 @@ function [success msg p] = compiler(programFile, sourceFile)
 %                     boolExpr ::= sumExpr [('=' | '<>' | '<' | '>' | '<=' | '>=') boolExpr]
 %                     sumExpr ::= mulExpr [('+' | '-') sumExpr]
 %                     mulExpr ::= signExpr [('*' | '/' | '%') mulExpr]
-%                     signExpr ::= ['-' | '!'] terminalExpression
+%                     signExpr ::= ['-' | '!'] terminalExpr
 %                     terminalExpr ::= '(' expression ')' | variable | number
 %                     number ::= digit {digit}
 %                     loop ::= 'loop' program 'end'
 %                     if ::= 'if' expression program ['else' program] 'end'
-%                   
+%
 %   Input argument(s):
 %       programFile The generated compiler output. The file name extension decides, which
-%                   template set is used for the back-end: it may be either '.c' or '.m'.
-%       sourceFile  The source code, written in fcl, our 'fictive computer language'.
+%                   template set is used for the back-end: it may be either '.c' or '.m'
+%       sourceFile  The source code, written in our fictive computer language
 %
 %   Return argument(s):
 %       success     Boolean success message
@@ -71,14 +71,14 @@ function [success msg p] = compiler(programFile, sourceFile)
     try
         % Read the entire source file into a string.
         s = file(sourceFile);
-        
+
         % Create the parse tree from the input.
         p = parser(s);
-        
+
         % Enhance the parse tree with additional information required for target code
         % generation. The parse tree is modified in place.
         p = analyzer(p);
-        
+
         % To support the development of the compiler's ST4 templates we enforce re-loading
         % of these in every run of the compiler. Once the development is done this
         % statement should be commented out.
@@ -103,7 +103,7 @@ function [success msg p] = compiler(programFile, sourceFile)
                    ' supported'] ...
                  );
         end
-        
+
         % Pass some information about time, date and files to the template engine for use
         % in the generated text.
         today = date;

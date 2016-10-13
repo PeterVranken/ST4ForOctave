@@ -40,6 +40,23 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   is used the template engine will always receive an array, even an empty
 %                   one if the size of any dimension should be zero.
 %
+%                   The StringTemplate V4 engine claims to handle the end-of-line
+%                   characters always system dependent correct. It'll write different
+%                   character sequences when running the same template with same data on a
+%                   Windows and a Linux machine. This seems a reasonable decision but
+%                   causes problems if the engine is embedded in an environment, which has
+%                   already sorted out this issue. Octave - similar to the C libraries it
+%                   builds on - leaves the system dependent EOL conversion to the low level
+%                   file I/O routine but all the code will simply see and use a newline
+%                   character. When mixing text fragments received from the StringTemplate
+%                   V4 template engine with other Octave scripting sources then a mixture
+%                   of different EOL conventions is highly probable at least on Windows
+%                   machines. There's no proper solution; text produced by the template
+%                   engine should be written binary to file (fopen with 'wb' instead of
+%                   'wt' as usual). If other Octave code produces additional text output
+%                   then this codes needs to become platform aware in order to produce the
+%                   same EOL convention as the template engine does.
+%
 %                   The Java interface of MATLAB has some problems with Java Map. It throws
 %                   an exception when using java.util.TreeMap and fails to operate on keys
 %                   with string length 1 when using HashMap. This has the ugly impact that

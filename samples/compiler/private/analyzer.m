@@ -345,5 +345,11 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
         % of the maximum.
         e.depth = depth;
         maxDepth = max([depth; maxDepthRight; maxDepthLeft]);
+        
+        % The concept of the code generation depends on the fact that left operands are
+        % either immediately available terminals (numbers, variables) or that they are
+        % computet in the same register (the representation of what is here called depth)
+        % as the operation in progress. Double-check this condition.
+        assert(isempty(e.leftExpr.operation) || e.leftExpr.depth == depth);
     end
 end % of function analyseExpr
