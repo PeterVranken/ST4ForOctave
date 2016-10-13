@@ -4,7 +4,7 @@
  * C code generated from program euclid.fcl written in a fictive
  * computer language.
  *
- * This file has been created with st4Render.m, see
+ * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
  * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)

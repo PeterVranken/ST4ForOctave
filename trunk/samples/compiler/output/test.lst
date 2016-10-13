@@ -1,4 +1,4 @@
-GAS LISTING c:\tmp\cct347q3.s 			page 1
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 1
 
 
    1              		.file	"test.c"
@@ -48,7 +48,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
    4:output/test.c ****  * C code generated from program test.fcl written in a fictive
    5:output/test.c ****  * computer language.
    6:output/test.c ****  *
-   7:output/test.c ****  * This file has been created with st4Render.m, see
+   7:output/test.c ****  * This file has been created with help of st4Render.m, see
    8:output/test.c ****  * https://sourceforge.net/projects/stringtemplate-for-octave/
    9:output/test.c ****  *
   10:output/test.c ****  * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
@@ -58,7 +58,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
   14:output/test.c ****  * Free Software Foundation, either version 3 of the License, or (at your
   15:output/test.c ****  * option) any later version.
   16:output/test.c ****  *
-GAS LISTING c:\tmp\cct347q3.s 			page 2
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 2
 
 
   17:output/test.c ****  * This program is distributed in the hope that it will be useful, but
@@ -118,7 +118,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
   71:output/test.c ****  */
   72:output/test.c **** 
   73:output/test.c **** 
-GAS LISTING c:\tmp\cct347q3.s 			page 3
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 3
 
 
   74:output/test.c **** /*
@@ -178,7 +178,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
   97:output/test.c **** 
   98:output/test.c ****     /* The following variables is not assigned any value in the source program
   99:output/test.c ****        test.fcl. We consider them system inputs and connect them to the
-GAS LISTING c:\tmp\cct347q3.s 			page 4
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 4
 
 
  100:output/test.c ****        application interface. */
@@ -238,7 +238,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
   89 00d0 8B44242C 		movl	44(%esp), %eax
   90 00d4 83C001   		addl	$1, %eax
   91 00d7 8D148500 		leal	0(,%eax,4), %edx
-GAS LISTING c:\tmp\cct347q3.s 			page 5
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 5
 
 
   91      000000
@@ -298,7 +298,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  119:output/test.c ****     mul(_R03, -1)
  125              		.loc 1 119 0
  126 0139 F75C241C 		negl	28(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 6
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 6
 
 
  120:output/test.c ****     load(_R02, -7)
@@ -358,7 +358,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  166              		.loc 1 130 0
  167 01ab 8B442440 		movl	64(%esp), %eax
  168 01af 89442428 		movl	%eax, 40(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 7
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 7
 
 
  131:output/test.c ****     store(cntLoops, 0)
@@ -418,7 +418,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  144:output/test.c ****     eq(_R01, 0)
  207              		.loc 1 144 0
  208 020e 837C2420 		cmpl	$0, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 8
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 8
 
 
  208      00
@@ -478,7 +478,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  245 0255 8B442440 		movl	64(%esp), %eax
  246 0259 89442418 		movl	%eax, 24(%esp)
  156:output/test.c ****     eq(_R00, 0)
-GAS LISTING c:\tmp\cct347q3.s 			page 9
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 9
 
 
  247              		.loc 1 156 0
@@ -538,7 +538,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  283      00
  284 02bf 7546     		jne	L19
  285 02c1 EB0D     		jmp	L151
-GAS LISTING c:\tmp\cct347q3.s 			page 10
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 10
 
 
  286              	L16:
@@ -598,7 +598,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  321 0307 E9251300 		jmp	L18
  321      00
  322              	L152:
-GAS LISTING c:\tmp\cct347q3.s 			page 11
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 11
 
 
  323              		.loc 1 182 0
@@ -658,7 +658,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  360 0360 7502     		jne	L26
  361 0362 EB35     		jmp	L28
  362              	L26:
-GAS LISTING c:\tmp\cct347q3.s 			page 12
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 12
 
 
  195:output/test.c ****     load(_R00, x)
@@ -718,7 +718,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  400 03b9 8B442440 		movl	64(%esp), %eax
  401 03bd 89442418 		movl	%eax, 24(%esp)
  208:output/test.c ****     sub(_R00, 1)
-GAS LISTING c:\tmp\cct347q3.s 			page 13
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 13
 
 
  402              		.loc 1 208 0
@@ -778,7 +778,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  433              	L34:
  434              		.loc 1 223 0 discriminator 6
  435 0409 89442420 		movl	%eax, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 14
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 14
 
 
  224:output/test.c ****     eq(_R01, 1)
@@ -838,7 +838,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  475 046e 7507     		jne	L37
  476              		.loc 1 231 0 is_stmt 0 discriminator 2
  477 0470 837C2424 		cmpl	$0, 36(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 15
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 15
 
 
  477      00
@@ -898,7 +898,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  518              		.loc 1 237 0 discriminator 6
  519 04cc 837C2420 		cmpl	$0, 32(%esp)
  519      00
-GAS LISTING c:\tmp\cct347q3.s 			page 16
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 16
 
 
  520 04d1 0F94C0   		sete	%al
@@ -958,7 +958,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  560 0533 7407     		je	L45
  561              		.loc 1 243 0 discriminator 3
  562 0535 B8010000 		movl	$1, %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 17
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 17
 
 
  562      00
@@ -1018,7 +1018,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  603 0591 8B442438 		movl	56(%esp), %eax
  604 0595 89442418 		movl	%eax, 24(%esp)
  250:output/test.c ****     and(_R00, _R01)
-GAS LISTING c:\tmp\cct347q3.s 			page 18
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 18
 
 
  605              		.loc 1 250 0 discriminator 6
@@ -1078,7 +1078,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  255:output/test.c ****     load(_R00, testOkay)
  646              		.loc 1 255 0 discriminator 6
  647 05f4 8B442438 		movl	56(%esp), %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 19
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 19
 
 
  648 05f8 89442418 		movl	%eax, 24(%esp)
@@ -1138,7 +1138,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  688              		.loc 1 261 0 discriminator 4
  689 0656 B8000000 		movl	$0, %eax
  689      00
-GAS LISTING c:\tmp\cct347q3.s 			page 20
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 20
 
 
  690              	L57:
@@ -1198,7 +1198,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  730              		.loc 1 268 0 is_stmt 0 discriminator 1
  731 06ba 837C2430 		cmpl	$0, 48(%esp)
  731      00
-GAS LISTING c:\tmp\cct347q3.s 			page 21
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 21
 
 
  732 06bf 7407     		je	L60
@@ -1258,7 +1258,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  772      00
  773 071b 0F94C0   		sete	%al
  774 071e 0FB6C0   		movzbl	%al, %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 22
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 22
 
 
  775 0721 89442420 		movl	%eax, 32(%esp)
@@ -1318,7 +1318,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  814      00
  815 0784 EB05     		jmp	L67
  816              	L66:
-GAS LISTING c:\tmp\cct347q3.s 			page 23
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 23
 
 
  817              		.loc 1 280 0 discriminator 4
@@ -1378,7 +1378,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  856              		.loc 1 288 0 is_stmt 1 discriminator 6
  857 07e1 8B442418 		movl	24(%esp), %eax
  858 07e5 89442438 		movl	%eax, 56(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 24
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 24
 
 
  289:output/test.c ****     load(_R01, b)
@@ -1438,7 +1438,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  899 084a 89442424 		movl	%eax, 36(%esp)
  298:output/test.c ****     sub(_R02, a)
  900              		.loc 1 298 0 discriminator 6
-GAS LISTING c:\tmp\cct347q3.s 			page 25
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 25
 
 
  901 084e 8B442434 		movl	52(%esp), %eax
@@ -1498,7 +1498,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  941 08b4 0F94C0   		sete	%al
  942 08b7 0FB6C0   		movzbl	%al, %eax
  943 08ba 89442420 		movl	%eax, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 26
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 26
 
 
  307:output/test.c ****     load(_R00, testOkay)
@@ -1558,7 +1558,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  982              		.loc 1 315 0 discriminator 6
  983 0920 8B442438 		movl	56(%esp), %eax
  984 0924 89442418 		movl	%eax, 24(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 27
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 27
 
 
  316:output/test.c ****     and(_R00, _R01)
@@ -1618,7 +1618,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1024              		.loc 1 322 0 discriminator 3
  1025 0988 B8010000 		movl	$1, %eax
  1025      00
-GAS LISTING c:\tmp\cct347q3.s 			page 28
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 28
 
 
  1026 098d EB05     		jmp	L79
@@ -1678,7 +1678,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1066              		.loc 1 329 0 is_stmt 1 discriminator 6
  1067 09ea 8B442418 		movl	24(%esp), %eax
  1068 09ee 89442438 		movl	%eax, 56(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 29
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 29
 
 
  330:output/test.c ****     load(_R01, -1300)
@@ -1738,7 +1738,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1108 0a50 C7442420 		movl	$-1300, 32(%esp)
  1108      ECFAFFFF 
  339:output/test.c ****     div(_R01, _R02)
-GAS LISTING c:\tmp\cct347q3.s 			page 30
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 30
 
 
  1109              		.loc 1 339 0 discriminator 6
@@ -1798,7 +1798,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1149 0aba 99       		cltd
  1150 0abb F77C2424 		idivl	36(%esp)
  1151 0abf 89442420 		movl	%eax, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 31
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 31
 
 
  348:output/test.c ****     eq(_R01, -13)
@@ -1858,7 +1858,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1193 0b25 837C2420 		cmpl	$0, 32(%esp)
  1193      00
  1194 0b2a 0F94C0   		sete	%al
-GAS LISTING c:\tmp\cct347q3.s 			page 32
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 32
 
 
  1195 0b2d 0FB6C0   		movzbl	%al, %eax
@@ -1918,7 +1918,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1234      00
  1235 0b93 740E     		je	L90
  1236              		.loc 1 362 0 is_stmt 0 discriminator 1
-GAS LISTING c:\tmp\cct347q3.s 			page 33
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 33
 
 
  1237 0b95 837C2420 		cmpl	$0, 32(%esp)
@@ -1978,7 +1978,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1276              		.loc 1 369 0 discriminator 4
  1277 0bf5 B8000000 		movl	$0, %eax
  1277      00
-GAS LISTING c:\tmp\cct347q3.s 			page 34
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 34
 
 
  1278              	L93:
@@ -2038,7 +2038,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1318 0c58 89442418 		movl	%eax, 24(%esp)
  378:output/test.c ****     store(testOkay, _R00)
  1319              		.loc 1 378 0 is_stmt 1 discriminator 6
-GAS LISTING c:\tmp\cct347q3.s 			page 35
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 35
 
 
  1320 0c5c 8B442418 		movl	24(%esp), %eax
@@ -2098,7 +2098,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  387:output/test.c ****     load(_R01, 1300)
  1360              		.loc 1 387 0 discriminator 6
  1361 0cc2 C7442420 		movl	$1300, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 36
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 36
 
 
  1361      14050000 
@@ -2158,7 +2158,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1402 0d2c 89C8     		movl	%ecx, %eax
  1403 0d2e C1F81F   		sarl	$31, %eax
  1404 0d31 29C2     		subl	%eax, %edx
-GAS LISTING c:\tmp\cct347q3.s 			page 37
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 37
 
 
  1405 0d33 89D0     		movl	%edx, %eax
@@ -2218,7 +2218,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1447 0d9d C1F81F   		sarl	$31, %eax
  1448 0da0 29C2     		subl	%eax, %edx
  1449 0da2 89D0     		movl	%edx, %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 38
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 38
 
 
  1450 0da4 C1E004   		sall	$4, %eax
@@ -2278,7 +2278,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1491      00
  1492 0e19 7407     		je	L102
  1493              		.loc 1 408 0 discriminator 3
-GAS LISTING c:\tmp\cct347q3.s 			page 39
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 39
 
 
  1494 0e1b B8010000 		movl	$1, %eax
@@ -2338,7 +2338,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1535              		.loc 1 414 0 discriminator 6
  1536 0e7e 89442418 		movl	%eax, 24(%esp)
  415:output/test.c ****     store(testOkay, _R00)
-GAS LISTING c:\tmp\cct347q3.s 			page 40
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 40
 
 
  1537              		.loc 1 415 0 is_stmt 1 discriminator 6
@@ -2398,7 +2398,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1578              		.loc 1 423 0 discriminator 6
  1579 0ee9 8B442420 		movl	32(%esp), %eax
  1580 0eed 3B442434 		cmpl	52(%esp), %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 41
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 41
 
 
  1581 0ef1 0F94C0   		sete	%al
@@ -2458,7 +2458,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1621 0f55 0F94C0   		sete	%al
  1622 0f58 0FB6C0   		movzbl	%al, %eax
  1623 0f5b 89442420 		movl	%eax, 32(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 42
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 42
 
 
  432:output/test.c ****     eq(_R01, 1)
@@ -2518,7 +2518,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1664              		.loc 1 439 0 discriminator 6
  1665 0fc5 8B442438 		movl	56(%esp), %eax
  1666 0fc9 89442418 		movl	%eax, 24(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 43
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 43
 
 
  440:output/test.c ****     and(_R00, _R01)
@@ -2578,7 +2578,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  448:output/test.c ****     and(_R00, _R01)
  1707              		.loc 1 448 0 discriminator 6
  1708 1031 837C2418 		cmpl	$0, 24(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 44
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 44
 
 
  1708      00
@@ -2638,7 +2638,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1749      00
  1750 109b EB05     		jmp	L117
  1751              	L116:
-GAS LISTING c:\tmp\cct347q3.s 			page 45
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 45
 
 
  1752              		.loc 1 454 0 discriminator 4
@@ -2698,7 +2698,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1792              		.loc 1 462 0 discriminator 4
  1793 1101 B8000000 		movl	$0, %eax
  1793      00
-GAS LISTING c:\tmp\cct347q3.s 			page 46
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 46
 
 
  1794              	L119:
@@ -2758,7 +2758,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1834              	L121:
  1835              		.loc 1 470 0 discriminator 6
  1836 116a 89442418 		movl	%eax, 24(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 47
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 47
 
 
  471:output/test.c ****     store(testOkay, _R00)
@@ -2818,7 +2818,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  479:output/test.c ****     add(_R02, 1)
  1878              		.loc 1 479 0 discriminator 6
  1879 11d5 83442424 		addl	$1, 36(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 48
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 48
 
 
  1879      01
@@ -2878,7 +2878,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1919      01
  488:output/test.c ****     load(_R01, a)
  1920              		.loc 1 488 0 discriminator 6
-GAS LISTING c:\tmp\cct347q3.s 			page 49
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 49
 
 
  1921 123e 8B442434 		movl	52(%esp), %eax
@@ -2938,7 +2938,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  1958      00
  1959 12a2 7507     		jne	L128
  1960              		.loc 1 498 0 is_stmt 0 discriminator 2
-GAS LISTING c:\tmp\cct347q3.s 			page 50
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 50
 
 
  1961 12a4 837C2440 		cmpl	$0, 64(%esp)
@@ -2998,7 +2998,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2001 12fd 0F94C0   		sete	%al
  2002 1300 0FB6C0   		movzbl	%al, %eax
  2003 1303 89442424 		movl	%eax, 36(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 51
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 51
 
 
  504:output/test.c ****     load(_R01, 100)
@@ -3058,7 +3058,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2043 135a 8B442440 		movl	64(%esp), %eax
  2044 135e 89442424 		movl	%eax, 36(%esp)
  509:output/test.c ****     eq(_R02, 0)
-GAS LISTING c:\tmp\cct347q3.s 			page 52
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 52
 
 
  2045              		.loc 1 509 0 discriminator 6
@@ -3118,7 +3118,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2084      00
  2085              	L142:
  2086              		.loc 1 513 0 discriminator 6
-GAS LISTING c:\tmp\cct347q3.s 			page 53
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 53
 
 
  2087 13c0 89442418 		movl	%eax, 24(%esp)
@@ -3178,7 +3178,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2126              		.loc 1 518 0 is_stmt 1 discriminator 6
  2127 1417 837C2418 		cmpl	$0, 24(%esp)
  2127      00
-GAS LISTING c:\tmp\cct347q3.s 			page 54
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 54
 
 
  2128 141c 0F95C0   		setne	%al
@@ -3238,7 +3238,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2167 148f 837C2418 		cmpl	$0, 24(%esp)
  2167      00
  2168 1494 0F95C0   		setne	%al
-GAS LISTING c:\tmp\cct347q3.s 			page 55
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 55
 
 
  2169 1497 0FB6C0   		movzbl	%al, %eax
@@ -3298,7 +3298,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2207      00
  2208 150c 0F95C0   		setne	%al
  2209 150f 0FB6C0   		movzbl	%al, %eax
-GAS LISTING c:\tmp\cct347q3.s 			page 56
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 56
 
 
  2210 1512 89442418 		movl	%eax, 24(%esp)
@@ -3358,7 +3358,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2248 1584 0F95C0   		setne	%al
  2249 1587 0FB6C0   		movzbl	%al, %eax
  2250 158a 89442418 		movl	%eax, 24(%esp)
-GAS LISTING c:\tmp\cct347q3.s 			page 57
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 57
 
 
  543:output/test.c ****     and(_R00, 1)
@@ -3418,7 +3418,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2289 15ff 0FB6C0   		movzbl	%al, %eax
  2290 1602 89442418 		movl	%eax, 24(%esp)
  551:output/test.c ****     and(_R00, 1)
-GAS LISTING c:\tmp\cct347q3.s 			page 58
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 58
 
 
  2291              		.loc 1 551 0 discriminator 6
@@ -3478,7 +3478,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2329      00
  2330              	L149:
  2331              		.loc 1 559 0 discriminator 6
-GAS LISTING c:\tmp\cct347q3.s 			page 59
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 59
 
 
  2332 166a 89442418 		movl	%eax, 24(%esp)
@@ -3538,7 +3538,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2364      000000
  2365 16e9 E8000000 		call	_printf
  2365      00
-GAS LISTING c:\tmp\cct347q3.s 			page 60
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 60
 
 
  571:output/test.c ****     printf("b = %d\n", b);
@@ -3598,7 +3598,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2399      00
  2400 00bb 02       		.uleb128 0x2
  2401 00bc 04       		.byte	0x4
-GAS LISTING c:\tmp\cct347q3.s 			page 61
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 61
 
 
  2402 00bd 07       		.byte	0x7
@@ -3658,7 +3658,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2435 013a 646F7562 		.ascii "double\0"
  2435      6C6500
  2436 0141 02       		.uleb128 0x2
-GAS LISTING c:\tmp\cct347q3.s 			page 62
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 62
 
 
  2437 0142 04       		.byte	0x4
@@ -3718,7 +3718,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2485 01ad C800     		.sleb128 72
  2486 01af 05       		.uleb128 0x5
  2487 01b0 7900     		.ascii "y\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 63
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 63
 
 
  2488 01b2 01       		.byte	0x1
@@ -3778,7 +3778,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2537 020e 5F       		.byte	0x5f
  2538 020f CB000000 		.long	0xcb
  2539 0213 02       		.uleb128 0x2
-GAS LISTING c:\tmp\cct347q3.s 			page 64
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 64
 
 
  2540 0214 74       		.byte	0x74
@@ -3838,7 +3838,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2588 0274 5F656E64 		.ascii "_end_if_1\0"
  2588      5F69665F 
  2588      3100
-GAS LISTING c:\tmp\cct347q3.s 			page 65
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 65
 
 
  2589 027e 01       		.byte	0x1
@@ -3898,7 +3898,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2630 0303 AD       		.byte	0xad
  2631 0304 07030000 		.long	L21
  2632 0308 06       		.uleb128 0x6
-GAS LISTING c:\tmp\cct347q3.s 			page 66
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 66
 
 
  2633 0309 5F656C73 		.ascii "_else_6\0"
@@ -3958,7 +3958,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2678 0004 08       		.uleb128 0x8
  2679 0005 13       		.uleb128 0x13
  2680 0006 0B       		.uleb128 0xb
-GAS LISTING c:\tmp\cct347q3.s 			page 67
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 67
 
 
  2681 0007 03       		.uleb128 0x3
@@ -4018,7 +4018,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2735 003f 00       		.byte	0
  2736 0040 03       		.uleb128 0x3
  2737 0041 08       		.uleb128 0x8
-GAS LISTING c:\tmp\cct347q3.s 			page 68
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 68
 
 
  2738 0042 3A       		.uleb128 0x3a
@@ -4078,7 +4078,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2792 0078 0B       		.uleb128 0xb
  2793 0079 0B       		.uleb128 0xb
  2794 007a 49       		.uleb128 0x49
-GAS LISTING c:\tmp\cct347q3.s 			page 69
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 69
 
 
  2795 007b 13       		.uleb128 0x13
@@ -4138,7 +4138,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2837 004a 5F5F474E 		.ascii "__GNUC_PATCHLEVEL__ 3\0"
  2837      55435F50 
  2837      41544348 
-GAS LISTING c:\tmp\cct347q3.s 			page 70
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 70
 
 
  2837      4C455645 
@@ -4198,7 +4198,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2861      4E495445 
  2861      5F4D4154 
  2861      485F4F4E 
-GAS LISTING c:\tmp\cct347q3.s 			page 71
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 71
 
 
  2861      4C595F5F 
@@ -4258,7 +4258,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2885      5F53495A 
  2885      455F545F 
  2885      5F203400 
-GAS LISTING c:\tmp\cct347q3.s 			page 72
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 72
 
 
  2886 01bf 01       		.byte	0x1
@@ -4318,7 +4318,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2909      5F5F2034 
  2910 02b1 01       		.byte	0x1
  2911 02b2 00       		.uleb128 0
-GAS LISTING c:\tmp\cct347q3.s 			page 73
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 73
 
 
  2912 02b3 5F5F5349 		.ascii "__SIZE_TYPE__ unsigned int\0"
@@ -4378,7 +4378,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2934 03ba 01       		.byte	0x1
  2935 03bb 00       		.uleb128 0
  2936 03bc 5F5F5349 		.ascii "__SIG_ATOMIC_TYPE__ int\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 74
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 74
 
 
  2936      475F4154 
@@ -4438,7 +4438,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2959 04a3 00       		.uleb128 0
  2960 04a4 5F5F5549 		.ascii "__UINT64_TYPE__ long long unsigned int\0"
  2960      4E543634 
-GAS LISTING c:\tmp\cct347q3.s 			page 75
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 75
 
 
  2960      5F545950 
@@ -4498,7 +4498,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  2984 05c5 5F5F5549 		.ascii "__UINT_LEAST64_TYPE__ long long unsigned int\0"
  2984      4E545F4C 
  2984      45415354 
-GAS LISTING c:\tmp\cct347q3.s 			page 76
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 76
 
 
  2984      36345F54 
@@ -4558,7 +4558,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3008      4E545F46 
  3008      41535436 
  3008      345F5459 
-GAS LISTING c:\tmp\cct347q3.s 			page 77
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 77
 
 
  3008      50455F5F 
@@ -4618,7 +4618,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3032      585F5F20 
  3032      32313437 
  3032      34383336 
-GAS LISTING c:\tmp\cct347q3.s 			page 78
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 78
 
 
  3033 0800 01       		.byte	0x1
@@ -4678,7 +4678,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3057 08cb 01       		.byte	0x1
  3058 08cc 00       		.uleb128 0
  3059 08cd 5F5F494E 		.ascii "__INTMAX_MAX__ 9223372036854775807LL\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 79
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 79
 
 
  3059      544D4158 
@@ -4738,7 +4738,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3082 09c7 00       		.uleb128 0
  3083 09c8 5F5F494E 		.ascii "__INT32_MAX__ 2147483647\0"
  3083      5433325F 
-GAS LISTING c:\tmp\cct347q3.s 			page 80
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 80
 
 
  3083      4D41585F 
@@ -4798,7 +4798,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3107      545F4C45 
  3107      41535431 
  3107      365F4D41 
-GAS LISTING c:\tmp\cct347q3.s 			page 81
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 81
 
 
  3107      585F5F20 
@@ -4858,7 +4858,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3132 0b8b 01       		.byte	0x1
  3133 0b8c 00       		.uleb128 0
  3134 0b8d 5F5F5549 		.ascii "__UINT16_C(c) c\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 82
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 82
 
 
  3134      4E543136 
@@ -4918,7 +4918,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3158 0c74 5F5F494E 		.ascii "__INT_FAST64_MAX__ 9223372036854775807LL\0"
  3158      545F4641 
  3158      53543634 
-GAS LISTING c:\tmp\cct347q3.s 			page 83
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 83
 
 
  3158      5F4D4158 
@@ -4978,7 +4978,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3182      435F3535 
  3182      395F434F 
  3182      4D504C45 
-GAS LISTING c:\tmp\cct347q3.s 			page 84
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 84
 
 
  3183 0d88 01       		.byte	0x1
@@ -5038,7 +5038,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3207 0e3a 01       		.byte	0x1
  3208 0e3b 00       		.uleb128 0
  3209 0e3c 5F5F464C 		.ascii "__FLT_MAX_10_EXP__ 38\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 85
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 85
 
 
  3209      545F4D41 
@@ -5098,7 +5098,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3232 0f4d 00       		.uleb128 0
  3233 0f4e 5F5F464C 		.ascii "__FLT_HAS_QUIET_NAN__ 1\0"
  3233      545F4841 
-GAS LISTING c:\tmp\cct347q3.s 			page 86
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 86
 
 
  3233      535F5155 
@@ -5158,7 +5158,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3257      4C5F4D41 
  3257      585F5F20 
  3257      2828646F 
-GAS LISTING c:\tmp\cct347q3.s 			page 87
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 87
 
 
  3257      75626C65 
@@ -5218,7 +5218,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3281      49475F5F 
  3281      20313800 
  3282 115d 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 88
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 88
 
 
  3283 115e 00       		.uleb128 0
@@ -5278,7 +5278,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3305      20312E30 
  3306 1269 01       		.byte	0x1
  3307 126a 00       		.uleb128 0
-GAS LISTING c:\tmp\cct347q3.s 			page 89
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 89
 
 
  3308 126b 5F5F4C44 		.ascii "__LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L\0"
@@ -5338,7 +5338,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3330 134a 01       		.byte	0x1
  3331 134b 00       		.uleb128 0
  3332 134c 5F5F4445 		.ascii "__DEC32_MAX__ 9.999999E96DF\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 90
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 90
 
 
  3332      4333325F 
@@ -5398,7 +5398,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3355 1439 00       		.uleb128 0
  3356 143a 5F5F4445 		.ascii "__DEC64_EPSILON__ 1E-15DD\0"
  3356      4336345F 
-GAS LISTING c:\tmp\cct347q3.s 			page 91
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 91
 
 
  3356      45505349 
@@ -5458,7 +5458,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3380 154d 5F5F4445 		.ascii "__DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL\0"
  3380      43313238 
  3380      5F535542 
-GAS LISTING c:\tmp\cct347q3.s 			page 92
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 92
 
 
  3380      4E4F524D 
@@ -5518,7 +5518,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3404      56455F53 
  3404      594E435F 
  3404      434F4D50 
-GAS LISTING c:\tmp\cct347q3.s 			page 93
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 93
 
 
  3405 1689 01       		.byte	0x1
@@ -5578,7 +5578,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3428      5F4C4F4E 
  3428      475F4C4F 
  3429 1794 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 94
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 94
 
 
  3430 1795 00       		.uleb128 0
@@ -5638,7 +5638,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3452      5F545F5F 
  3453 1880 01       		.byte	0x1
  3454 1881 00       		.uleb128 0
-GAS LISTING c:\tmp\cct347q3.s 			page 95
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 95
 
 
  3455 1882 5F5F6933 		.ascii "__i386 1\0"
@@ -5698,7 +5698,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3482      5F33325F 
  3482      5F203100 
  3483 192e 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 96
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 96
 
 
  3484 192f 00       		.uleb128 0
@@ -5758,7 +5758,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3515 19b7 5F583836 		.ascii "_X86_ 1\0"
  3515      5F203100 
  3516 19bf 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 97
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 97
 
 
  3517 19c0 00       		.uleb128 0
@@ -5818,7 +5818,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3539      74655F5F 
  3540 1b03 01       		.byte	0x1
  3541 1b04 00       		.uleb128 0
-GAS LISTING c:\tmp\cct347q3.s 			page 98
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 98
 
 
  3542 1b05 5F5F4758 		.ascii "__GXX_MERGED_TYPEINFO_NAMES 0\0"
@@ -5878,7 +5878,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3571 1baf 00       		.uleb128 0
  3572 1bb0 57494E4E 		.ascii "WINNT 1\0"
  3572      54203100 
-GAS LISTING c:\tmp\cct347q3.s 			page 99
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 99
 
 
  3573 1bb8 01       		.byte	0x1
@@ -5938,7 +5938,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3606 1c4d 03       		.byte	0x3
  3607 1c4e 0A       		.uleb128 0xa
  3608 1c4f 04       		.uleb128 0x4
-GAS LISTING c:\tmp\cct347q3.s 			page 100
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 100
 
 
  3609 1c50 01       		.byte	0x1
@@ -5998,7 +5998,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3636 1d09 5F5F4D49 		.ascii "__MINGW64_VERSION_STR __MINGW64_STRINGIFY(__MINGW64_VERSION_MAJOR) \".\" __MINGW64_STRINGI
  3636      4E475736 
  3636      345F5645 
-GAS LISTING c:\tmp\cct347q3.s 			page 101
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 101
 
 
  3636      5253494F 
@@ -6058,7 +6058,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3660      4E47575F 
  3660      5553594D 
  3660      424F4C28 
-GAS LISTING c:\tmp\cct347q3.s 			page 102
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 102
 
 
  3660      73796D29 
@@ -6118,7 +6118,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3684      52554354 
  3685 1f68 01       		.byte	0x1
  3686 1f69 9C01     		.uleb128 0x9c
-GAS LISTING c:\tmp\cct347q3.s 			page 103
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 103
 
 
  3687 1f6b 5F5F4338 		.ascii "__C89_NAMELESSSTRUCTNAME3 \0"
@@ -6178,7 +6178,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3709 2052 01       		.byte	0x1
  3710 2053 A401     		.uleb128 0xa4
  3711 2055 5F5F4338 		.ascii "__C89_NAMELESSUNIONNAME5 \0"
-GAS LISTING c:\tmp\cct347q3.s 			page 104
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 104
 
 
  3711      395F4E41 
@@ -6238,7 +6238,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3734 2151 B301     		.uleb128 0xb3
  3735 2153 5F5F4D49 		.ascii "__MINGW_HAVE_WIDE_C99_SCANF 1\0"
  3735      4E47575F 
-GAS LISTING c:\tmp\cct347q3.s 			page 105
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 105
 
 
  3735      48415645 
@@ -6298,7 +6298,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3759 2389 5F5F4D49 		.ascii "__MINGW_MSVC2005_DEPREC_STR \"This POSIX function is deprecated beginning in Visual C++ 20
  3759      4E47575F 
  3759      4D535643 
-GAS LISTING c:\tmp\cct347q3.s 			page 106
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 106
 
 
  3759      32303035 
@@ -6358,7 +6358,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3783      73746174 
  3783      6963205F 
  3784 26a3 04       		.byte	0x4
-GAS LISTING c:\tmp\cct347q3.s 			page 107
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 107
 
 
  3785              		.file 6 "c:/programfiles/octave/octave-4.0.3/include/_mingw_secapi.h"
@@ -6418,7 +6418,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3811 27c9 23       		.uleb128 0x23
  3812 27ca 5F435254 		.ascii "_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY 0\0"
  3812      5F534543 
-GAS LISTING c:\tmp\cct347q3.s 			page 108
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 108
 
 
  3812      5552455F 
@@ -6478,7 +6478,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3836 294b 5F5F4352 		.ascii "__CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_0_2_(__ret,__func,__type1,__attrib1,__arg1,__type2,
  3836      545F5345 
  3836      43555245 
-GAS LISTING c:\tmp\cct347q3.s 			page 109
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 109
 
 
  3836      5F435050 
@@ -6538,7 +6538,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3861      455F4352 
  3861      54494D50 
  3861      00
-GAS LISTING c:\tmp\cct347q3.s 			page 110
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 110
 
 
  3862 3061 01       		.byte	0x1
@@ -6598,7 +6598,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3886 3168 01       		.byte	0x1
  3887 3169 6A       		.uleb128 0x6a
  3888 316a 5F5F4352 		.ascii "__CRT__NO_INLINE 1\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 111
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 111
 
 
  3888      545F5F4E 
@@ -6658,7 +6658,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3911 32e7 B001     		.uleb128 0xb0
  3912 32e9 5F5F4D49 		.ascii "__MINGW_ATTRIB_UNUSED __attribute__ ((__unused__))\0"
  3912      4E47575F 
-GAS LISTING c:\tmp\cct347q3.s 			page 112
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 112
 
 
  3912      41545452 
@@ -6718,7 +6718,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3936 34bf 57494E56 		.ascii "WINVER 0x0502\0"
  3936      45522030 
  3936      78303530 
-GAS LISTING c:\tmp\cct347q3.s 			page 113
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 113
 
 
  3936      3200
@@ -6778,7 +6778,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3964 3563 01       		.byte	0x1
  3965 3564 8202     		.uleb128 0x102
  3966 3566 5F5F7736 		.ascii "__w64 \0"
-GAS LISTING c:\tmp\cct347q3.s 			page 114
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 114
 
 
  3966      342000
@@ -6838,7 +6838,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  3998      4B203100 
  3999 3635 01       		.byte	0x1
  4000 3636 06       		.uleb128 0x6
-GAS LISTING c:\tmp\cct347q3.s 			page 115
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 115
 
 
  4001 3637 4D494E47 		.ascii "MINGW_HAS_DDRAW_H 1\0"
@@ -6898,7 +6898,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4029 36cc 5F637274 		.ascii "_crt_va_start(v,l) __builtin_va_start(v,l)\0"
  4029      5F76615F 
  4029      73746172 
-GAS LISTING c:\tmp\cct347q3.s 			page 116
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 116
 
 
  4029      7428762C 
@@ -6958,7 +6958,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4054 3817 5F573634 		.ascii "_W64 \0"
  4054      2000
  4055 381d 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 117
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 117
 
 
  4056 381e B202     		.uleb128 0x132
@@ -7018,7 +7018,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4081      205F4352 
  4081      54494D50 
  4082 38d9 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 118
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 118
 
 
  4083 38da D902     		.uleb128 0x159
@@ -7078,7 +7078,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4108      455F545F 
  4108      44454649 
  4108      4E454420 
-GAS LISTING c:\tmp\cct347q3.s 			page 119
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 119
 
 
  4108      00
@@ -7138,7 +7138,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4136 3aa1 01       		.byte	0x1
  4137 3aa2 A403     		.uleb128 0x1a4
  4138 3aa4 5F505452 		.ascii "_PTRDIFF_T_DEFINED \0"
-GAS LISTING c:\tmp\cct347q3.s 			page 120
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 120
 
 
  4138      44494646 
@@ -7198,7 +7198,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4162      442000
  4163 3b4d 01       		.byte	0x1
  4164 3b4e D803     		.uleb128 0x1d8
-GAS LISTING c:\tmp\cct347q3.s 			page 121
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 121
 
 
  4165 3b50 5F54494D 		.ascii "_TIME64_T_DEFINED \0"
@@ -7258,7 +7258,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4189      78292028 
  4189      766F6964 
  4190 3c22 02       		.byte	0x2
-GAS LISTING c:\tmp\cct347q3.s 			page 122
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 122
 
 
  4191 3c23 AA04     		.uleb128 0x22a
@@ -7318,7 +7318,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4216      59554E49 
  4216      4F4E4E41 
  4216      4D453120 
-GAS LISTING c:\tmp\cct347q3.s 			page 123
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 123
 
 
  4216      00
@@ -7378,7 +7378,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4240      4F4E4E41 
  4240      4D453920 
  4240      00
-GAS LISTING c:\tmp\cct347q3.s 			page 124
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 124
 
 
  4241 3d9b 01       		.byte	0x1
@@ -7438,7 +7438,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4265      49415320 
  4265      00
  4266 3e62 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 125
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 125
 
 
  4267 3e63 16       		.uleb128 0x16
@@ -7498,7 +7498,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4290 40ea 01       		.byte	0x1
  4291 40eb 9001     		.uleb128 0x90
  4292 40ed 5F5F4445 		.ascii "__DEFINE_CPP_OVERLOAD_SECURE_FUNC_1_2(__ret,__func,__type0,__arg0,__dsttype,__dst,__type1,
-GAS LISTING c:\tmp\cct347q3.s 			page 126
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 126
 
 
  4292      46494E45 
@@ -7558,7 +7558,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4315 43a1 CB01     		.uleb128 0xcb
  4316 43a3 5F5F6372 		.ascii "__crt_typefix(ctype) \0"
  4316      745F7479 
-GAS LISTING c:\tmp\cct347q3.s 			page 127
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 127
 
 
  4316      70656669 
@@ -7618,7 +7618,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4345      5F4D4158 
  4345      20534348 
  4345      41525F4D 
-GAS LISTING c:\tmp\cct347q3.s 			page 128
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 128
 
 
  4345      415800
@@ -7678,7 +7678,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4369      38333634 
  4370 44f4 01       		.byte	0x1
  4371 44f5 26       		.uleb128 0x26
-GAS LISTING c:\tmp\cct347q3.s 			page 129
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 129
 
 
  4372 44f6 4C4F4E47 		.ascii "LONG_MAX 2147483647L\0"
@@ -7738,7 +7738,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4396      5F4D494E 
  4396      20282D33 
  4396      32373637 
-GAS LISTING c:\tmp\cct347q3.s 			page 130
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 130
 
 
  4396      202D2031 
@@ -7798,7 +7798,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4421 4694 01       		.byte	0x1
  4422 4695 3C       		.uleb128 0x3c
  4423 4696 4C4F4E47 		.ascii "LONG_LONG_MIN (-LONG_LONG_MAX-1)\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 131
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 131
 
 
  4423      5F4C4F4E 
@@ -7858,7 +7858,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4447 478c 1E       		.uleb128 0x1e
  4448 478d 4E554C4C 		.ascii "NULL ((void *)0)\0"
  4448      20282876 
-GAS LISTING c:\tmp\cct347q3.s 			page 132
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 132
 
 
  4448      6F696420 
@@ -7918,7 +7918,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4474 4842 60       		.uleb128 0x60
  4475 4843 52414E44 		.ascii "RAND_MAX 0x7fff\0"
  4475      5F4D4158 
-GAS LISTING c:\tmp\cct347q3.s 			page 133
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 133
 
 
  4475      20307837 
@@ -7978,7 +7978,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4499      00
  4500 494b 01       		.byte	0x1
  4501 494c 76       		.uleb128 0x76
-GAS LISTING c:\tmp\cct347q3.s 			page 134
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 134
 
 
  4502 494d 5F4D4158 		.ascii "_MAX_FNAME 256\0"
@@ -8038,7 +8038,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4526 49eb 5F4D4158 		.ascii "_MAX_ENV 32767\0"
  4526      5F454E56 
  4526      20333237 
-GAS LISTING c:\tmp\cct347q3.s 			page 135
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 135
 
 
  4526      363700
@@ -8098,7 +8098,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4550      6E20282A 
  4550      205F5F4D 
  4550      494E4757 
-GAS LISTING c:\tmp\cct347q3.s 			page 136
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 136
 
 
  4551 4b1c 01       		.byte	0x1
@@ -8158,7 +8158,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4574      205F5F4D 
  4574      494E4757 
  4575 4c82 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 137
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 137
 
 
  4576 4c83 A702     		.uleb128 0x127
@@ -8218,7 +8218,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4601      5F414C4C 
  4601      4F434154 
  4601      494F4E5F 
-GAS LISTING c:\tmp\cct347q3.s 			page 138
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 138
 
 
  4601      44454649 
@@ -8278,7 +8278,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4630 4e09 A804     		.uleb128 0x228
  4631 4e0b 5F726F74 		.ascii "_rotr64\0"
  4631      72363400 
-GAS LISTING c:\tmp\cct347q3.s 			page 139
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 139
 
 
  4632 4e13 02       		.byte	0x2
@@ -8338,7 +8338,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4660 4eb4 01       		.byte	0x1
  4661 4eb5 07       		.uleb128 0x7
  4662 4eb6 5F494E43 		.ascii "_INC_STDLIB_S \0"
-GAS LISTING c:\tmp\cct347q3.s 			page 140
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 140
 
 
  4662      5F535444 
@@ -8398,7 +8398,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4692      4E4F4445 
  4692      20282D34 
  4692      2900
-GAS LISTING c:\tmp\cct347q3.s 			page 141
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 141
 
 
  4693 4f88 01       		.byte	0x1
@@ -8458,7 +8458,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4719 501f 5F616C69 		.ascii "_aligned_malloc\0"
  4719      676E6564 
  4719      5F6D616C 
-GAS LISTING c:\tmp\cct347q3.s 			page 142
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 142
 
 
  4719      6C6F6300 
@@ -8518,7 +8518,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4744 5111 01       		.byte	0x1
  4745 5112 8701     		.uleb128 0x87
  4746 5114 5F414C4C 		.ascii "_ALLOCA_S_HEAP_MARKER 0xDDDD\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 143
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 143
 
 
  4746      4F43415F 
@@ -8578,7 +8578,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4775 529f 1F       		.uleb128 0x1f
  4776 52a0 0D       		.uleb128 0xd
  4777 52a1 01       		.byte	0x1
-GAS LISTING c:\tmp\cct347q3.s 			page 144
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 144
 
 
  4778 52a2 07       		.uleb128 0x7
@@ -8638,7 +8638,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4808      6972204C 
  4808      225C5C22 
  4808      00
-GAS LISTING c:\tmp\cct347q3.s 			page 145
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 145
 
 
  4809 5335 01       		.byte	0x1
@@ -8698,7 +8698,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4837 53d8 41       		.uleb128 0x41
  4838 53d9 5F535953 		.ascii "_SYS_OPEN 20\0"
  4838      5F4F5045 
-GAS LISTING c:\tmp\cct347q3.s 			page 146
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 146
 
 
  4838      4E203230 
@@ -8758,7 +8758,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4867 548b 5F46504F 		.ascii "_FPOS_T_DEFINED \0"
  4867      535F545F 
  4867      44454649 
-GAS LISTING c:\tmp\cct347q3.s 			page 147
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 147
 
 
  4867      4E454420 
@@ -8818,7 +8818,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4892 554d 01       		.byte	0x1
  4893 554e 7B       		.uleb128 0x7b
  4894 554f 5F494F46 		.ascii "_IOFBF 0x0000\0"
-GAS LISTING c:\tmp\cct347q3.s 			page 148
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 148
 
 
  4894      42462030 
@@ -8878,7 +8878,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4921 55f1 5F5F4D49 		.ascii "__MINGW_PRINTF_FORMAT\0"
  4921      4E47575F 
  4921      5052494E 
-GAS LISTING c:\tmp\cct347q3.s 			page 149
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 149
 
 
  4921      54465F46 
@@ -8938,7 +8938,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4945      6E205F70 
  4945      6F70656E 
  4945      00
-GAS LISTING c:\tmp\cct347q3.s 			page 150
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 150
 
 
  4946 56e2 01       		.byte	0x1
@@ -8998,7 +8998,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  4976      5F535750 
  4976      52494E54 
  4976      465F494E 
-GAS LISTING c:\tmp\cct347q3.s 			page 151
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 151
 
 
  4976      4C2000
@@ -9058,7 +9058,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5001      70757477 
  5002 588a 01       		.byte	0x1
  5003 588b E406     		.uleb128 0x364
-GAS LISTING c:\tmp\cct347q3.s 			page 152
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 152
 
 
  5004 588d 5F707574 		.ascii "_putwc_nolock(_c,_stm) _fputwc_nolock(_c,_stm)\0"
@@ -9118,7 +9118,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5027 5a64 F006     		.uleb128 0x370
  5028 5a66 5F707574 		.ascii "_putchar_nolock(_c) _putc_nolock((_c),stdout)\0"
  5028      63686172 
-GAS LISTING c:\tmp\cct347q3.s 			page 153
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 153
 
 
  5028      5F6E6F6C 
@@ -9178,7 +9178,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5057 5b58 03       		.byte	0x3
  5058 5b59 C107     		.uleb128 0x3c1
  5059 5b5b 12       		.uleb128 0x12
-GAS LISTING c:\tmp\cct347q3.s 			page 154
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 154
 
 
  5060 5b5c 04       		.byte	0x4
@@ -9238,7 +9238,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5089 5bf8 73747263 		.ascii "strcasecmp _stricmp\0"
  5089      61736563 
  5089      6D70205F 
-GAS LISTING c:\tmp\cct347q3.s 			page 155
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 155
 
 
  5089      73747269 
@@ -9298,7 +9298,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5120 5cb9 73746F72 		.ascii "store(sym,val) {(sym) = (val);}\0"
  5120      65287379 
  5120      6D2C7661 
-GAS LISTING c:\tmp\cct347q3.s 			page 156
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 156
 
 
  5120      6C29207B 
@@ -9358,7 +9358,7 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5144      522C6F70 
  5144      29207B28 
  5144      5229203D 
-GAS LISTING c:\tmp\cct347q3.s 			page 157
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 157
 
 
  5144      20285229 
@@ -9410,12 +9410,12 @@ GAS LISTING c:\tmp\cct347q3.s 			page 1
  5166              		.def	_strcmp;	.scl	2;	.type	32;	.endef
  5167              		.def	_atoi;	.scl	2;	.type	32;	.endef
  5168              		.def	_printf;	.scl	2;	.type	32;	.endef
-GAS LISTING c:\tmp\cct347q3.s 			page 158
+GAS LISTING c:\tmp\ccOq5A6J.s 			page 158
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 test.c
-   c:\tmp\cct347q3.s:27     .text:00000000 _main
+   c:\tmp\ccOq5A6J.s:27     .text:00000000 _main
 
 UNDEFINED SYMBOLS
 ___main

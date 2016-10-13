@@ -95,6 +95,13 @@ store(<s.variable>, <valueOfExpr(s.expr)>)
 <endif>
 >>
 
+// If an expression has an operation it requires code to compute the result. (Otherwise the
+// evaluated expression is directly available, see valueOfExpr.)
+//   There are no move operations, the evaluation always works in place. We either begin
+// with loading the register with a terminal (number, variable) on the left hand side or we
+// modify it with the value on the right hand side. This implies that the left hand side -
+// if it is not a terminal - always uses the same register, so that this value is already
+// loaded when doing the value modification with the right hand side.
 expression(e) ::= <<
 <if(e.operation)><\\>
 <expression(e.leftExpr)><\\>

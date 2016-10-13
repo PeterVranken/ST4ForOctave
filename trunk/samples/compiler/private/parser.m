@@ -14,7 +14,7 @@ function [p] = parser(c)
 %                     boolExpr ::= sumExpr [('=' | '<>' | '<' | '>' | '<=' | '>=') boolExpr]
 %                     sumExpr ::= mulExpr [('+' | '-') sumExpr]
 %                     mulExpr ::= signExpr [('*' | '/' | '%') mulExpr]
-%                     signExpr ::= ['-' | '!'] terminalExpression
+%                     signExpr ::= ['-' | '!'] terminalExpr
 %                     terminalExpr ::= '(' expression ')' | variable | number
 %                     number ::= digit {digit}
 %                     loop ::= 'loop' program 'end'
@@ -280,7 +280,6 @@ function [t c] = expression(c, leftOp)
 % the still unconsumed source code. The second input is required to make the recursion
 % build a left associative tree.
 %   Throws an error if any syntax error appears.
-% TODO Explain the left-associative issue better
 
     [t c] = andExpr(c);
     if nargin >= 2
@@ -289,6 +288,25 @@ function [t c] = expression(c, leftOp)
     end
     
     if c(1) == '|'
+        % The more straight forward recursion here, when found the next operation |, would be
+        % creating a new operation node "or", assign the already parsed operand as left
+        % operand and then assign the result of the recursive call of this same method to
+        % the right operand of the new node. Then it would return itself. This pattern recurses
+        % down till the last two operands are consumed and combine these two in the right most
+        % operation node. The further return from the recursion levels will build a
+        % right-associative tree - which is counter intuitive and unwanted.
+        %   To overcome this effect we introduced the second function argument, which is
+        % empty on initial entry in this method. The argument is used to reorder the parsed
+        % operands so that we always end with a left associative tree. As long as there are
+        % still further operands to the right, we create the new node but leave the
+        % assignment of the right operand to the next recursion level, which will parse the
+        % next operand. If this level has parsed the operand it has the possibility to add
+        % it as right operand of the previous node and to take that entire, now completed
+        % node as its own left operand - if there would be a further operation "or".
+        %   This pattern is used on all levels of the syntax definition of an expression.
+        % We build the left associative tree even where it wouldn't be essential for a
+        % corrcet computation result like for add/subtract and multiplication/division
+        % level.
         c = strtrim(c(2:end));
         tNew = new('expression');
         tNew.operation = 'or';
@@ -487,6 +505,9 @@ function [t c] = terminalExpr(c)
             i = i+1;
         end
         c = strtrim(c(i:end));
+        % For sake of simplicity only, we do not filter keywords here (in a true compiler
+        % would this already have been done by the tokenizer). Keywords can thus be used in
+        % expressions. They can't be LHS values but can appear as system inputs.
         t.variable = ident;
     elseif c(1) == '('
         c = strtrim(c(2:end));
