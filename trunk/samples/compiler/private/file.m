@@ -4,21 +4,26 @@ function [sourceCode] = file(fileName, programCode)
 %                   
 %   Input argument(s):
 %       fileName    The name of the file to read or write
-%       programCode The compiler output. This argumentisoptional. Not using it means to use
-%                   the function in read direction - source code is read and returned
+%       programCode The compiler output.
+%                     Note, the file is opened in binary mode, which means that the EOL
+%                   character conversion is not applied. The text contents already need to
+%                   use the EOL character sequence, which is suitable for the underlaying
+%                   system.
+%                     This argument is optional. Not using it means to use the function in
+%                   read direction - source code is read and returned
 %
 %   Throws:
 %                   An exception is thrown in case of any file I/O error. The affected
 %                   files/file contents are not usable in this case
 %
 %   Return argument(s):
-%       sourceCode  The source code read from file if secon argument is not given
+%       sourceCode  The source code read from file if second argument is not given
 %
 %   Example(s):
 %       mySourceCode = file('/tmp/mySourceFile.fcl');
 %       file('/tmp/myCompiledProgram.c', programCode);
 %
-%   Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2016-2017 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU General Public License as published by the
@@ -60,7 +65,7 @@ function [sourceCode] = file(fileName, programCode)
     else
         assert(nargout == 0, 'No output is produced in case of writing a file')
         
-        % Write file. ALthough we have a text file we need to open the file binary: The
+        % Write file. Although we have a text file we need to open the file binary: The
         % StringTemplate V4 engine already does do the EOL conversion.
         [fid msg] = fopen(fileName, 'wb');
         if fid == -1
