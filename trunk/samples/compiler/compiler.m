@@ -14,7 +14,7 @@ function [success msg p] = compiler(programFile, sourceFile)
 %                   The syntax of the computer language is defined as such:
 %                     sequence ::= {statement}
 %                     statement ::= assignment | loop | 'break' | if | comment
-%                     comment ::= '#' character '\n'
+%                     comment ::= '#' {character} '\n'
 %                     assignment ::= variable '=' expression
 %                     variable ::= letter {letter}
 %                     expression ::= andExpr ['|' expression]
@@ -25,8 +25,8 @@ function [success msg p] = compiler(programFile, sourceFile)
 %                     signExpr ::= ['-' | '!'] terminalExpr
 %                     terminalExpr ::= '(' expression ')' | variable | number
 %                     number ::= digit {digit}
-%                     loop ::= 'loop' program 'end'
-%                     if ::= 'if' expression program ['else' program] 'end'
+%                     loop ::= 'loop' sequence 'end'
+%                     if ::= 'if' expression sequence ['else' sequence] 'end'
 %
 %   Input argument(s):
 %       programFile The generated compiler output. The file name extension decides, which
@@ -82,7 +82,7 @@ function [success msg p] = compiler(programFile, sourceFile)
         % To support the development of the compiler's ST4 templates we enforce re-loading
         % of these in every run of the compiler. Once the development is done this
         % statement should be commented out.
-        st4Render clear
+        %st4Render clear
 
         [path rawSrcFileName] = fileparts(sourceFile);
         [path rawOutputFileName ext] = fileparts(programFile);
