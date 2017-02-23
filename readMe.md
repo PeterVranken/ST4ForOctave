@@ -1,3 +1,5 @@
+[TOC]
+
 # What is StringTemplate-for-Octave? #
 
 StringTemplate-for-Octave is a SourceForge open source project, which
@@ -15,8 +17,8 @@ with intermingled template expressions. These expressions can refer to
 data objects, which are passed in to the template engine as native Java
 objects. Data object can be simple basic types or deeply nested data
 structures build from collections and showing recursive structures. This
-normally requires a compiled Java class, which a well-defined data object
-can be instantiated from.
+normally requires a compiled Java class, which a well-defined, statically
+typed data object can be instantiated from.
 
 Using the Octave Java interface it is generally possible to build a Java
 object at run-time and to pass it to a Java class like the StringTemplate
@@ -38,7 +40,7 @@ generation.
 
 # Current revision #
 
-The current revision of the downloadable files is SVN r14. Please refer to
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r18. Please refer to
 the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
@@ -75,9 +77,9 @@ the SVN log for latest changes.
 -   If the basic samples are running well you can have a closer look at
     the major sample `compiler`
 
-## **CAUTION**: Problems using Octave 4.0.3 for Windows? ##
+## **CAUTION**: Problems with Java class path using Octave 4.0.3 and 4.2.0 for Windows? ##
 
-Using Octave 4.0.3 under Windows 7 we saw a very strange
+Using Octave 4.0.3 or 4.2.0 under Windows 7 we saw a very strange
 and untransparent dependency of the class path handling on the order
 of submitted Octave commands.
 
@@ -130,7 +132,7 @@ changes. The command `addOctavePaths` displays the wanted class path and
 the class path is alright to let the Java virtual machine find the
 StringTemplate V4 jar file and class but the Java class StringTemplate
 can't locate the group file. Healing by repetition of addOctavePaths isn't
-possible in this situation.
+possible in this situation. See here:
 
 1.  `javaclasspath % Shows empty static and dynamic class paths`
 2.  `addpath(pwd) % Make Octave find st4Render.m`

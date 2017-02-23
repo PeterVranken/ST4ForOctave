@@ -8,7 +8,7 @@ setlocal
 
 :: TODO Conside a local modification of the search path, edit the installation path of
 :: Octave and uncomment the next statement.
-REM set PATH=%PATH%;C:\Program Files\Octave\octave-4.0.3
+REM set PATH=%PATH%;C:\Program Files\Octave\octave-4.2.0-w64
 
 :: Check for Octave.
 set tool=octave.bat

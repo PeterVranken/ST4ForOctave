@@ -1,0 +1,4 @@
+// This simple StringTemplate V4 template can be used to produce the famous Hello World.
+myHelloWorldTemplate(greeting, name) ::= <<
+<greeting> <name>
+>>

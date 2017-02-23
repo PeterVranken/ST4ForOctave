@@ -266,9 +266,9 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
     end
 
     % The evaluation of the right associative tree is done like this: left operand first,
-    % then right operand, then their combinatioe. The combination can reuse the storage of
+    % then right operand, then their combination. The combination can reuse the storage of
     % the left operand, so the left operand can use the same storage as this node, while
-    % the right node requires a higher depth, i.e. a new storage locatioe.
+    % the right node requires a higher depth, i.e. a new storage location.
     assert(~isempty(e.leftExpr) && ~isempty(e.rightExpr))
     [e.leftExpr mapOfVars maxDepthLeft] = analyseExpr( e.leftExpr ...
                                                      , depth ...
@@ -285,7 +285,7 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
     %   We take this step after the recursion of the sub-expressions in order to find more
     % compile-time known sub-expressions -even if this barely has relevance in practice.
     if ~isempty(e.leftExpr.number)  &&  ~isempty(e.rightExpr.number)
-        % Numeric overruns don't matter in this demonstrative software. Actually the
+        % Numeric overruns don't matter in this demonstrative software. Actually, the
         % overrun behavior of these Octave operations at compile time differs from the
         % overrun behavior at run time of the generated C code. For a real compiler would
         % this be inacceptable: the same computation will yield a different result when
@@ -348,7 +348,7 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
         
         % The concept of the code generation depends on the fact that left operands are
         % either immediately available terminals (numbers, variables) or that they are
-        % computet in the same register (the representation of what is here called depth)
+        % computed in the same register (the representation of what is here called depth)
         % as the operation in progress. Double-check this condition.
         assert(isempty(e.leftExpr.operation) || e.leftExpr.depth == depth);
     end

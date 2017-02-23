@@ -31,7 +31,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   operator ":" will iterate the field names rather than doing a single
 %                   step with the struct as a whole.
 %                     Since lists of length 1 are not an exceptional situation is the
-%                   conseqeunce that lists and arrays of structs must not be used unless
+%                   consequence that lists and arrays of structs must not be used unless
 %                   there are use case given constraints on their size so that a size of
 %                   one can be excluded.
 %                     A work around that can be applied in most use cases is the cell
@@ -69,14 +69,23 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %   Input argument(s):
 %       templateGroupFileName
 %                   Name of group file to be loaded.
-%                     If this string argument is set to 'clear' and if there are no more
-%                   than two function arguments then no template rendering is done but all
-%                   cached template group files are cleared. Subsequent calls to the
-%                   function will surely reload the template files. This feature supports
-%                   the development of the template files
-%       verbose     If true the template loading process should be verbose. To be used
-%                   with outmost care, can produces tons of output, even that much that
-%                   Octave 4.0.3 failed.
+%                     If this is a relative path designation then the file is looked for in
+%                   the Java class path. But caution. Both, Octave and MATLAB, show an
+%                   untransparent behavior with setting the class path for the loaded
+%                   StringTemplate V4 library. If you encounter problems with loading the
+%                   template file you may need to use absolute paths; consider using
+%                   Octave's command which to get an absolute path.
+%                     Normally, if reusing the same template file in consecutive calls of
+%                   this function then it is not re-parsed every time. If this string
+%                   argument is set to 'clear' and if there are no more than two function
+%                   arguments then no template rendering is done but all cached template
+%                   group files are cleared. Subsequent calls to the function will surely
+%                   reload the template files. This feature supports the development of the
+%                   template files
+%       verbose     If true the progress of template loading and data wrapping is reported
+%                   in detail.
+%                     To be used with outermost care, can produce tons of output, even that
+%                   much that Octave 4.0.3 failed.
 %                     A Boolean value, optional. false by default.
 %       templateName
 %                   The name of the template to expand. Needs to be defined somewhere down
@@ -110,7 +119,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   expression like <map.key> to access the value. This is syntactically
 %                   identical with accessing a field of a real Java struct (which cannot be
 %                   build dynamically at run-time). Most template constructs behave
-%                   exactely as it would for real Java struct objects - with the important
+%                   exactly as it would for real Java struct objects - with the important
 %                   exception of an iteration. <obj:handleIt()> would pass the entire obj
 %                   to the sub template handleIt if obj is a real Java struct but will
 %                   iterate all keys of the map in case obj is a map; handleIt will be
@@ -123,8 +132,8 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                     Two dimensional arrays are modeled as an ArrayList of rows, where
 %                   each row is an ArrayList in turn. Here, we encounter a problem if the
 %                   data can have arbitrary size. If a particular 2-d data set has a size
-%                   of 1xn or nx1 then the wrapper can't recoconize any more that this is
-%                   meant a two dimenisonal array and will wrap it as a 1-d vector. It
+%                   of 1xn or nx1 then the wrapper can't recognize any more that this is
+%                   meant a two dimensional array and will wrap it as a 1-d vector. It
 %                   depends on the kind of data if a template written for the 2-d data
 %                   model will fail or not. It'll fail with struct objects (wrapped as Java
 %                   Map) but will likely succeed with many other objects. This is exactly
@@ -147,10 +156,10 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   must not try to pass Octave objects to this wrapper. Unsupported data
 %                   will be reported by exception. You need to keep your data interface to
 %                   the StringTemplate engine simple, restrict your data design to the
-%                   decribed elements.
+%                   described elements.
 %   Exceptions(s):
 %                   An error is thrown if the StringTemplate V4 library can't be located
-%                   (Java CLASSPTAH issue).
+%                   (Java CLASSPATH issue).
 %
 %                   Some template expansion errors are thrown, for example if the name of a
 %                   template can't be resolved. This is mostly a consequential error; the
@@ -168,7 +177,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %       returnValue Expanded template text
 %
 %   Example(s):
-%       text = st4Render('myHelloWorldTemplate', 'greeting', 'Hello', 'name', 'World')
+%       text = st4Render(fullfile(pwd, 'helloWorld.stg'), 'myHelloWorldTemplate', 'greeting', 'Hello', 'name', 'World')
 %
 %   Copyright (C) 2015-2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
@@ -475,16 +484,16 @@ function [st4Object] = octave2Java(value, verbose)
                 % The MATLAB interface fails to put fields with names of length 1 properly
                 % into the Map. The reason is unclear and Octave works fine. We issue a
                 % warning. MATLAB users should avoid such short field names or only use the
-                % Map iteration operator, which seems not affected.
+                % Map iteration operator in the templates, which seems not affected.
                 if ~isOctave &&  length(fieldName) == 1
                     warning(['Fieldname ' fieldName ' found in a MATLAB struct, which is' ...
                              ' wrapped for StringTemplate V4. MATLAB has a problem with' ...
-                             ' class Map in its Java interface. Field names of' ...
-                             ' a single character aren''t correctly processed. They' ...
-                             ' tend to be obscured inside the template. You should' ...
-                             ' either avoid field names of length one or solely' ...
-                             ' use the Map iteration in your templates, which is not' ...
-                             ' affected'] ...
+                             ' class Map in its Java interface. Field names of a' ...
+                             ' single character aren''t correctly processed. They tend' ...
+                             ' to be obscured when it comes to template expansion. You' ...
+                             ' should either avoid field names of length one or solely' ...
+                             ' use the Map iteration, which is not affected, in your' ...
+                             ' templates'] ...
                            );
                 end
                 st4Object.put(fieldName, octave2Java(value.(fieldName), verbose));
