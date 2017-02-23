@@ -13,24 +13,25 @@
 <body>
 <nav id="TOC">
 <ul>
-<li><a href="#what-is-stringtemplate-for-octave">What is StringTemplate-for-Octave?</a></li>
-<li><a href="#current-revision">Current revision</a></li>
-<li><a href="#how-to-run-the-stringtemplate-v4-engine-from-gnu-octave">How to run the StringTemplate V4 engine from GNU Octave?</a><ul>
-<li><a href="#caution-problems-using-octave-4.0.3-for-windows"><strong>CAUTION</strong>: Problems using Octave 4.0.3 for Windows?</a></li>
+<li><a href="#what-is-stringtemplate-for-octave"><span class="toc-section-number">1</span> What is StringTemplate-for-Octave?</a></li>
+<li><a href="#current-revision"><span class="toc-section-number">2</span> Current revision</a></li>
+<li><a href="#how-to-run-the-stringtemplate-v4-engine-from-gnu-octave"><span class="toc-section-number">3</span> How to run the StringTemplate V4 engine from GNU Octave?</a><ul>
+<li><a href="#caution-problems-with-java-class-path-using-octave-4.0.3-and-4.2.0-for-windows"><span class="toc-section-number">3.1</span> <strong>CAUTION</strong>: Problems with Java class path using Octave 4.0.3 and 4.2.0 for Windows?</a></li>
 </ul></li>
-<li><a href="#documentation">Documentation</a></li>
-<li><a href="#please-note">Please note</a></li>
+<li><a href="#documentation"><span class="toc-section-number">4</span> Documentation</a></li>
+<li><a href="#please-note"><span class="toc-section-number">5</span> Please note</a></li>
 </ul>
 </nav>
-<h1 id="what-is-stringtemplate-for-octave">What is StringTemplate-for-Octave?</h1>
+<p>[TOC]</p>
+<h1 id="what-is-stringtemplate-for-octave"><span class="header-section-number">1</span> What is StringTemplate-for-Octave?</h1>
 <p>StringTemplate-for-Octave is a SourceForge open source project, which presents an interface between GNU Octave (<a href="http://www.Octave.org" class="uri">http://www.Octave.org</a>) and StringTemplate V4 (<a href="http://www.stringtemplate.org" class="uri">http://www.stringtemplate.org</a>). Although Octave is basically an environment for data analysis and development of mathematical algorithms is it due to its convenient and very efficient scripting language well suited for general scripting and text processing, too. (Here, “very efficient” is meant in terms of development effort and progress.) In this context, a template engine is a useful component.</p>
-<p>StringTemplate V4 is a popular Java implementation of a powerful and convenient template engine. Intended output text is defined widely literal with intermingled template expressions. These expressions can refer to data objects, which are passed in to the template engine as native Java objects. Data object can be simple basic types or deeply nested data structures build from collections and showing recursive structures. This normally requires a compiled Java class, which a well-defined data object can be instantiated from.</p>
+<p>StringTemplate V4 is a popular Java implementation of a powerful and convenient template engine. Intended output text is defined widely literal with intermingled template expressions. These expressions can refer to data objects, which are passed in to the template engine as native Java objects. Data object can be simple basic types or deeply nested data structures build from collections and showing recursive structures. This normally requires a compiled Java class, which a well-defined, statically typed data object can be instantiated from.</p>
 <p>Using the Octave Java interface it is generally possible to build a Java object at run-time and to pass it to a Java class like the StringTemplate engine.</p>
 <p>The interface presented automates this concept. It wraps widely arbitrary Octave data objects with appropriate Java data types and collections. While this is straight forward for linear lists (e.g. using a <code>java.util.ArrayList</code>) does it need much more consideration when it comes to Octave struct objects with run-time defined fields (i.e. no compiled Java class is available by principle). All the processing is done recursively so that deeply nested data objects can be passed to the template engine just like that.</p>
 <p>A major sample presents a compiler fragment, which passes its complete parse tree as a single “attribute” – the rendered data object in the terminology of StringTemplate – to the template engine for code generation.</p>
-<h1 id="current-revision">Current revision</h1>
-<p>The current revision of the downloadable files is SVN r14. Please refer to the SVN log for latest changes.</p>
-<h1 id="how-to-run-the-stringtemplate-v4-engine-from-gnu-octave">How to run the StringTemplate V4 engine from GNU Octave?</h1>
+<h1 id="current-revision"><span class="header-section-number">2</span> Current revision</h1>
+<p>The current revision of the <a href="https://sourceforge.net/projects/stringtemplate-for-octave/">downloadable files</a> is SVN r18. Please refer to the SVN log for latest changes.</p>
+<h1 id="how-to-run-the-stringtemplate-v4-engine-from-gnu-octave"><span class="header-section-number">3</span> How to run the StringTemplate V4 engine from GNU Octave?</h1>
 <ul>
 <li>The interface is implemented by the single M script file <code>st4Render.m</code>. Copy this file anywhere in your Octave search path - or extend your search path to make it capture its location. See Octave command <code>addpath</code> for more</li>
 <li><p>Open an Octave session. Ensure that the Java class path contains</p>
@@ -44,8 +45,8 @@
 <li>In Octave, <code>cd</code> to directory <code>samples</code> and run the different M scripts. They will easily throw an error if something is still wrong with the paths! Open the scripts in a text editor and find out what they want to demonstrate</li>
 <li><p>If the basic samples are running well you can have a closer look at the major sample <code>compiler</code></p></li>
 </ul>
-<h2 id="caution-problems-using-octave-4.0.3-for-windows"><strong>CAUTION</strong>: Problems using Octave 4.0.3 for Windows?</h2>
-<p>Using Octave 4.0.3 under Windows 7 we saw a very strange and untransparent dependency of the class path handling on the order of submitted Octave commands.</p>
+<h2 id="caution-problems-with-java-class-path-using-octave-4.0.3-and-4.2.0-for-windows"><span class="header-section-number">3.1</span> <strong>CAUTION</strong>: Problems with Java class path using Octave 4.0.3 and 4.2.0 for Windows?</h2>
+<p>Using Octave 4.0.3 or 4.2.0 under Windows 7 we saw a very strange and untransparent dependency of the class path handling on the order of submitted Octave commands.</p>
 <p>There seems to be an untransparent, malicious impact of using the command <code>javaclasspath</code>. See what happened. Each command sequence shown down here was submitted in a new Octave session, i.e. the Octave application was reopened every time. The first two times, a properly configured file <code>javaclasspath.txt</code> was in place:</p>
 <ol type="1">
 <li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
@@ -73,7 +74,7 @@
 <li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is empty</code></li>
 <li><code>testST4Render % Sample succeeds</code></li>
 </ol>
-<p>Only by issuing a ‘javaclasspath’ as very first command the behavior changes. The command <code>addOctavePaths</code> displays the wanted class path and the class path is alright to let the Java virtual machine find the StringTemplate V4 jar file and class but the Java class StringTemplate can’t locate the group file. Healing by repetition of addOctavePaths isn’t possible in this situation.</p>
+<p>Only by issuing a ‘javaclasspath’ as very first command the behavior changes. The command <code>addOctavePaths</code> displays the wanted class path and the class path is alright to let the Java virtual machine find the StringTemplate V4 jar file and class but the Java class StringTemplate can’t locate the group file. Healing by repetition of addOctavePaths isn’t possible in this situation. See here:</p>
 <ol type="1">
 <li><code>javaclasspath % Shows empty static and dynamic class paths</code></li>
 <li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
@@ -90,13 +91,13 @@
 <li>Run st4Render only after setting the dynamic class path</li>
 </ul>
 <p>An explanation cannot be given.</p>
-<h1 id="documentation">Documentation</h1>
+<h1 id="documentation"><span class="header-section-number">4</span> Documentation</h1>
 <ul>
 <li>In Octave, type <code>help st4Render</code> to get the online help about the StringTemplate interface for Octave</li>
 <li>See folder <code>doc</code>. Some help on the StringTemplate engine has been added. You will need to study the documentation in order to learn about templates and template expressions</li>
 <li>Study the well documented source code of the interface script and the samples</li>
 </ul>
-<h1 id="please-note">Please note</h1>
+<h1 id="please-note"><span class="header-section-number">5</span> Please note</h1>
 <p>The data structures, which can be exchanged with the StringTemplate engine are widely arbitrary, which means that you can feel free in modeling your data. However, there are important limitations; we can’t pass any imaginable Octave object through the given Java interface. For example class objects of Octave are not supported but struct objects are. Type <code>help st4Render</code> to get a list of known limitations.</p>
 <p>The limitations won’t be very painful but it means that you must not expect to reuse all of your existing data models without any kind of re-work when passing the data to the template engine.</p>
 <p>The interface can be used with MATLAB, too. Besides the documented limitations of the StringTemplate V4 interface itself lack elder MATLAB revisions the 64 Bit integer operations, which are required to run some of the samples.</p>

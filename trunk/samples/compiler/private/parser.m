@@ -6,7 +6,7 @@ function [p] = parser(c)
 %                   The syntax of the computer language is defined as such:
 %                     sequence ::= {statement}
 %                     statement ::= assignment | loop | 'break' | if | comment
-%                     comment ::= '#' character '\n'
+%                     comment ::= '#' {character} '\n'
 %                     assignment ::= variable '=' expression
 %                     variable ::= letter {letter}
 %                     expression ::= andExpr ['|' expression]
@@ -17,8 +17,8 @@ function [p] = parser(c)
 %                     signExpr ::= ['-' | '!'] terminalExpr
 %                     terminalExpr ::= '(' expression ')' | variable | number
 %                     number ::= digit {digit}
-%                     loop ::= 'loop' program 'end'
-%                     if ::= 'if' expression program ['else' program] 'end'
+%                     loop ::= 'loop' sequence 'end'
+%                     if ::= 'if' expression sequence ['else' sequence] 'end'
 %
 %   Input argument(s):
 %       c           A string with the program code to be parsed.
@@ -173,7 +173,7 @@ function [isElse c] = consumeElseOrEnd(c)
     else
         abort('Expect keyword ''end''', c);
     end
-end % consumeEnd
+end % consumeElseOrEnd
 
 
 
@@ -206,8 +206,8 @@ function [t c] = statement(c)
         % correct positions in the generated compiler output. The disadvantage is that they
         % can not be put at arbitrary locations of the source code, e.g. in the midle of
         % an expression to comment just on a sub-term. While this is common in most real
-        % languages can't we support it easily as we don't implement a symbol scanner.
-        c = strtrim(c(3:end));
+        % languages we can't support it easily as we don't implement a symbol scanner.
+        c = strtrim(c(2:end));
         comment = '';
         i = 1;
         while c(i) ~= char(10)
@@ -288,13 +288,14 @@ function [t c] = expression(c, leftOp)
     end
     
     if c(1) == '|'
-        % The more straight forward recursion here, when found the next operation |, would be
-        % creating a new operation node "or", assign the already parsed operand as left
+        % The more straight forward recursion here, when found the next operation |, would
+        % be creating a new operation node "or", assign the already parsed operand as left
         % operand and then assign the result of the recursive call of this same method to
-        % the right operand of the new node. Then it would return itself. This pattern recurses
-        % down till the last two operands are consumed and combine these two in the right most
-        % operation node. The further return from the recursion levels will build a
-        % right-associative tree - which is counter intuitive and unwanted.
+        % the right operand of the new node. Then it would return the new operation node.
+        % This pattern recurses down till the last two operands are consumed and combine
+        % these two in the right most operation node. The further return from the recursion
+        % levels will build a right-associative tree - which is counter intuitive and
+        % unwanted.
         %   To overcome this effect we introduced the second function argument, which is
         % empty on initial entry in this method. The argument is used to reorder the parsed
         % operands so that we always end with a left associative tree. As long as there are
@@ -305,7 +306,7 @@ function [t c] = expression(c, leftOp)
         % node as its own left operand - if there would be a further operation "or".
         %   This pattern is used on all levels of the syntax definition of an expression.
         % We build the left associative tree even where it wouldn't be essential for a
-        % corrcet computation result like for add/subtract and multiplication/division
+        % correct computation result as it is for add/subtract and multiplication/division
         % level.
         c = strtrim(c(2:end));
         tNew = new('expression');
