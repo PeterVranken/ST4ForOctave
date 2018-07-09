@@ -27,15 +27,15 @@ engine.
 The interface presented automates this concept. It wraps widely arbitrary
 Octave data objects with appropriate Java data types and collections.
 While this is straight forward for linear lists (e.g. using a
-`java.util.ArrayList`) does it need much more consideration when it
+`java.util.ArrayList`) it does need much more consideration when it
 comes to Octave struct objects with run-time defined fields (i.e. no
 compiled Java class is available by principle). All the processing is done
 recursively so that deeply nested data objects can be passed to the
 template engine just like that.
 
 A major sample presents a compiler fragment, which passes its complete
-parse tree as a single "attribute" -- the rendered data object in the
-terminology of StringTemplate -- to the template engine for code
+parse tree as a single "attribute" -- i.e. the data object to be rendered
+in the terminology of StringTemplate -- to the template engine for code
 generation.
 
 # Current revision #
@@ -56,9 +56,10 @@ the SVN log for latest changes.
 
     The current Java class path can be double-checked with typing
     `javaclasspath` in the Octave command line window.
-
-    Some of the sample use absolute paths
-    for template group files and are not affected, but
+    
+    Some of the samples use absolute paths for template group files and
+    are not affected, but normally setting the class path is the most
+    important setup step. 
 
     Several ways exist to modify the Java class path of Octave. You may do
     this on the fly with Octave command `javaaddpath` or you rely on the
