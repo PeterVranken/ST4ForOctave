@@ -2,16 +2,15 @@
 :: Enforce this directory to be the current working directory when Octave is started. Only
 :: this way the file javaclasspath.txt becomes effective.
 cd %~dp0
-cd
 
 setlocal
 
 :: TODO Conside a local modification of the search path, edit the installation path of
 :: Octave and uncomment the next statement.
-REM set PATH=%PATH%;C:\Program Files\Octave\octave-4.2.0-w64
+REM set PATH=%PATH%;C:\Program Files\Octave\octave-4.4.1-w64;C:\Program Files\Octave\octave-4.2.0-w64
 
 :: Check for Octave.
-set tool=octave.bat
+set tool=octave
 where %tool% >nul 2>&1
 if ERRORLEVEL 1 (
     echo Tool %tool% is either not installed or not in the Windows search PATH.
@@ -26,4 +25,4 @@ set tool=
 :: Run Octave. Since we do this from here is the file javaclasspath.txt evaluated. See
 :: https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html
 :: for more details.
-call octave.bat
+call octave
