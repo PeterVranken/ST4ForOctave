@@ -194,6 +194,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %       returnValue Expanded template text
 %
 %   Example(s):
+%       st4addpath
 %       st4javaaddpath
 %       text = st4Render('helloWorld.stg', 'myHelloWorldTemplate', 'greeting', 'Hello', 'name', 'World')
 %       text = st4Render('helloWorld.stg', 'myHelloWorldLstTemplate', 'greeting', 'Hello', 'nameList', {'World', 'Anna', 'Tom', 'Terence Parr'})
@@ -457,9 +458,9 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
                        );
             end
         catch
-            if verbose >= verboseINFO
+            if verbose >= verboseDEBUG
                 fprintf(['st4Render: Template %s doesn''t accept an' ...
-                         ' attribute ''info''. No such service object is offered'] ...
+                         ' attribute ''info''. No such service object is offered\n'] ...
                        , templateName
                        );
             end
@@ -480,7 +481,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     elseif errCnt.getNoErrors() > 0
         minReportingLvl = verboseERROR;
     else
-        minReportingLvl = verboseINFO;
+        minReportingLvl = verboseDEBUG;
     end
     if verbose >= minReportingLvl
         fprintf(['Template %s has been rendered with %d errors and %d warnings\n'] ...
