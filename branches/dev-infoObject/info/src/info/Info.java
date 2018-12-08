@@ -34,12 +34,31 @@ import java.text.*;
 
 
 /**
- * The data structure holding general information for template expansion.
- *   The basic design principle is the use of public members because such members can be
- * directly accessed from the output templates. Boolean decisions are either expressed as
- * explicit public Boolean members or by references to nested member objects, which are
- * null if an optional member is not used or applicable: StringTemplate can query public
- * Boolean members or check for null references.
+ * The data structure providing general purpose information to the template expansion
+ * process.<p>
+ *   The Octave function st4Render provides an object of this class as attribute 'info' to
+ * any template, which doesn't otherwise make explicit use of a so-named attribute - so
+ * normally to all templates. Referring to the attribute info, a template can access
+ * information about files (generated file, template file, paths and extensions of those,
+ * etc.), time and date, application version information and more. Furthermore some
+ * services are provided to the template expansion process - mainly a simple numeric
+ * calculator, that enables the generation of simple enumerations or which makes complex
+ * conditional template code possible.<p>
+ *   The basic design principle is the use of public fields or getters because such members
+ * can be directly accessed from the ST4 templates. Use template expressions like {@code
+ * <info.application>, version <info.version>} to access public fields.<p>
+ *   Public methods starting with get or is can be accessed by placing the method name
+ * without the syllable get/is into the template, e.g. <info.output.name> would expand to
+ * the return value of output.getName().<p>
+ *   Of particular significance are Boolean fields or getters and optionally null-valued
+ * fields: In an ST4 template, their value can be queried with an conditional template
+ * expression like {@code <if(!bFlag)><info.warn.("Flag is not set")><endif>}<p>
+ *   This Javadoc document is meant a kind of manual for the ST4 template developer to
+ * see, what kind of fields, methods and services are available inside a template and can
+ * be accessed through its attribute info. Javadoc is made for Java programmers, who write a
+ * program using a Java class - which is not the same as writing an ST4 template. One has to
+ * have this difference in mind when consulting this document - not all of the information
+ * is relevant or useful and a kind of filtering has to be done.
  */
 
 public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResult */ Object>
@@ -344,7 +363,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
     /**
      * Adjust the logging level for the template message output. This relates to template
      * constructs like <info.warn.(["Hello World"])>. By default it is INFO but you can set
-     * any value defined in class {@class SimpleLogger.Level}.
+     * any value defined in class {@link SimpleLogger.Level}.
      *   @param level
      * The new logging level.
      */
@@ -448,8 +467,8 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
      *   @param logLevel
      * The listener is connected to different command interpreters. The interpreters relate
      * to the different logging severity levels and this information is passed in as
-     * context. The context is the integer value of the static Log4j Level objects, e.g.
-     * {@link org.apache.logging.log4j.Level}.
+     * context. The context is the integer value of the logging level, 0..5, see {@link
+     * SimpleLogger.Level} for details.
      *   @param message
      * The command string, which is interpreted as message to be logged.
      */

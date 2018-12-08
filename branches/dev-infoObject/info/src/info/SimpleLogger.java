@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  * Simple substitute for the log4j logger.
- *   We redirect all output to the console.
+ *   We redirect all output to the Octave console.
  */
 
 public class SimpleLogger
@@ -36,13 +36,14 @@ public class SimpleLogger
     /** The log level or verbosity. */
     enum Level
     {
-        /** Definition of enumeration values with numeric value. */
-        OFF(0),
-        FATAL(1),
-        ERROR(2),
-        WARN(3),
-        INFO(4),
-        DEBUG(5);
+        /* Definition of enumeration values with numeric value. */
+          /** (0) No logging at all */                              OFF(0)
+        , /** (1) Print only fatal error messages */                FATAL(1)  
+        , /** (2) Print errors and the more severe messages */      ERROR(2)
+        , /** (3) Print warnings and the more severe messages */    WARN(3) 
+        , /** (4) Print informative and more severe messages */     INFO(4) 
+        , /** (5) Print all messages, careful: tons of output */    DEBUG(5)
+        ;
         
         /** Storage space for the numeric value of each enumeration value. */
         private final int numVal;
@@ -51,7 +52,7 @@ public class SimpleLogger
         Level(int numVal)
             {this.numVal = numVal;}
 
-        /** Getter for numeric value. */
+        /** Getter for numeric representation of enumeration value. */
         public int value()
             {return numVal;}
 
@@ -76,7 +77,7 @@ public class SimpleLogger
 
     /**
      * Adjust the logging level. By defaukt it is INFO but you can set any defined value.
-     * See {@class Level}.
+     * See {@link SimpleLogger.Level}.
      *   @param level
      * The new logging level.
      */
@@ -86,7 +87,7 @@ public class SimpleLogger
     /**
      * Adjust the logging level. By defaukt it is INFO but you can set any defined value.
      * Here by a numeric value rather than as enumeration value.
-     * See {@class Level}.
+     * See {@link SimpleLogger.Level}.
      *   @param level
      * The new logging level as an interger in the range 0..5.
      */

@@ -93,10 +93,10 @@
           depends="init"
           description="Generate Javadoc documentation for the data model only"
   >
-    <javadoc sourcefiles="${srcDM}/package-info.java,${srcDM}/Info.java,${srcDM}/FileExt.java,${srcDM}/Cluster.java,${srcDM}/CellObject.java,${srcDM}/ExcelWorkbook.java,${srcDM}/ExcelWorksheet.java,${srcDM}/RowObject.java,${srcDM}/RowObjectContainer.java,${srcDM}/ObjectList.java,${srcDM}/Identifier.java,${srcDM}/ObjectMap.java,${src}/excelExporter/excelParser/SortOrder.java"
+    <javadoc sourcefiles="${srcDM}/info/package-info.java,${srcDM}/info/Info.java,${srcDM}/info/FileExt.java,${srcDM}/info/SimpleLogger.java"
              destdir="${doc}/dataModel"
-             windowtitle="Data Model of excelExporter for StringTemplate V4 templates"
-             doctitle="Data Model of excelExporter for StringTemplate V4 templates"
+             windowtitle="Data Model of ST4ForOctave, applicable for StringTemplate V4 templates"
+             doctitle="Data Model of ST4ForOctave, applicable for StringTemplate V4 templates"
              author="Peter Vranken (Peter_Vranken@Yahoo.de)"
     >
       <!-- See http://stackoverflow.com/questions/18063880/executing-the-eclipse-generate-javadoc-from-the-command-line -->

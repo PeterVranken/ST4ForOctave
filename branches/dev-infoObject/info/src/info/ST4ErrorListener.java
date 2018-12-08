@@ -54,13 +54,13 @@ public class ST4ErrorListener implements STErrorListener
 
     /** The listener counts all warnings and error in this counter object. */
     private ErrorCounter errCnt_ = null;
-    
+
     /** The number of emitted error messages. It's most typical that one and the same error
         is repeated over and over during template expansion. It make much sense to abort
         the expansion after a limited number of errors instead of flooding the application
         log with redundant information. */
     private int noErrs_ = 0;
-    
+
     /** The maximum number of emitted errors. If this number is exceeded, the template
         expansion is aborted. */
     static private final int _maxNoErrs = 10;
@@ -90,11 +90,11 @@ public class ST4ErrorListener implements STErrorListener
     public void setErrorCounter(ErrorCounter errorCounter)
     {
         errCnt_ = errorCounter;
-        
+
     } /* End of ST4ErrorListener.setErrorCounter */
-    
-    
-    
+
+
+
     /**
      * Get the error counter object, which is currently in use by this listener.
      *   @return errorCounter
@@ -105,44 +105,45 @@ public class ST4ErrorListener implements STErrorListener
         return errCnt_;
 
     } /* End of ST4ErrorListener.getErrorCounter */
-    
-    
-    
+
+
+
     /**
      * Compose a string, which indicates the location of a template expansion problem in a
      * uniquely used way.
      *   @remark For the template expansion process there's no specific location
      * information. This function rather is a dummy.
-     */   
+     */
     public static String location()
     {
         return "ST4 template expansion: ";
-               
-    } /* End of location */                                     
 
-    
-    /** 
+    } /* End of location */
+
+
+    /**
      * The reported errors from ST4 are ugly in that they contain a lot of information,
      * which is irrelevant in our application context. We try to remove the unwanted
      * information and filter the relevant parts.
-     *   @param The error message to be filtered.
+     *   @param msg
+     * The error message to be filtered.
      */
     private static String filterST4ErrMsg(String msg)
     {
         /* The ST4 error messages contain the stack trace as part of the string. The stack
            trace is meaningless in our context and we try to filter it out. By experience
            it is the trailing part of the message and looking for the first appearance of
-           "at <class>" we can relatively safely identify it. */        
+           "at <class>" we can relatively safely identify it. */
         Pattern p = Pattern.compile("(?i)\n\tat [a-z0-9.$(): \t]+\r?\n");
         assert p != null;
         String[] msgPartAry = p.split(/* input */ msg, /* limit */ 2);
-        
+
         // @todo Remove trailing newline (if there's no stack trace one day)
         return msgPartAry[0];
-        
+
     } /* End of filterST4ErrMsg */
-    
-    
+
+
     /**
      * Log a single error and abort template expansion if the maximum number of errors is
      * reached.
@@ -153,7 +154,7 @@ public class ST4ErrorListener implements STErrorListener
     {
         /* Count errors internally. */
         ++ noErrs_;
-        
+
         /* The ST4 engine seems to use one or more try/catch blocks around the expansion
            (including this listener) and it seems to use this same error listener again
            inside the catch blocks. When we reach the numeric limit we throw an exception
@@ -179,7 +180,7 @@ public class ST4ErrorListener implements STErrorListener
 
             assert msg != null;
             _logger.error(location() + filterST4ErrMsg(msg.toString()));
-            
+
             /* Abort the template expansion when the permitted number of errors has been
                reported. Note, the outer if clause will still allow logging the message
                from the here thrown exception. */
@@ -192,7 +193,7 @@ public class ST4ErrorListener implements STErrorListener
             }
         }
     } /* End of logError */
-    
+
 
     /**
      * {@inheritDoc}
@@ -207,8 +208,8 @@ public class ST4ErrorListener implements STErrorListener
         logError(msg);
 
     } /* End of compileTimeError */
-  
-  
+
+
     /**
      * {@inheritDoc}
      * The callback of the listener for errors during actual template expansion, i.e. the
@@ -231,8 +232,8 @@ public class ST4ErrorListener implements STErrorListener
             logError(msg);
 
     } /* End of runTimeError */
-  
-  
+
+
     /**
      * {@inheritDoc}
      * The callback of the listener for I/O errors. The reported error is filtered for
@@ -249,8 +250,8 @@ public class ST4ErrorListener implements STErrorListener
                                    + " unexpected I/O error. See previous error messages"
                                   );
     } /* End of IOError */
-  
-  
+
+
     /**
      * {@inheritDoc}
      * The callback of the listener for internal errors. The reported error is filtered for
@@ -269,6 +270,6 @@ public class ST4ErrorListener implements STErrorListener
                                    + " unexpected internal error. See previous error messages"
                                   );
     } /* End of internalError */
-  
-   
+
+
 } /* End of class ST4ErrorListener definition. */
