@@ -230,6 +230,10 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
     verboseDEBUG = 5; % or verbose=true
     if nargin >= 2
         if islogical(verbose)
+            warning(['st4Render: The Boolean type argument verbose is deprecated and may' ...
+                     ' be dropped in a future release. Please consider using the numeric' ...
+                     ' designation in the range 0 (OFF) till 5 (DEBUG)'] ...
+                   )
             if verbose
                 verbose = verboseDEBUG;
             else
@@ -304,6 +308,15 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
         % need to reset the counters in this case.
         errCnt = stg.getListener().getErrorCounter();
         errCnt.reset();
+
+        % Adjust verbosity of the existing group file object for this run of the function.
+        %   Caution: true/false is not accepted although the Java type of the field is
+        % boolean.
+        if verbose == verboseDEBUG
+            setfield(stg, 'verbose', 1);
+        else
+            setfield(stg, 'verbose', 0);
+        end
 
         if verbose == verboseDEBUG
             fprintf( 'st4Render: ST4 group file object is reused for file %s\n'     ...
