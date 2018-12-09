@@ -33,8 +33,17 @@ function testST4Render
     % independent. We retrieve it from the engine (and trust it). At the same time a test
     % of template expansion without any input.
     EOL = st4Render('testST4Render.stg', 'EOL');
-    disp(uint8(EOL));
+    fprintf('Native EOL:'); disp(uint8(EOL));
 
+    % Importing libraries, locating libraries.
+    txt = st4Render( 'testST4Render.stg', 'importLibraries');
+    expectation = ...
+        ['We can make use of nested library group files. (See import statement above.)' EOL ...
+         'Here''s the library template of script testST4Render!' EOL ...
+         'Here''s the library of the library of template of script testST4Render!' EOL ...
+        ];
+    assert(strcmp(txt, expectation), 'Test case failed: importLibraries')
+    
     % The basic types.
     n = pi;
     i8  = int8(-pi*10);

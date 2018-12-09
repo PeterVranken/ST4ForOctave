@@ -35,11 +35,8 @@ function st4javaaddpath
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
     installDirOfST4InterfaceForOctave = fileparts(mfilename('fullpath'));
-    javaaddpath( [installDirOfST4InterfaceForOctave '\StringTemplate\ST-4.0.8.jar']
-               , [installDirOfST4InterfaceForOctave '\StringTemplate\ST4ForOctave-1.0.jar']
-               , [installDirOfST4InterfaceForOctave '']
-               , [installDirOfST4InterfaceForOctave '\samples']
-               , [installDirOfST4InterfaceForOctave '\samples\compiler\templates']
+    javaaddpath( [installDirOfST4InterfaceForOctave '\StringTemplate\ST-4.0.8.jar'] ...
+               , [installDirOfST4InterfaceForOctave '\StringTemplate\ST4ForOctave-1.0.jar'] ...
                );
 
 end % of function st4javaaddpath.

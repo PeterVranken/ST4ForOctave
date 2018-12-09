@@ -18,7 +18,3 @@
 % and uncomment the lines
 %<installDirOfST4InterfaceForOctave>\StringTemplate\ST-4.0.8.jar
 %<installDirOfST4InterfaceForOctave>\StringTemplate\ST4ForOctave-1.0.jar
-%<installDirOfST4InterfaceForOctave>
-%<installDirOfST4InterfaceForOctave>\samples
-%<installDirOfST4InterfaceForOctave>\samples\compiler\templates
-
