@@ -98,9 +98,10 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   The name of the template to expand. Needs to be defined somewhere down
 %                   the group hierarchy. It's recommended to use full paths to identify the
 %                   template, e.g. '/myTemplate' for a root template
-%       varargin    Pair of strings with names and values of template arguments. Can either
-%                   be a Java data structure or an Octave data object - with
-%                   restrictions, see below.
+%       varargin    Pairs of names and values of template arguments (also known as
+%                   "attributes"). The name of an attribute is a simple string. The
+%                   attribute itself can either be a Java data structure or an Octave data
+%                   object - with restrictions, see below.
 %                     The name/value pairs can either be a list of function arguments or a
 %                   single function argument, which then is a cell array of name/value
 %                   pairs. This cell array is either a linear list or a table of two
@@ -171,21 +172,13 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   the StringTemplate engine simple, restrict your data design to the
 %                   described elements.
 %   Exceptions(s):
-%                   An error is thrown if the StringTemplate V4 library can't be located
-%                   (Java CLASSPATH issue).
-%
-%                   Some template expansion errors are thrown, for example if the name of a
-%                   template can't be resolved. This is mostly a consequential error; the
-%                   internally used Java interface doesn't report a syntax error in the
-%                   template file when reading the file (however the console output does
-%                   do) but a later use of that template will likely be reported by a
-%                   thrown error since the template doesn't exist in memory. This
-%                   distinction barely makes a difference to the caller of this wrapper as
-%                   it does both, template file reading and template expansion, one after
-%                   another.
+%                   All kind of errors are reported by exception. In particular, an error
+%                   is thrown if the StringTemplate V4 libraries can't be located (Java
+%                   CLASSPATH issue), if a template file is not found or if the ST4 engine
+%                   recognizes an error during template expansion.
 %
 %                   Unsupported data types, which do not fit into the data model of the
-%                   wrapper are reported by exception.
+%                   wrapper are reported by exception (see above, Limitations).
 %
 %                   Note, exception throwing is not affected by argument verbose. Setting
 %                   verbose above error or fatal will not hinder any thrown error.
