@@ -1,4 +1,4 @@
-Compilation of test.fcl into output\test.c on 23-Feb-2017
+Compilation of test.fcl into output\test.c on 09-Dec-2018
 
 Map of variables:
   z: not assigned, understood as system input
@@ -14,7 +14,7 @@ Map of variables:
 Tree of program statements:
   Sequence:
   # A simple test program for the compiler for our fictive computer language.
-  x = (((6 +[0] (((23 -[1] (y *[2] -1)) =[1] 0) *[1] (-7 +[2] (z *[3] -1)))) +[0] 0) +[0] (x %[1] 23))
+  x = ((((((6 +[0] (((23 -[1] (y *[2] -1)) =[1] 0) *[1] (-7 +[2] (z *[3] -1)))) +[0] 0) +[0] (x %[1] 23)) +[0] (z *[1] u)) +[0] z) +[0] u)
   show = x
   cntLoops = 0
   if [1] (x <[0] 0)
