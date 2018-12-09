@@ -61,12 +61,16 @@ function st4RenderWrite( fileName               ...
 %   You should have received a copy of the GNU General Public License along
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
+    % Prepare the call of the actual rendering function.
+    info.outputFileName = fileName;
+    info.doClearCache = false;
+    templateDesc.verbose = verbose;
+    templateDesc.templateGroupFileName = templateGroupFileName;
+    templateDesc.templateName = templateName;
+
     % Run the template expanion, get the text to write into file.
-    fileContents = st4Render( templateGroupFileName  ...
-                            , verbose                ...
-                            , templateName           ...
-                            , varargin               ...
-                            );
+    fileContents = render(info, templateDesc, varargin);
 
     % Write file. Although we have a text file we need to open the file binary: The
     % StringTemplate V4 engine already does do the EOL conversion.
