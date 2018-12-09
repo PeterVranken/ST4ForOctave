@@ -1,5 +1,5 @@
 # A simple test program for the compiler for our fictive computer language.
-x=!4*8+2*3+!(23--y)*(-7+-z)+!(8<=100)+x%23
+x=!4*8+2*3+!(23--y)*(-7+-z)+!(8<=100)+x%23+z*u+z+u
 show = x
 cntLoops = 0
 if x<0
