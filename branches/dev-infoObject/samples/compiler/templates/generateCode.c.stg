@@ -49,7 +49,7 @@ int <listOfRegisters:tmpVar(); separator=", ", wrap="\n    ">;<\n>
 applicationInterfaceEntry(listVariablesRd) ::= <<
 <if(listVariablesRd)>
 /* The following variables is not assigned any value in the source program
-   <info.sourceFileName>. We consider them system inputs and connect them to the
+   <fileInfo.sourceFileName>. We consider them system inputs and connect them to the
    application interface. */
 int _idxArg;
 for(_idxArg=1; _idxArg+1\<noArgs; _idxArg+=2)
@@ -130,7 +130,7 @@ _R<idx; format="%02d">
 
 // C file generation: Configure the elements of the module template.
 @modC.description() ::= <<
- * C code generated from program <info.sourceFileName> written in a fictive
+ * C code generated from program <fileInfo.sourceFileName> written in a fictive
  * computer language.
 >>
 
@@ -161,7 +161,7 @@ _R<idx; format="%02d">
 #define mod(R,op)           {(R) %= (op);}<\n>
 >>
 
-main(info,p) ::= <<
+main(fileInfo,p) ::= <<
 <modC()>
 /**
  * Application main entry point. The code from the fictive computer language can be run

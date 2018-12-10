@@ -1,8 +1,8 @@
 function st4RenderWrite( fileName               ...
                        , doAppend               ...
                        , templateGroupFileName  ...
-                       , verbose                ...
                        , templateName           ...
+                       , verbose                ...
                        , varargin               ...
                        )
 
@@ -21,12 +21,12 @@ function st4RenderWrite( fileName               ...
 %                   contents of the already existing file
 %       templateGroupFileName
 %                   Name of template group file to use. See st4Render for details
-%       verbose     The verbosity of the process as an integer in the range from 0 (OFF) to
-%                   5 (DEBUG). See st4Render for details, but note, in contrast to
-%                   st4Render this argument is  not optional here
 %       templateName
 %                   The entry-point template in the template group file. See st4Render for
 %                   details
+%       verbose     The verbosity of the process as an integer in the range from 0 (OFF) to
+%                   5 (DEBUG). See st4Render for details, but note, in contrast to
+%                   st4Render this argument is  not optional here
 %       varargin    The list of template attribute, value pairs. See st4Render for details
 %
 %   Return argument(s):
@@ -44,7 +44,10 @@ function st4RenderWrite( fileName               ...
 %                   the Octave interpreter context is not possible.
 %
 %   Example(s):
-%       st4RenderWrite()
+%       st4RenderWrite('helloWorld.txt', false, 'helloWorld.stg', 'myHelloWorldTemplate', 5, 'greeting', 'Hello', 'name', 'World')
+%       edit helloWorld.txt
+%       st4RenderWrite('helloWorld.txt', true, 'helloWorld.stg', 'myHelloWorldLstTemplate', 4, 'greeting', 'Hello', 'nameList', {'World', 'Anna', 'Tom', 'Terence Parr'})
+%       edit helloWorld.txt
 %
 %   Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
@@ -61,6 +64,7 @@ function st4RenderWrite( fileName               ...
 %   You should have received a copy of the GNU General Public License along
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
+    % TODO Allow having verbose as string, too
 
     % Prepare the call of the actual rendering function.
     info.outputFileName = fileName;

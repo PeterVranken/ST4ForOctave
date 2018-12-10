@@ -33,7 +33,9 @@ function st4addpath
     installDirOfST4InterfaceForOctave = fileparts(mfilename('fullpath'));
     addpath( [installDirOfST4InterfaceForOctave '']
            , [installDirOfST4InterfaceForOctave '\samples']
+           , [installDirOfST4InterfaceForOctave '\samples\templates']
            , [installDirOfST4InterfaceForOctave '\samples\compiler']
+           , [installDirOfST4InterfaceForOctave '\samples\compiler\templates']
            , [installDirOfST4InterfaceForOctave '\samples\compiler\output']
            );
 

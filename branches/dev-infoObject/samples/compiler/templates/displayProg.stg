@@ -21,8 +21,8 @@
 
 delimiters "<", ">"
 
-displayProg(info,p) ::= <<
-Compilation of <info.sourceFileName> into <info.outputFileName> on <info.date>
+displayProg(fileInfo,p) ::= <<
+Compilation of <fileInfo.sourceFileName> into <fileInfo.outputFileName> on <fileInfo.date>
 
 Map of variables:
   <displayListOfVars(p.listVariablesRd,p.listVariablesWr)>

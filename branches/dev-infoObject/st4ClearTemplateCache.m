@@ -41,7 +41,7 @@ function st4ClearTemplateCache
 
     info.doClearCache = true;
     info.outputFileName = [];
-    templateDesc.verbose = 5;
+    templateDesc.verbose = 4;
     templateDesc.templateGroupFileName = '';
     templateDesc.templateName = '';
     render(info, templateDesc);

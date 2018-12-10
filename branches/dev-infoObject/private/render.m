@@ -251,7 +251,18 @@ function [text] = render(info, templateDesc, varargin)
         % that yields either an Octave object, which we know to be handled properly by the
         % interface (like a normal floating point value) or a Java object created with
         % javaObject() (like a Java List or other collection object).
-        st.add(name, octave2Java(value, templateDesc.verbose));
+        attributeObj = octave2Java(value, templateDesc.verbose);
+        try
+            st.add(name, attributeObj);
+        catch exc
+            msg = ['Failed to add attribute ' name ' to template ' ...
+                  templateDesc.templateName ' of template group file ' ...
+                  templateDesc.templateGroupFileName '. Most likely, the template' ...
+                  ' doesn''t name such an attribute in its argument list. Caught' ... 
+                  ' exception:' char(10) ...
+                  exc.message];
+            error(msg);
+        end
     end
 
     % We try adding our info object if the user didn't claim an attribute of this name.

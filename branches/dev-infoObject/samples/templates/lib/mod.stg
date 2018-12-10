@@ -5,9 +5,9 @@
 // The templates in this file model the frame of different generated output file
 // types, e.g. of a C source code file.
 //   Caution: A prerequiste of these templates is that the general information
-// is available under the template attribute name "fileInfo".
+// is available under the default template attribute name "info".
 //
-// Copyright (C) 2015-2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+// Copyright (C) 2015-2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 //
 // This program is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by the
@@ -24,18 +24,26 @@
 
 delimiters "<", ">"
 
+// The module name mnemonic is used over and over during code generation and therefore we
+// provide a short alias. This template returns it as prefix for global symbols, i.e.
+// including the separating underscore.
+mnm() ::= "<info.output.mnm>_"
+MNM() ::= <<
+<info.output.mnm; format="upper">_
+>>
+
 // The frame of a C implementation file.
-modC() ::= <<
+//   desc: Short description, there's no line wrap to handle long text.
+modC(desc) ::= <<
 /**
- * @file <fileInfo.rawOutputFileName>.c
+ * @file <info.output.name>
+ * <desc>
  *
-<@description()>
- *
- * This file has been created with help of st4Render.m, see
- * https://sourceforge.net/projects/stringtemplate-for-octave/
+ * This file has been created with <info.application> version <info.version>,
+ * see http://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>
- * Copyright (C) <fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -52,36 +60,47 @@ modC() ::= <<
 <@end>
  */
 
+<if(!info.output.mnm)>
+/* To avoid this error, the generated file name needs to match the pattern \<mnm>_\<nameStem>.c */
+#error Module name mnemonic is not set but needed for shaping a unique name space
+
+<endif>
+<if(!info.isVersionDataModel.v1000)>
+# error This code is generated from a template designed for data model revision 1000 but run with data model revision <info.versionDataModel>
+<info.error.({This code is generated from a template designed for data model revision 1000 but run with data model revision <info.versionDataModel>})>
+<endif>
 /*
  * Include files
  */
 
-<@includes()>
+<@includes()><\\>
+#include "<info.output.rawName>.h"
+
 
 /*
  * Defines
  */
-
-<@defines()>
+ 
+<@defines()> 
 
 /*
  * Local type definitions
  */
-
-<@typedefs()>
+ 
+<@typedefs()> 
 
 /*
  * Local prototypes
  */
-
-<@prototypes()>
-
+ 
+<@prototypes()> 
+ 
 /*
  * Data definitions
  */
-
-<@data()>
-
+ 
+<@data()> 
+ 
 /*
  * Function implementation
  */
@@ -92,19 +111,19 @@ modC() ::= <<
 
 
 // The frame of a C header file.
-modH() ::= <<
-#ifndef <fileInfo.rawOutputName; format="upper">_DEFINED
-#define <fileInfo.rawOutputName; format="upper">_DEFINED
+//   desc: Short description, there's no line wrap to handle long text.
+modH(desc) ::= <<
+#ifndef <info.output.rawName; format="upper">_DEFINED
+#define <info.output.rawName; format="upper">_DEFINED
 /**
- * @file <fileInfo.rawOutputFileName>.h
+ * @file <info.output.name>
+ * <desc>
  *
-<@description()>
- *
- * This file has been created with help of st4Render.m, see
- * https://sourceforge.net/projects/stringtemplate-for-octave/
+ * This file has been created with <info.application> version <info.version>,
+ * see http://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>
- * Copyright (C) <fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -121,87 +140,40 @@ modH() ::= <<
 <@end>
  */
 
+<if(!info.output.mnm)>
+/* To avoid this error, the generated file name needs to match the pattern \<mnm>_\<nameStem>.c */
+#error Module name mnemonic is not set but needed for shaping a unique name space
+
+<endif>
 /*
  * Include files
  */
 
-<@includes()>
+<@includes()><\\>
+
 
 /*
  * Defines
  */
-
-<@defines()>
+ 
+<@defines()> 
 
 /*
  * Type definitions
  */
-
-<@typedefs()>
+ 
+<@typedefs()> 
 
 /*
  * Data declarations
  */
-
-<@data()>
-
+ 
+<@data()> 
+ 
 /*
  * Function declarations
  */
-
+ 
 <@prototypes()>
-#endif // !defined(<fileInfo.rawOutputName; format="upper">_DEFINED)
->>
-
-
-// The frame of an Octave function file. Regions to fill optionally are:
-//   @modM.signature() ::= <<
-//   @modM.description() ::= <<
-//   @modM.inputArguments() ::= <<
-//   @modM.returnArguments() ::= <<
-//   @modM.throws() ::= <<
-//   @modM.examples() ::= <<
-//   @modM.code() ::= <<
-//   @modM.localCode() ::= <<
-//
-modM() ::= <<
-function <@signature><fileInfo.rawOutputFileName><@end>
-% <fileInfo.rawOutputFileName>:
-<@description()>
-%
-%   Input argument(s):
-<@inputArguments()>
-%
-%   Return argument(s):
-<@returnArguments()>
-%
-%   Throws:
-<@throws()>
-%
-%   Example(s):
-<@examples()>
-%
-<@copyright>
-%   Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
-%
-%   This program is free software: you can redistribute it and/or modify it
-%   under the terms of the GNU General Public License as published by the
-%   Free Software Foundation, either version 3 of the License, or (at your
-%   option) any later version.
-%
-%   This program is distributed in the hope that it will be useful, but
-%   WITHOUT ANY WARRANTY; without even the implied warranty of
-%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-%   General Public License for more details.
-%
-%   You should have received a copy of the GNU General Public License along
-%   with this program. If not, see \<http://www.gnu.org/licenses/>.
-<@end>
-
-<@code>
-    y = x**2;
-<@end>
-end % of function mod.
-
-<@localCode()>
+#endif // !defined(<info.output.rawName; format="upper">_DEFINED)
 >>

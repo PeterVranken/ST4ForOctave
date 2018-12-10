@@ -330,6 +330,11 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
      */
     public Info(ErrorCounter errCnt)
     {
+        /* A map is applied to make the version test available as a <if()> condition in
+           the template. */
+        isVersionDataModel = new HashMap<>(1);
+        isVersionDataModel.put("v"+versionDataModel, new Boolean(true));
+        
         assert errCnt != null: "Don't pass null as error counter";
         errCnt_ = errCnt;
         calc = new NumberMap(errCnt, /* logContext */ "<info.calc>: ");
@@ -412,13 +417,16 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         versionBuild = versionAry[3];
         version = "" + versionAry[0] + "." + versionAry[1] + "." + versionAry[2]
                   + "." + versionAry[3];
-        versionDataModel = verDataModel;
+                  
+        if(versionDataModel != verDataModel)
+        {
+            versionDataModel = verDataModel;
         
-        /* A map is applied to make the version test available as a <if()>  condition in
-           the template. */
-        isVersionDataModel = new HashMap<>(1);
-        isVersionDataModel.put("v"+versionDataModel, new Boolean(true));
-
+            /* A map is applied to make the version test available as a <if()> condition in
+               the template. */
+            isVersionDataModel = new HashMap<>(1);
+            isVersionDataModel.put("v"+versionDataModel, new Boolean(true));
+        }
     } /* End of setApplicationInfo */
     
     

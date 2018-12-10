@@ -1,0 +1,122 @@
+//
+// testST4RenderWrite.stg
+// This is a template group file for StringTemplate V4, see www.stringtemplate.org.
+//
+// Templates for Octave script testST4RenderWrite.m
+//
+// Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+// for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+delimiters "<", ">"
+
+import "lib/mod.stg"
+
+moduleDescription() ::= <<
+ * This file demonstrates the use of both, the Ocatve-to-StringTemplate-interface
+ * st4RenderWrite and the library template mod.stg.
+>>
+
+// This is a root template; the complete C implementation file is rendered.
+testST4RenderWrite_c(copyright, powersOfTwo, enumColor, info) ::= <<
+<! First put a file header with the reusable library template modC !>
+<modC(["\n", moduleDescription()])>
+<! The list of functions is put after the file frame shaped by modC !>
+/**
+ * Compute a power of two by simple table lookup.
+ *   @return
+ * Get the integer value \a 2^power.
+ *   @param power
+ * The power of two to compute as an integer in the range 0..<info.calc.({potMaxIdx_set_<length(powersOfTwo)>})><info.calc.potMaxIdx_sub_1><info.calc.potMaxIdx>. Boundary check is
+ * done by assertion.
+ */
+unsigned int <mnm()>pow2(unsigned int power)
+{
+    assert(power \< <length(powersOfTwo)>);
+    return <mnm()>tablePow2[power];
+
+} /* End of <mnm()>pow2 */
+
+>>
+
+// This is a root template; the complete C header file is rendered.
+testST4RenderWrite_h(copyright, powersOfTwo, enumColor, info) ::= <<
+<! All code is shaped by overloading the regions of the template modH, see below !>
+<modH(["\n", moduleDescription()])>
+>>
+
+@modC.copyright() ::= "<copyright>"
+@modH.copyright() ::= "<copyright>"
+
+// Configure the template mod.stg:modC, which shapes the list of included files.
+@modC.includes() ::= <<
+#include \<assert.h>
+#include \<stdbool.h>
+#include \<stdint.h>
+
+>>
+
+
+// Configure the template mod.stg:modC, which shapes the file frame contents: The local
+// defines.
+@modC.defines() ::= <<
+>>
+
+
+// Configure the template mod.stg:modC; all global data objects go here.
+@modC.data() ::= <<
+/** A lookup table for the powers of two. */
+const unsigned int <mnm()>tablePow2[<length(powersOfTwo)>] = {<info.calc.idxTabPOT_set_1n><info.calc.idxTabPOT_sadd_1>
+    <powersOfTwo:{pot|[<info.calc.idxTabPOT_get>] = <pot; format="%.0fu"> /** 2^<info.calc.idxTabPOT> */,<\n>}>
+};
+>>
+
+// Configure the template mod.stg:modH, which shapes the list of included files.
+@modH.includes() ::= <<
+#include \<stdbool.h>
+#include \<stdint.h>
+
+>>
+
+
+// Configure the template mod.stg:modH, which shapes the header file frame contents.
+@modH.defines() ::= <<
+>>
+
+
+// Configure the template mod.stg:modH; all global typedefs go here.
+@modH.typedefs() ::= <<
+/** The colors, which are used in our program. */
+typedef enum <mnm()>color_t = {
+    <enumColor:{c|<mnm()>enumColor_<c> /** <c> = <info.calc.enumValColor> */,<\n>}>
+} <mnm()>color_t;
+>>
+
+
+// Configure the template mod.stg:modH; the declarations of all global data objects go here.
+@modH.data() ::= <<
+/** A lookup table for the powers of two. */
+extern const unsigned int <mnm()>tablePow2[<length(powersOfTwo)>];
+
+>>
+
+
+// Configure the template mod.stg:modH; the declarations of all global functions go here.
+@modH.prototypes() ::= <<
+/** Compute a power of two by simple table lookup. */
+unsigned int <mnm()>pow2(unsigned int power);
+
+>>
+
+

@@ -7,7 +7,7 @@
  * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
- * Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -110,7 +110,7 @@ int main(int noArgs, const char * argAry[])
     int _R00;
 
     /* Find the greatest common divisor of two integer numbers. */
-    /* An implementation of Euklid's algorithm. */
+    /* An implementation of Euclid's algorithm. */
     /* See http://de.wikipedia.org/wiki/Euklidischer_Algorithmus and particularly */
     /* http://de.wikipedia.org/wiki/Euklidischer_Algorithmus#Beschreibung_durch_Pseudocode */
     /* (visited on Mar 6, 2014) for details on Euclid's algorithm. */
