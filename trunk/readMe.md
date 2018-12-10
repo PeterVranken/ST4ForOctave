@@ -95,22 +95,22 @@ failed because it tried loading the files always from the startup
 directory of Octave. Either this was the right path or the template
 expansion failed.
 
-We could find an explanation and can't offer a fix. 
+We couldn't find an explanation and can't offer a fix. 
 
 From SVN r39 on, we circumvent the problem by passing only absolute paths
 to the ST4 engine. The user specified template files are located using the
-Octave search path and if found the absolute path is send to the engine.
+Octave search path and if found the absolute path is sent to the engine.
 Consequently, the Java class path no longer needs to be configured for
 template files. (It only requires two entries for the jar files that
 implement the interface and the ST4 engine. This works straightforward.)
 
-The import statement to load sub-template group files typically make use
-of relative paths. These paths are understood as relative to the group
-file, which contains the import statement. This behavior matches the
-expectations but it is no longer possible to hold a general purpose
-template library somewhere in the depth of the file system and just add
-the root path of the library to the Java class path as it usually is with
-the ST4 engine.
+The import statement in a template group file to load sub-ordinated group
+files typically makes use of relative paths. These paths are understood as
+relative to the group file, which contains the import statement. This
+behavior matches the expectations but it is no longer possible to hold a
+general purpose template library somewhere in the depth of the file system
+and just add the root path of the library to the Java class path as it
+usually is possible with the ST4 engine.
 
 Using this avoidance strategy all samples and tests worked very well and
 in full accordance with user expectations but the documented behavior of
