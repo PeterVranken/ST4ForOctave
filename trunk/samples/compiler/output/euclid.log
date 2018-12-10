@@ -1,4 +1,4 @@
-Compilation of euclid.fcl into output\euclid.c on 13-Oct-2016
+Compilation of euclid.fcl into output\euclid.c on 09-Dec-2018
 
 Map of variables:
   i: not assigned, understood as system input
@@ -10,7 +10,7 @@ Map of variables:
 Tree of program statements:
   Sequence:
   # Find the greatest common divisor of two integer numbers.
-  # An implementation of Euklid's algorithm.
+  # An implementation of Euclid's algorithm.
   # See http://de.wikipedia.org/wiki/Euklidischer_Algorithmus and particularly
   # http://de.wikipedia.org/wiki/Euklidischer_Algorithmus#Beschreibung_durch_Pseudocode
   # (visited on Mar 6, 2014) for details on Euclid's algorithm.

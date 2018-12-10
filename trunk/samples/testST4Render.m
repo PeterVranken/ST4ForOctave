@@ -25,15 +25,31 @@ function testST4Render
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
     disp('This test uses assertions. No error output means test succeeded')
-    
-    st4Render clear
+
+    % This script make use of a compiled Java class (Struct.class). We need to extend the
+    % Java CLASSPATH so that the JVM can locate this file. Let's temporarily add the path
+    % to this script.
+    javaaddpath(fileparts(mfilename('fullpath')))
+
+    % Force reloading of template files. This is useful for a program under development,
+    % when you still modify the templates frequently.
+    st4ClearTemplateCache
 
     % StringTemplate V4 returns the native EOL character of the hosting system. We need to
     % anticipate this character (sequence) to write the test cases down here system
     % independent. We retrieve it from the engine (and trust it). At the same time a test
     % of template expansion without any input.
     EOL = st4Render('testST4Render.stg', 'EOL');
-    disp(uint8(EOL));
+    fprintf('Native EOL:'); disp(uint8(EOL));
+
+    % Importing libraries, locating libraries.
+    txt = st4Render( 'testST4Render.stg', 'importLibraries');
+    expectation = ...
+        ['We can make use of nested library group files. (See import statement above.)' EOL ...
+         'Here''s the library template of script testST4Render!' EOL ...
+         'Here''s the library of the library of template of script testST4Render!' EOL ...
+        ];
+    assert(strcmp(txt, expectation), 'Test case failed: importLibraries')
 
     % The basic types.
     n = pi;
@@ -127,7 +143,7 @@ function testST4Render
     end
     txt = st4Render('testST4Render.stg', 'structAryAry', 'M', cellAry);
     assert(strcmp(txt, expectation), 'Test case failed: 2-d cell array')
-    
+
     % Linear (cell) arrays of struct, including critical lengths 0 and 1 for cells.
     % We take a vertical array. The wrapper doesn't have any idea of horizontal or vertical
     % for 1-d arrays. We will see it transposed.
@@ -160,7 +176,7 @@ function testST4Render
     expectation = ['' EOL];
     txt = st4Render('testST4Render.stg', 'row', 'r', hcAry);
     assert(strcmp(txt, expectation), 'Test case failed: 1-d horizontal cell array, len=0')
-    
+
     % A 2-d cell array with size nx1: The template won't return a reasonable result as it
     % doesn't get nested ArayList Objects as rows. Trying the iteration of the instaed
     % received scalar Map objects yields empty template expressions - as many times as
@@ -170,7 +186,7 @@ function testST4Render
     expectation = repmat(expectation, 1, size(vcAry,1));
     txt = st4Render('testST4Render.stg', 'structAryAry', 'M', vcAry);
     assert(strcmp(txt, expectation), 'Test case failed:  nx1 cell array')
-    
+
     % The not-regonized 2-d array in case of special sizes 1xn and nx1 can be avoided by
     % using cell arrays of row cell arrays. Let's begin with a mxn with n,m ~= 1.
     cAryAry = cell(0,1);
@@ -215,7 +231,7 @@ function testST4Render
         ];
     txt = st4Render('testST4Render.stg', 'javaAryAry', 'M', javaAryAry);
     assert(strcmp(txt, expectation), 'Test case failed: 2-d Java array')
-    
+
     % This technique should work for 1xn and nx1, too. The template always receives a
     % linear row array in the inner itertion, even with one element if there's only a
     % single column.
@@ -262,7 +278,7 @@ function testST4Render
     for r=1:7
         for c=1
             map = javaObject('java.util.HashMap');
-            map.put('name',  ['r' num2str(r) 'c' num2str(c)]);          
+            map.put('name',  ['r' num2str(r) 'c' num2str(c)]);
             map.put('value', (c-1)+(r-1)*1+1);
             map.put('asInt', int32(map.get('value')));
             javaAryAry(r,c) = map;
@@ -291,7 +307,10 @@ function testST4Render
                   ];
     txt = st4Render('testST4Render.stg', 'structWithJavaAryAry', 's', s);
     assert(strcmp(txt, expectation), 'Test case failed: Octave struct with Java object');
-    
+
+    % Let's remove the added Java CLASSPATH path after use in this script.
+    javarmpath(fileparts(mfilename('fullpath')))
+
 end % of function testST4Render.
 
 

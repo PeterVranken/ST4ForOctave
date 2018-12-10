@@ -1,4 +1,9 @@
 // This simple StringTemplate V4 template can be used to produce the famous Hello World.
-myHelloWorldTemplate(greeting, name) ::= <<
-<greeting> <name>
+myHelloWorldTemplate(name, greeting) ::= <<
+<greeting> <name><\n>
+>>
+
+// This simple StringTemplate V4 template can be used to produce the famous Hello World.
+myHelloWorldLstTemplate(greeting, nameList) ::= <<
+<nameList:myHelloWorldTemplate(greeting)>
 >>

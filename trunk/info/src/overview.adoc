@@ -1,0 +1,80 @@
+= ST4ForOctave - An Interface to connect GNU Octave to StringTemplate V4
+:xrefstyle: short
+:numbered:
+// https://asciidoctor.org/docs/user-manual/
+
+// TODO The links fail with error message "URL can't be displayed in a
+// frame. If the Java doc frames are explicitly switched off then the
+// links work well. In HTML tags it is possible to formulate URLs such
+// that a new window is always opened. This is anyway better for the
+// user and it avoids the problem. The elder markdown source file could
+// use that. How to do in Asciidoc?
+
+This Javadoc describes the data model of ST4ForOctave, an interface that
+connects GNU Octave to StringTemplate V4. Using the template engine ST4,
+Octave scripts or commands can transform some workspace data into manifold
+textual representations. ST4ForOctave is a general purpose text rendering
+back-end for Octave scripts.
+
+The principal aim of the tool is supporting automation tasks in software
+development environments.
+
+You can render the data in the Octave workspaces for example as:
+
+* HTML or LaTeX for reporting and documentation
+* Various XML formats for interfacing with other applications
+* Octave script, C/C++ or any other textual programming languages
+
+To render some workspace data one will begin with building a suitable data
+structure and passing this to the template engine. "Suitable data
+structure" is a quite open term. The interface doesn't support all
+possible data representations of Octave but many of the most natural ones.
+(See on-line help of st4Render for the limitations.) Mostly, the chosen
+data structure will be a combination of flat variables, structs and arrays
+of those.
+
+This data structure forms the first and most important part of the data
+model the template engine sees for rendering. This part fully belongs into
+the sphere of the Octave script design and there's of course not further
+documentation about. (Besides the design limitation, see above.) However,
+the template engine receives a second piece of information as input. This
+is a Java object called `info`. (From the perspective of a template it's
+an attribute called `info`.) The info object provides some particular
+pieces of information plus some services to the template expansion process.
+This Javadoc describes the details of the available information and how to
+access it from a template.
+
+`info` is a Java object with mainly public fields and methods, where
+fields can be simple variables or collections. The pieces of information,
+which can be placed into the output by template expressions, are the
+values of the public fields and the return values of the public methods
+and all of these are well described by this Javadoc.
+
+The basic design principle of `info` is the use of public fields or
+getters because such members can be directly accessed from the ST4
+templates. Use template expressions like `<info.application>, version
+<info.version>` to access public fields.
+
+Public methods starting with `get` or `is` can be accessed by placing the
+method name without the syllable get/is into the template, e.g.
+`<info.output.name>` would expand to the return value of the Java call
+`output.getName()`.
+
+Of particular significance are Boolean fields or getters and optionally
+null-valued fields: In an ST4 template, their value can be queried with an
+conditional template expression like `<if(!bFlag)><info.warn.("Flag is not
+set")><endif>`
+
+This Javadoc document is meant a kind of manual for the ST4 template
+developer to see, what kind of fields, methods and services are available
+inside a template and can be accessed through its attribute `info`.
+Javadoc is made for Java programmers, who write a program using a Java
+class - which is not the same as writing an ST4 template. One has to have
+this difference in mind when consulting this document - not all of the
+information is relevant or useful and a kind of filtering has to be done.
+
+Start reading this Javadoc document with class `Info`.
+
+An overview on the documentation available for the Octave interface
+ST4ForOctave can be found on-line at
+https://sourceforge.net/p/stringtemplate-for-octave/wiki/Home/[SourceForge, window="_blank"].
