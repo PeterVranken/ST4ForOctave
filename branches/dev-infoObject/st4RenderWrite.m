@@ -76,6 +76,10 @@ function st4RenderWrite( fileName               ...
     % Run the template expanion, get the text to write into file.
     fileContents = render(info, templateDesc, varargin);
 
+    % Try creating the directory to the generated file. It doesn't matter if this path
+    % should already exist.
+    mkdir(fileparts(fileName));
+
     % Write file. Although we have a text file we need to open the file binary: The
     % StringTemplate V4 engine already does do the EOL conversion.
     if doAppend

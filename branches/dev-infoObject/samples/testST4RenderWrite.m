@@ -15,8 +15,8 @@ function testST4RenderWrite
 %                   All kinds of errors are reported by exception
 %   Example(s):
 %       testST4RenderWrite
-%       edit trw_testST4RenderWrite.c
-%       edit trw_testST4RenderWrite.h
+%       edit output/trw_testST4RenderWrite.c
+%       edit output/trw_testST4RenderWrite.h
 %
 %   Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
@@ -53,29 +53,29 @@ function testST4RenderWrite
       ];
 
     % Generate the C header file.
-    st4RenderWrite( 'trw_testST4RenderWrite.h'  ... % fileName
-                  , false                       ... % doAppend
-                  , 'testST4RenderWrite.stg'    ... % templateGroupFileName
-                  , 'testST4RenderWrite_h'      ... % templateName
-                  , 4                           ... % verbose, 4: INFO
+    st4RenderWrite( 'output/trw_testST4RenderWrite.h'   ... % fileName
+                  , false                               ... % doAppend
+                  , 'testST4RenderWrite.stg'            ... % templateGroupFileName
+                  , 'testST4RenderWrite_h'              ... % templateName
+                  , 4                                   ... % verbose, 4: INFO
                   , 'copyright', myCopyrightNotice ...
                   , 'powersOfTwo', powersOfTwoAry  ...
                   , 'enumColor', enumColorAry  ...
                   );
                   
     % Generate the C implementation file.
-    st4RenderWrite( 'trw_testST4RenderWrite.c'  ... % fileName
-                  , false                       ... % doAppend
-                  , 'testST4RenderWrite.stg'    ... % templateGroupFileName
-                  , 'testST4RenderWrite_c'      ... % templateName
-                  , 4                           ... % verbose, 4: INFO
+    st4RenderWrite( 'output/trw_testST4RenderWrite.c'   ... % fileName
+                  , false                               ... % doAppend
+                  , 'testST4RenderWrite.stg'            ... % templateGroupFileName
+                  , 'testST4RenderWrite_c'              ... % templateName
+                  , 4                                   ... % verbose, 4: INFO
                   , 'copyright', myCopyrightNotice ...
                   , 'powersOfTwo', powersOfTwoAry  ...
                   , 'enumColor', enumColorAry  ...
                   );
    
     disp(['Please find the generated files trw_testST4RenderWrite.c and' ...
-          ' trw_testST4RenderWrite.h in the working directory!'] ...
+          ' trw_testST4RenderWrite.h in directory output!'] ...
         );
 end % of function testST4RenderWrite.
 
