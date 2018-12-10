@@ -10,7 +10,11 @@
 % https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html
 % to get more information how to set the class path in your local
 % environment.
+%   An alternative way of doing is placing this code fragment into your
+% session or project startup code:
+%   st4javaaddpath
+
 % TODO Replace <installDirOfST4InterfaceForOctave> with your actual path
-<installDirOfST4InterfaceForOctave>\StringTemplate\ST-4.0.8.jar
-<installDirOfST4InterfaceForOctave>\samples
-<installDirOfST4InterfaceForOctave>\samples\compiler\templates
+% and uncomment the lines
+%<installDirOfST4InterfaceForOctave>\StringTemplate\ST-4.0.8.jar
+%<installDirOfST4InterfaceForOctave>\StringTemplate\ST4ForOctave-1.0.jar

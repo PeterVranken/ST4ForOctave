@@ -21,8 +21,17 @@
 
 delimiters "<", ">"
 
+import "lib/libTestST4Render.stg"
+
 // Return the end of line character.
 EOL() ::= "<\n>"
+
+// Locating and importing library templates.
+importLibraries() ::= <<
+We can make use of nested library group files. (See import statement above.)
+<lib()>
+<liblib()><\n>
+>>
 
 // Support of basic types for attributes.
 basicTypes(s,u64,i64,u32,i32,u16,i16,u8,i8,n) ::= <<
@@ -37,6 +46,7 @@ u32 = <u32>
 u64 = <u64>
 s   = <s><\n>
 >>
+
 basicTypesAsStruct(attrib) ::= <<
 n   = <attrib.n; format="%.4f">
 i8  = <attrib.i8>

@@ -117,7 +117,7 @@ _R<idx; format="%02d">
 // M file generation: Configure the elements of the module template.
 
 @modM.signature() ::= <<
-[<applicationInterfaceExit(p.listVariablesWr)>] = <info.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
+[<applicationInterfaceExit(p.listVariablesWr)>] = <fileInfo.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
 >>
 
 @modM.description() ::= <<
@@ -158,7 +158,7 @@ _R<idx; format="%02d">
 >>
 
 @modM.examples() ::= <<
-%       [<applicationInterfaceExit(p.listVariablesWr)>] = <info.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
+%       [<applicationInterfaceExit(p.listVariablesWr)>] = <fileInfo.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
 >>
 
 @modM.code() ::= <<
@@ -177,5 +177,5 @@ function [remainder] = cmod(a, b)
 end % cmod
 >>
 
-main(info,p) ::= "<modM()>"
+main(fileInfo,p) ::= "<modM()>"
 

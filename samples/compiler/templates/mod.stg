@@ -5,7 +5,7 @@
 // The templates in this file model the frame of different generated output file
 // types, e.g. of a C source code file.
 //   Caution: A prerequiste of these templates is that the general information
-// is available under the default template attribute name "info".
+// is available under the template attribute name "fileInfo".
 //
 // Copyright (C) 2015-2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 //
@@ -27,7 +27,7 @@ delimiters "<", ">"
 // The frame of a C implementation file.
 modC() ::= <<
 /**
- * @file <info.rawOutputFileName>.c
+ * @file <fileInfo.rawOutputFileName>.c
  *
 <@description()>
  *
@@ -35,7 +35,7 @@ modC() ::= <<
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>
- * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) <fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -93,10 +93,10 @@ modC() ::= <<
 
 // The frame of a C header file.
 modH() ::= <<
-#ifndef <info.rawOutputName; format="upper">_DEFINED
-#define <info.rawOutputName; format="upper">_DEFINED
+#ifndef <fileInfo.rawOutputName; format="upper">_DEFINED
+#define <fileInfo.rawOutputName; format="upper">_DEFINED
 /**
- * @file <info.rawOutputFileName>.h
+ * @file <fileInfo.rawOutputFileName>.h
  *
 <@description()>
  *
@@ -104,7 +104,7 @@ modH() ::= <<
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
 <@copyright>
- * Copyright (C) <info.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) <fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -150,7 +150,7 @@ modH() ::= <<
  */
 
 <@prototypes()>
-#endif // !defined(<info.rawOutputName; format="upper">_DEFINED)
+#endif // !defined(<fileInfo.rawOutputName; format="upper">_DEFINED)
 >>
 
 
@@ -165,8 +165,8 @@ modH() ::= <<
 //   @modM.localCode() ::= <<
 //
 modM() ::= <<
-function <@signature><info.rawOutputFileName><@end>
-% <info.rawOutputFileName>:
+function <@signature><fileInfo.rawOutputFileName><@end>
+% <fileInfo.rawOutputFileName>:
 <@description()>
 %
 %   Input argument(s):

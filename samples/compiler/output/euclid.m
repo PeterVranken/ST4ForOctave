@@ -55,7 +55,7 @@ function [a b h] = euclid(i, j)
     h = 0;
 
     % Find the greatest common divisor of two integer numbers.
-    % An implementation of Euklid's algorithm.
+    % An implementation of Euclid's algorithm.
     % See http://de.wikipedia.org/wiki/Euklidischer_Algorithmus and particularly
     % http://de.wikipedia.org/wiki/Euklidischer_Algorithmus#Beschreibung_durch_Pseudocode
     % (visited on Mar 6, 2014) for details on Euclid's algorithm.

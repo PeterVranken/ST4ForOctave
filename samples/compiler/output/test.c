@@ -7,7 +7,7 @@
  * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
- * Copyright (C) 2017 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -126,6 +126,11 @@ int main(int noArgs, const char * argAry[])
     load(_R01, x)
     mod(_R01, 23)
     add(_R00, _R01)
+    load(_R01, z)
+    mul(_R01, u)
+    add(_R00, _R01)
+    add(_R00, z)
+    add(_R00, u)
     store(x, _R00)
     store(show, x)
     store(cntLoops, 0)
