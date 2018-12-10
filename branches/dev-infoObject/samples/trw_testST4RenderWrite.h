@@ -34,7 +34,7 @@
  */
 
 /** The colors, which are used in our program. */
-typedef enum trw_color_t = {
+typedef enum trw_color_t {
     trw_enumColor_white /** white = 0 */,
     trw_enumColor_red /** red = 1 */,
     trw_enumColor_green /** green = 2 */,

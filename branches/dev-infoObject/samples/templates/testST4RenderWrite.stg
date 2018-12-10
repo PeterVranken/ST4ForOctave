@@ -98,7 +98,7 @@ const unsigned int <mnm()>tablePow2[<length(powersOfTwo)>] = {<info.calc.idxTabP
 // Configure the template mod.stg:modH; all global typedefs go here.
 @modH.typedefs() ::= <<
 /** The colors, which are used in our program. */
-typedef enum <mnm()>color_t = {
+typedef enum <mnm()>color_t {
     <enumColor:{c|<mnm()>enumColor_<c> /** <c> = <info.calc.enumValColor> */,<\n>}>
 } <mnm()>color_t;
 >>

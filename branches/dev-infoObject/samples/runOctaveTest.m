@@ -16,28 +16,31 @@
 %   You should have received a copy of the GNU General Public License along
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
-addOctavePaths
+% This script make use of a compiled Java class (Struct.class). We need to extend the Java
+% CLASSPATH so that the JVM can locate this file. Let's temporarily add the path to this
+% script.
+javaaddpath(fileparts(mfilename('fullpath')))
 
 % Force reloading of template files.
-st4Render('clear', true);
+st4ClearTemplateCache
 
 % Select root template file
 %   Hint: Loading the file basically has a powerful searching behind. However, this is
 % Java-like controlled by a classpath and not so easy to control from Octave. The best way
 % to begin is to use absolute paths.
-tFile=[pwd '\testSTGroup.stg']
+tFile = 'testSTGroup.stg';
 
 % An ordinary flat template
-text = st4Render(tFile, false, '/hello', 'greeting', 'Hello', 'name', 'world')
+text = st4Render(tFile, '/hello', 'greeting', 'Hello', 'name', 'world')
 size(text)
 class(text)
 disp(['Greeting: ' text])
 disp([char(10) char(10)])
 
 % The expansion of an array or list
-text = st4Render(tFile, false, '/list', 'l', {'x' 'y' 'foo'}');
+text = st4Render(tFile, '/list', 'l', {'x' 'y' 'foo'}');
 disp(['List of strings: ' text])
-text = st4Render(tFile, false, '/list', 'l', [1:50]);
+text = st4Render(tFile, '/list', 'l', [1:50]);
 disp(['List of numerals: ' text])
 disp([char(10)])
 
@@ -47,13 +50,13 @@ fieldnames(constPi)
 setfield(constPi, 'name', 'Pi');
 setfield(constPi, 'value', 3.1415);
 setfield(constPi, 'asInt', 3);
-text = st4Render(tFile, false, '/struct', 's', constPi);
+text = st4Render(tFile, '/struct', 's', constPi);
 disp(['Java struct: ' text])
 disp([char(10)])
 
 % Passing a MATLAB struct.
 nativeStruct = struct('Pi', pi, 'e', exp(1), 'inf', inf, 'NaN', NaN, 'name', 'nativeStruct');
-text = st4Render(tFile, false, '/nativeStruct', 's', nativeStruct);
+text = st4Render(tFile, '/nativeStruct', 's', nativeStruct);
 disp(['MATLAB struct: ' text])
 disp([char(10) char(10)])
 
@@ -71,7 +74,7 @@ structAry(1) = constE;
 structAry(2) = constPi;
 structAry(3) = constF;
 class(structAry)
-text = st4Render(tFile, false, '/structList', 'l', structAry);
+text = st4Render(tFile, '/structList', 'l', structAry);
 disp(['List of Struct objects: ' char(10) text])
 disp([char(10) char(10)])
 
@@ -86,19 +89,22 @@ structAry(3) = nativeStruct;
 structAry(3).Pi = int16(-3.14);
 structAry(3).e = int16(exp([1 2 3 4; 0.1 0.2 0.3 0.4; 0.2 0.4 0.6 0.8]));
 structAry(3).name = 'PI negative';
-text = st4Render(tFile, false, '/genericDataStructure', 'd', structAry);
+text = st4Render(tFile, '/genericDataStructure', 'd', structAry);
 disp(['Recursive data structure:' char(10) text])
 
 % Render the empty object and an array with empty elements.
-text = st4Render(tFile, false, '/genericDataStructure', 'd', []);
+text = st4Render(tFile, '/genericDataStructure', 'd', []);
 disp(['[]:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', {});
+text = st4Render(tFile, '/genericDataStructure', 'd', {});
 disp(['{}:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', NaN);
+text = st4Render(tFile, '/genericDataStructure', 'd', NaN);
 disp(['NaN:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', inf);
+text = st4Render(tFile, '/genericDataStructure', 'd', inf);
 disp(['inf:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', [1 inf 2 NaN 3]);
+text = st4Render(tFile, '/genericDataStructure', 'd', [1 inf 2 NaN 3]);
 disp(['[NaN ... inf]:' char(10) text])
-text = st4Render(tFile, false, '/genericDataStructure', 'd', {1 [] 2 [] 3 {} 4});
+text = st4Render(tFile, '/genericDataStructure', 'd', {1 [] 2 [] 3 {} 4});
 disp(['[..]:' char(10) text])
+
+% Let's remove the added Java CLASSPATH path after use in this script.
+javarmpath(fileparts(mfilename('fullpath')))
