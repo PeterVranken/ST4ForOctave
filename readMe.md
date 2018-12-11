@@ -85,9 +85,7 @@ untransparent behavior of the StringTemplate V4 engine with respect to
 locating template files via the Java class path. This was considered a
 problem with setting the Java class path in Octave. Making now new
 investigations it appeared to be another problem. Using the Octave command
-
-    javaMethod ("getProperty", "java.lang.System", "java.class.path")
- 
+`javaMethod ("getProperty", "java.lang.System", "java.class.path")`
 it could be proven that the class path was correctly set but the ST4
 engine still didn't read the template files. From the error reports it
 even appeared that it could locate the files in the class path but then it
@@ -123,7 +121,13 @@ the StringTemplate V4 engine is significantly changed by this decision!
 -   See folder `doc`. Some help on the StringTemplate engine has been added.
     You will need to study the documentation in order to learn about
     templates and template expressions
--   Study the well documented source code of the interface script and the
+-   A service object of Java class `info.Info` is passed to the ST4
+    templates as additional attribute `info`. The fields and services this
+    object provides to the template are described in the Javadoc
+    documentation at
+    <https://svn.code.sf.net/p/stringtemplate-for-octave/code/trunk/doc/dataModel/index.html>.
+    Consider this Javadoc as the manual of the info object
+-   Study the well documented source code of the interface scripts and the
     samples
 
 # Please note #

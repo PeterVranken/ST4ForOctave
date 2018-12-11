@@ -16,7 +16,7 @@
 <li><a href="#what-is-stringtemplate-for-octave"><span class="toc-section-number">1</span> What is StringTemplate-for-Octave?</a></li>
 <li><a href="#current-revision"><span class="toc-section-number">2</span> Current revision</a></li>
 <li><a href="#how-to-run-the-stringtemplate-v4-engine-from-gnu-octave"><span class="toc-section-number">3</span> How to run the StringTemplate V4 engine from GNU Octave?</a><ul>
-<li><a href="#caution-problems-with-java-class-path-using-octave-4.0.3-and-4.2.0-for-windows"><span class="toc-section-number">3.1</span> <strong>CAUTION</strong>: Problems with Java class path using Octave 4.0.3 and 4.2.0 for Windows?</a></li>
+<li><a href="#problems-with-java-class-path-using-stringtemplate-v4-with-octave-for-windows"><span class="toc-section-number">3.1</span> Problems with Java class path using StringTemplate V4 with Octave for Windows</a></li>
 </ul></li>
 <li><a href="#documentation"><span class="toc-section-number">4</span> Documentation</a></li>
 <li><a href="#please-note"><span class="toc-section-number">5</span> Please note</a></li>
@@ -45,57 +45,18 @@
 <li>In Octave, <code>cd</code> to directory <code>samples</code> and run the different M scripts. They will easily throw an error if something is still wrong with the paths! Open the scripts in a text editor and find out what they want to demonstrate</li>
 <li><p>If the basic samples are running well you can have a closer look at the major sample <code>compiler</code></p></li>
 </ul>
-<h2 id="caution-problems-with-java-class-path-using-octave-4.0.3-and-4.2.0-for-windows"><span class="header-section-number">3.1</span> <strong>CAUTION</strong>: Problems with Java class path using Octave 4.0.3 and 4.2.0 for Windows?</h2>
-<p>Using Octave 4.0.3 or 4.2.0 under Windows 7 we saw a very strange and untransparent dependency of the class path handling on the order of submitted Octave commands.</p>
-<p>There seems to be an untransparent, malicious impact of using the command <code>javaclasspath</code>. See what happened. Each command sequence shown down here was submitted in a new Octave session, i.e. the Octave application was reopened every time. The first two times, a properly configured file <code>javaclasspath.txt</code> was in place:</p>
-<ol type="1">
-<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
-<li><code>cd samples % Go to the sample</code></li>
-<li><code>testST4Render % Running the sample fails, java.lang.ClassNotFoundException</code></li>
-<li><code>javaclasspath % Shows empty static and dynamic class path</code></li>
-<li><code>addOctavePaths % Sets and displays correct dynamic CP, static CP is empty</code></li>
-<li><code>testST4Render % Re-running the sample succeeds</code></li>
-</ol>
-<p>Although the static class path should be set because of the file <code>javaclassptha.txt</code> the Java virtual machine didn’t find the StringTemplate V4 jar file and class. Healing by setting the dynamic class path was possible. It’s however striking that after setting the dynamic class path the static class path is empty. Where has it gone? In the second test – Octave re-opened – we begin with double-checking the (static) class path, which should be configured by <code>javaclasspath.txt</code>:</p>
-<ol type="1">
-<li><code>javaclasspath % Displays correct static CP and empty dynamic CP</code></li>
-<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
-<li><code>cd samples % Go to the sample</code></li>
-<li><code>testST4Render % Running the sample fails, java.io.FileNotFoundException</code></li>
-<li><code>javaclasspath % Shows unchanged static and dynamic class paths</code></li>
-<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is unchanged</code></li>
-<li><code>testST4Render % Re-running the sample still fails, group file not found</code></li>
-</ol>
-<p>Only by displaying the class paths at the beginning the behavior changes. Now the Java virtual machine finds the StringTemplate V4 engine and runs it but StringTemplate V4 doesn’t find the group file (which is however in the displayed static class path). Healing by setting the dynamic class path is impossible, the behavior is unchanged.</p>
-<p>The situation is similar without a <code>javaclasspath.txt</code> in the Octave start directory. See the next two command sequences. The sample works well in the third sequence:</p>
-<ol type="1">
-<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
-<li><code>cd samples % Go to the sample</code></li>
-<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is empty</code></li>
-<li><code>testST4Render % Sample succeeds</code></li>
-</ol>
-<p>Only by issuing a ‘javaclasspath’ as very first command the behavior changes. The command <code>addOctavePaths</code> displays the wanted class path and the class path is alright to let the Java virtual machine find the StringTemplate V4 jar file and class but the Java class StringTemplate can’t locate the group file. Healing by repetition of addOctavePaths isn’t possible in this situation. See here:</p>
-<ol type="1">
-<li><code>javaclasspath % Shows empty static and dynamic class paths</code></li>
-<li><code>addpath(pwd) % Make Octave find st4Render.m</code></li>
-<li><code>cd samples % Go to the sample</code></li>
-<li><code>addOctavePaths % Sets and shows correct dynamic CP, static CP is empty</code></li>
-<li><code>testST4Render % Running the sample fails, java.io.FileNotFoundException</code></li>
-</ol>
-<p>From the observations is looks as if the initial submission of command <code>javaclasspath</code> would freeze the static class path somehow, while an earlier use of <code>javaaddpath</code> (as part of our <code>addOctavePaths</code>) seems to discard it. First setting the dynamic class path and then issuing <code>javaclasspath</code> shows an empty static class path. Furthermore, the Java class StringTemplate seems to find template files only through the dynamic class path and only if the static class path has not been “frozen” before.</p>
-<p>As a conclusion and if your environment shows the same behavior, a recipe could be:</p>
-<ul>
-<li>Don’t use a static class path for StringTemplate V4</li>
-<li>Define the dynamic class path. It points to the ST4 jar file and contains all folders with your template files</li>
-<li>Don’t issue <code>javaclasspath</code> prior to defining the dynamic class path</li>
-<li>Run st4Render only after setting the dynamic class path</li>
-</ul>
-<p>An explanation cannot be given.</p>
+<h2 id="problems-with-java-class-path-using-stringtemplate-v4-with-octave-for-windows"><span class="header-section-number">3.1</span> Problems with Java class path using StringTemplate V4 with Octave for Windows</h2>
+<p>In the SVN revisions prior to 39 we had documented a strange and untransparent behavior of the StringTemplate V4 engine with respect to locating template files via the Java class path. This was considered a problem with setting the Java class path in Octave. Making now new investigations it appeared to be another problem. Using the Octave command <code>javaMethod (&quot;getProperty&quot;, &quot;java.lang.System&quot;, &quot;java.class.path&quot;)</code> it could be proven that the class path was correctly set but the ST4 engine still didn’t read the template files. From the error reports it even appeared that it could locate the files in the class path but then it failed because it tried loading the files always from the startup directory of Octave. Either this was the right path or the template expansion failed.</p>
+<p>We couldn’t find an explanation and can’t offer a fix.</p>
+<p>From SVN r39 on, we circumvent the problem by passing only absolute paths to the ST4 engine. The user specified template files are located using the Octave search path and if found the absolute path is sent to the engine. Consequently, the Java class path no longer needs to be configured for template files. (It only requires two entries for the jar files that implement the interface and the ST4 engine. This works straightforward.)</p>
+<p>The import statement in a template group file to load sub-ordinated group files typically makes use of relative paths. These paths are understood as relative to the group file, which contains the import statement. This behavior matches the expectations but it is no longer possible to hold a general purpose template library somewhere in the depth of the file system and just add the root path of the library to the Java class path as it usually is possible with the ST4 engine.</p>
+<p>Using this avoidance strategy all samples and tests worked very well and in full accordance with user expectations but the documented behavior of the StringTemplate V4 engine is significantly changed by this decision!</p>
 <h1 id="documentation"><span class="header-section-number">4</span> Documentation</h1>
 <ul>
-<li>In Octave, type <code>help st4Render</code> to get the online help about the StringTemplate interface for Octave</li>
+<li>In Octave, type <code>help st4Render</code> and <code>help st4RenderWrite</code> to get the online help about the StringTemplate interface for Octave</li>
 <li>See folder <code>doc</code>. Some help on the StringTemplate engine has been added. You will need to study the documentation in order to learn about templates and template expressions</li>
-<li>Study the well documented source code of the interface script and the samples</li>
+<li>A service object of Java class <code>info.Info</code> is passed to the ST4 templates as additional attribute <code>info</code>. The fields and services this object provides to the template are described in the Javadoc documentation at <a href="https://svn.code.sf.net/p/stringtemplate-for-octave/code/trunk/doc/dataModel/index.html" class="uri">https://svn.code.sf.net/p/stringtemplate-for-octave/code/trunk/doc/dataModel/index.html</a>. Consider this Javadoc as the manual of the info object</li>
+<li>Study the well documented source code of the interface scripts and the samples</li>
 </ul>
 <h1 id="please-note"><span class="header-section-number">5</span> Please note</h1>
 <p>The data structures, which can be exchanged with the StringTemplate engine are widely arbitrary, which means that you can feel free in modeling your data. However, there are important limitations; we can’t pass any imaginable Octave object through the given Java interface. For example class objects of Octave are not supported but struct objects are. Type <code>help st4Render</code> to get a list of known limitations.</p>
