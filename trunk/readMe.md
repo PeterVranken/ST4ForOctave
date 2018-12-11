@@ -40,7 +40,7 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r43. Please refer to
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r45. Please refer to
 the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
