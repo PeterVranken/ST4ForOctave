@@ -40,41 +40,46 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r20. Please refer to
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r43. Please refer to
 the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
--   The interface is implemented by the single M script file `st4Render.m`.
-    Copy this file anywhere in your Octave search path - or
-    extend your search path to make it capture its location. See Octave
-    command `addpath` for more
+-   The interface is implemented by a few Octave script files, mainly
+    `st4Render.m` and `st4RenderWrite.m`. They are accompanied by some
+    minor support scripts. Copy the contents of the archive to an
+    appropriate location and update your Octave search path so that the
+    scripts are found. Consider running the support script `st4addpath`
+    from the root of the archive to do so once in a new Octave session. Or
+    consider using the native Octave commands `addpath` and `savepath` to
+    update the search path persistently
+-   Support script `st4addpath` will set the search path not only for the
+    executable Octave scripts but for the StringTemplate V4 template group
+    files used by the different samples, too. Without running `st4addpath`
+    some samples will fail to locate the required templates
 -   Open an Octave session. Ensure that the Java class path contains
 
     -   the StringTemplate V4 jar file, `ST-4.0.8.jar`
-    -   all directories with template files (`*.stg`)
+    -   the interface jar file, `ST4ForOctave-1.0.jar`
 
     The current Java class path can be double-checked with typing
     `javaclasspath` in the Octave command line window.
     
-    Some of the samples use absolute paths for template group files and
-    are not affected, but normally setting the class path is the most
-    important setup step. 
-
     Several ways exist to modify the Java class path of Octave. You may do
-    this on the fly with Octave command `javaaddpath` or you rely on the
-    startup file `javaclasspath.txt`. We provide you a template for this
-    file but it needs customization before use and it'll work only if the
-    Octave executable is started from this directory. Windows users can
-    have a look at (and double-click) `Octave.cmd` to do so. Everybody
-    should consult
+    this on the fly with the support script `st4javaaddpath` from the root
+    of the archive or you rely on the Octave startup file
+    `javaclasspath.txt`. We provide you a template for this file but it
+    needs customization before use and it'll work only if the Octave
+    executable is started from this directory. Windows users can have a
+    look at (and double-click) `runOctave.cmd` to do so. Everybody should
+    consult
     <https://www.gnu.org/software/octave/doc/v4.0.1/How-to-make-Java-classes-available_003f.html>
     to get the whole story on setting the Java class path
 
--   In Octave, `cd` to directory `samples` and run the different M scripts.
-    They will easily throw an error if something is still wrong with the
-    paths! Open the scripts in a text editor and find out what they want
-    to demonstrate
+-   In Octave, `cd` to directory `samples` and run the different Octave
+    scripts. They will easily throw an error if something is still wrong
+    with the paths! Open the scripts in a text editor and find out what
+    they want to demonstrate
 -   If the basic samples are running well you can have a closer look at
     the major sample `compiler`
 
