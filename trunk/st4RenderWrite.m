@@ -30,7 +30,7 @@ function st4RenderWrite( fileName               ...
 %       varargin    The list of template attribute, value pairs. See st4Render for details
 %
 %   Return argument(s):
-%       returnValue (none, all problems are reported by exception)
+%                   (none, all problems are reported by exception)
 %
 %   Exceptions(s):
 %                   The function uses thrown errors in all cases of problems. Wrong
@@ -78,7 +78,9 @@ function st4RenderWrite( fileName               ...
 
     % Try creating the directory to the generated file. It doesn't matter if this path
     % should already exist.
-    mkdir(fileparts(fileName));
+    if ~isempty(fileparts(fileName))
+        mkdir(fileparts(fileName));
+    end
 
     % Write file. Although we have a text file we need to open the file binary: The
     % StringTemplate V4 engine already does do the EOL conversion.
