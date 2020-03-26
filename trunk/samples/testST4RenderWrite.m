@@ -18,20 +18,20 @@ function testST4RenderWrite
 %       edit output/trw_testST4RenderWrite.c
 %       edit output/trw_testST4RenderWrite.h
 %
-%   Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2018-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
-%   under the terms of the GNU General Public License as published by the
-%   Free Software Foundation, either version 3 of the License, or (at your
-%   option) any later version.
-%
-%   This program is distributed in the hope that it will be useful, but
-%   WITHOUT ANY WARRANTY; without even the implied warranty of
-%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-%   General Public License for more details.
-%
-%   You should have received a copy of the GNU General Public License along
-%   with this program. If not, see <http://www.gnu.org/licenses/>.
+%   under the terms of the GNU Lesser General Public License as published by the
+%   Free Software Foundation, either version 3 of the License, or any later
+%   version.
+%  
+%   This program is distributed in the hope that it will be useful, but WITHOUT
+%   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+%   FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+%   for more details.
+%  
+%   You should have received a copy of the GNU Lesser General Public License
+%   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     % To support the investigation of the sample (trying changes on the involved templates)
     % we clear the cache in every run of the test.
@@ -46,7 +46,7 @@ function testST4RenderWrite
 
     % The library template mod.stg permitts overriding the default copyright notice:
     myCopyrightNotice = ...
-      [' * Copyright (C) 2018 Whoever' char(10) ...
+      [' * Copyright (C) 2018-2020 Whoever' char(10) ...
        ' *' char(10) ...
        ' * No rights reserved. Reproduction in whole or in part is permitted' char(10) ...
        ' * without the written consent of the copyright owner.' char(10) ...
