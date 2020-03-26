@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>readMe</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -17,6 +22,7 @@
 <li><a href="#current-revision"><span class="toc-section-number">2</span> Current revision</a></li>
 <li><a href="#how-to-run-the-stringtemplate-v4-engine-from-gnu-octave"><span class="toc-section-number">3</span> How to run the StringTemplate V4 engine from GNU Octave?</a><ul>
 <li><a href="#problems-with-java-class-path-using-stringtemplate-v4-with-octave-for-windows"><span class="toc-section-number">3.1</span> Problems with Java class path using StringTemplate V4 with Octave for Windows</a></li>
+<li><a href="#wrong-locale"><span class="toc-section-number">3.2</span> Wrong Locale</a></li>
 </ul></li>
 <li><a href="#documentation"><span class="toc-section-number">4</span> Documentation</a></li>
 <li><a href="#please-note"><span class="toc-section-number">5</span> Please note</a></li>
@@ -51,6 +57,35 @@
 <p>From SVN r39 on, we circumvent the problem by passing only absolute paths to the ST4 engine. The user specified template files are located using the Octave search path and if found the absolute path is sent to the engine. Consequently, the Java class path no longer needs to be configured for template files. (It only requires two entries for the jar files that implement the interface and the ST4 engine. This works straightforward.)</p>
 <p>The import statement in a template group file to load sub-ordinated group files typically makes use of relative paths. These paths are understood as relative to the group file, which contains the import statement. This behavior matches the expectations but it is no longer possible to hold a general purpose template library somewhere in the depth of the file system and just add the root path of the library to the Java class path as it usually is possible with the ST4 engine.</p>
 <p>Using this avoidance strategy all samples and tests worked very well and in full accordance with user expectations but the documented behavior of the StringTemplate V4 engine is significantly changed by this decision!</p>
+<h2 id="wrong-locale"><span class="header-section-number">3.2</span> Wrong Locale</h2>
+<p>Java’s and thus StringTemplate’s behavior are region dependent. The representation of numbers and dates depends on where the software is executed. This affects the generated output when using the renderers for printf-like, formatted output. Mainly floating point numbers looking like 31,415e-1 are quite annoying. Region dependent software behavior will be undesired in the majority of use cases. You can make your StringTemplate V4 templates region independent by setting the default region US in the Java virtual machine of the Octave session. Before using any of the functions in this package put some code like this in your Octave script:</p>
+<pre><code>% Call of static method getDefault of class Locale to see which country we
+% operate the software in.
+locale = javaMethod(&#39;getDefault&#39;, &#39;java.util.Locale&#39;);
+
+% It should be US to avoid problems with representation of numbers and
+% dates, we switch to the US standard. Local differences will easy affect
+% the output of StringTemplate V4, which will be desirable for barely any
+% use case.
+if ~strcmp(locale.getLanguage(), &#39;us&#39;)
+    % Create a US Locale object...
+    localeUSObj = javaObject(&#39;java.util.Locale&#39;, &#39;US&#39;);
+    % ... and pass it to the static class method setDefault.
+    javaMethod(&#39;setDefault&#39;, &#39;java.util.Locale&#39;, localeUSObj);
+end
+
+% Now, we should surely use the US representation of numbers and dates.
+locale = javaMethod(&#39;getDefault&#39;, &#39;java.util.Locale&#39;)</code></pre>
+<p>Consider running <code>testST4Render</code> to test your system’s behavior. It proves that floating point numbers use the dot as separator.</p>
+<p>The commands to define the Java locale are made available to the library users as command <code>st4SetLocaleUS</code>. Using this script, a typical startup sequence for an application using ST4ForOctave could resemble this code snippet:</p>
+<pre><code>% Anchor of initialization: Make library scripts available to the
+% Octave interpreter.
+run &lt;myInstallationPathOfST4ForOctave&gt;\st4addpath.m
+st4javaaddpath
+st4SetLocaleUS
+% Down here, the StringTemplate V4 engine is usable. Let&#39;s try:
+testST4Render
+testST4RenderWrite</code></pre>
 <h1 id="documentation"><span class="header-section-number">4</span> Documentation</h1>
 <ul>
 <li>In Octave, type <code>help st4Render</code> and <code>help st4RenderWrite</code> to get the online help about the StringTemplate interface for Octave</li>
@@ -61,6 +96,6 @@
 <h1 id="please-note"><span class="header-section-number">5</span> Please note</h1>
 <p>The data structures, which can be exchanged with the StringTemplate engine are widely arbitrary, which means that you can feel free in modeling your data. However, there are important limitations; we can’t pass any imaginable Octave object through the given Java interface. For example class objects of Octave are not supported but struct objects are. Type <code>help st4Render</code> to get a list of known limitations.</p>
 <p>The limitations won’t be very painful but it means that you must not expect to reuse all of your existing data models without any kind of re-work when passing the data to the template engine.</p>
-<p>The interface can be used with MATLAB, too. Besides the documented limitations of the StringTemplate V4 interface itself lack elder MATLAB revisions the 64 Bit integer operations, which are required to run some of the samples.</p>
+<p>The interface can be used with MATLAB, too. Besides the documented limitations of the StringTemplate V4 interface itself lack elder MATLAB revisions the 64 Bit integer operations, which are required to run some of the samples. Moreover, MATLAB 2012 still comes with an incompatible old Java version and can’t be used. MATLAB 2015 is fine and we don’t have information about 2013 and 2014.</p>
 </body>
 </html>

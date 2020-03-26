@@ -9,20 +9,20 @@ function testST4Render
 %   Example(s):
 %       testST4Render
 %
-%   Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2016-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
-%   under the terms of the GNU General Public License as published by the
-%   Free Software Foundation, either version 3 of the License, or (at your
-%   option) any later version.
-%
-%   This program is distributed in the hope that it will be useful, but
-%   WITHOUT ANY WARRANTY; without even the implied warranty of
-%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-%   General Public License for more details.
-%
-%   You should have received a copy of the GNU General Public License along
-%   with this program. If not, see <http://www.gnu.org/licenses/>.
+%   under the terms of the GNU Lesser General Public License as published by the
+%   Free Software Foundation, either version 3 of the License, or any later
+%   version.
+%  
+%   This program is distributed in the hope that it will be useful, but WITHOUT
+%   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+%   FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+%   for more details.
+%  
+%   You should have received a copy of the GNU Lesser General Public License
+%   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     disp('This test uses assertions. No error output means test succeeded')
 
@@ -85,11 +85,14 @@ function testST4Render
                    'u64 = 3141593' EOL ...
                    's   = hello world' EOL ...
                   ];
-    assert(strcmp(txt, expectation), 'Test case failed: basic types')
+    assert( strcmp(txt, expectation) ...
+          , ['Test case failed: basic types. Expected:' EOL expectation 'but got' EOL txt] ...
+          );
+             
 
     % The basic types bundled in a struct.
     attrib = struct;
-    attrib.n = pi;
+    attrib.nr  = pi;
     attrib.i8  = int8(-pi*10);
     attrib.i16 = int16(-pi*1000);
     attrib.i32 = int32(-pi*1000);
@@ -98,9 +101,12 @@ function testST4Render
     attrib.u16 = uint16(pi*1000);
     attrib.u32 = uint32(pi*1000);
     attrib.u64 = uint64(pi*1000000);
-    attrib.s = 'hello world';
+    attrib.str = 'hello world';
     txt = st4Render('testST4Render.stg', 'basicTypesAsStruct', 'attrib', attrib);
-    assert(strcmp(txt, expectation), 'Test case failed: basic types in a struct')
+    assert( strcmp(txt, expectation) ...
+          , ['Test case failed: basic types in a struct. Expected' EOL expectation ...
+             'but got' EOL txt] ...
+          )
 
     % An array of structs. Here we avoid the critical length 1.
     structAry = attrib;
@@ -108,7 +114,7 @@ function testST4Render
     structAry(end+1).i64 = int64(2);
     structAry(end+1).i64 = int64(3);
     txt = st4Render('testST4Render.stg', 'structAry', 'ary', structAry);
-    expectation = "-3141593-1-2-3";
+    expectation = '-3141593-1-2-3';
     assert(strcmp(txt, expectation), 'Test case failed: structAry')
 
     % A 2-d array of structs.
@@ -296,10 +302,10 @@ function testST4Render
     assert(strcmp(txt, expectation), 'Test case failed: 2-d with 1 col Java array of Map')
 
     % Mixture of Octave and Java data objects.
-    s = struct( 'name', 'Octave Struct with Java Map'
-              , 'id', 12345
-              , 'map', javaAryAry
-              , 'size', uint8(4)
+    s = struct( 'name', 'Octave Struct with Java Map' ...
+              , 'id', 12345 ...
+              , 'map', javaAryAry ...
+              , 'size', uint8(4) ...
               );
     expectation = ['Name: ' s.name ' (ID: ' sprintf('%.1f', s.id) ')' EOL ...
                    expectation ...
