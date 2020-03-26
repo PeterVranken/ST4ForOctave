@@ -85,7 +85,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
     
     /** Third part of version designation of the application. This part relates to fixes
         or insignificant functional changes. */
-    public static int versionFix = 0;
+    public static int versionFix = 1;
     
     /** Forth part of version designation of the application. This part is updated with
         every change of any of the files of the application - regardless whether it is
