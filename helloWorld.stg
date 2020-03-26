@@ -1,4 +1,5 @@
 // This simple StringTemplate V4 template can be used to produce the famous Hello World.
+//   See section Example(s) of help message of st4Render to see how to run this sample.
 myHelloWorldTemplate(name, greeting) ::= <<
 <greeting> <name><\n>
 >>
