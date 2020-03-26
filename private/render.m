@@ -50,7 +50,9 @@ function [text] = render(info, templateDesc, varargin)
     
     assert(nargin >= 2, 'Too few input arguments')
     
-    % The numeric scale of argumnet verbose.
+    % The numeric scale of argument verbose.
+    %   Caution: These constants are used in sub-functions, too. There, they are locally
+    % redefined (oops), so never make a change here.
     verboseOff   = 0;
     verboseFATAL = 1;
     verboseERROR = 2;
@@ -436,6 +438,7 @@ function [st4Object] = octave2Java(value, verbose)
 % If equal to verboseDEBUG then the transformation is reported step by step. This can
 % produce a lot of console output. Otherwise no output.
 
+    verboseWARN  = 3;
     verboseDEBUG = 5;
 
     % Data, which is already wrapped as Java object doesn't need further handling.
