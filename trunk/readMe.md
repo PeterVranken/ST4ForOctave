@@ -119,6 +119,53 @@ Using this avoidance strategy all samples and tests worked very well and
 in full accordance with user expectations but the documented behavior of
 the StringTemplate V4 engine is significantly changed by this decision!
 
+## Wrong Locale ##
+
+Java's and thus StringTemplate's behavior are region dependent. The
+representation of numbers and dates depends on where the software is
+executed. This affects the generated output when using the renderers for
+printf-like, formatted output. Mainly floating point numbers looking like
+31,415e-1 are quite annoying. Region dependent software behavior will be
+undesired in the majority of use cases. You can make your StringTemplate
+V4 templates region independent by setting the default region US in the
+Java virtual machine of the Octave session. Before using any of the
+functions in this package put some code like this in your Octave script:
+
+    % Call of static method getDefault of class Locale to see which country we
+    % operate the software in.
+    locale = javaMethod('getDefault', 'java.util.Locale');
+
+    % It should be US to avoid problems with representation of numbers and
+    % dates, we switch to the US standard. Local differences will easy affect
+    % the output of StringTemplate V4, which will be desirable for barely any
+    % use case.
+    if ~strcmp(locale.getLanguage(), 'us')
+        % Create a US Locale object...
+        localeUSObj = javaObject('java.util.Locale', 'US');
+        % ... and pass it to the static class method setDefault.
+        javaMethod('setDefault', 'java.util.Locale', localeUSObj);
+    end
+
+    % Now, we should surely use the US representation of numbers and dates.
+    locale = javaMethod('getDefault', 'java.util.Locale')
+
+Consider running `testST4Render` to test your system's behavior. It proves
+that floating point numbers use the dot as separator.
+
+The commands to define the Java locale are made available to the library
+users as command `st4SetLocaleUS`. Using this script, a typical startup
+sequence for an application using ST4ForOctave could resemble this code
+snippet:
+
+    % Anchor of initialization: Make library scripts available to the
+    % Octave interpreter.
+    run <myInstallationPathOfST4ForOctave>\st4addpath.m
+    st4javaaddpath
+    st4SetLocaleUS
+    % Down here, the StringTemplate V4 engine is usable. Let's try:
+    testST4Render
+    testST4RenderWrite
+
 # Documentation #
 
 -   In Octave, type `help st4Render` and `help st4RenderWrite` to get the
@@ -151,4 +198,6 @@ re-work when passing the data to the template engine.
 The interface can be used with MATLAB, too. Besides the documented
 limitations of the StringTemplate V4 interface itself lack elder MATLAB
 revisions the 64 Bit integer operations, which are required to run some of
-the samples.
+the samples. Moreover, MATLAB 2012 still comes with an incompatible old
+Java version and can't be used. MATLAB 2015 is fine and we don't have
+information about 2013 and 2014.

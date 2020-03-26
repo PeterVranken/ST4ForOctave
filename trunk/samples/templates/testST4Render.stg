@@ -48,7 +48,7 @@ s   = <s><\n>
 >>
 
 basicTypesAsStruct(attrib) ::= <<
-n   = <attrib.n; format="%.4f">
+n   = <attrib.nr; format="%.4f">
 i8  = <attrib.i8>
 i16 = <attrib.i16>
 i32 = <attrib.i32>
@@ -57,7 +57,7 @@ u8  = <attrib.u8>
 u16 = <attrib.u16>
 u32 = <attrib.u32>
 u64 = <attrib.u64>
-s   = <attrib.s><\n>
+s   = <attrib.str><\n>
 >>
 
 // Simple, linear struct array.
