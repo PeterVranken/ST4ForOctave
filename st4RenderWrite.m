@@ -26,7 +26,7 @@ function st4RenderWrite( fileName               ...
 %                   details
 %       verbose     The verbosity of the process as an integer in the range from 0 (OFF) to
 %                   5 (DEBUG). See st4Render for details, but note, in contrast to
-%                   st4Render this argument is  not optional here
+%                   st4Render this argument is not optional here
 %       varargin    The list of template attribute, value pairs. See st4Render for details
 %
 %   Return argument(s):
