@@ -58,13 +58,25 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   same EOL convention as the template engine does.
 %
 %                   The Java interface of MATLAB has some problems with Java Map. It throws
-%                   an exception when using java.util.TreeMap and fails to operate on keys
-%                   with string length 1 when using HashMap. This has the ugly impact that
-%                   structs, which have field names of length 1 are not processed correctly
-%                   in the templates: These fields are obscured when trying the normal
-%                   template expression; <struct.f> would be empty - although the fields
-%                   are in the map: everything looks fine if doing the Map iteration
-%                   <struct:{f|<f>=<struct.(f)>}>. Octave works fine.
+%                   an exception when using java.util.TreeMap and uses different Java data
+%                   types char and String for key of lengths 1 and more than 1,
+%                   respectively. This has the ugly impact that structs, which have field
+%                   names of length 1 are not processed correctly in the templates: ST4
+%                   expects keys to be generally Java String and so these fields are not
+%                   found when trying the normal template expression; <struct.f> would be
+%                   empty - although the fields are in the map: everything looks fine if
+%                   doing the Map iteration <struct:{f|<f>=<struct.(f)>}>. Octave works
+%                   fine.
+%
+%                   The new type string of recent MATLAB versions (first time seen in
+%                   MATLAB 2019b) is not supported. It is not compatible with the
+%                   double-quoted string of Octave. Rendered data objects need to continue
+%                   using single quotes strings, i.e. vectors of chars. As important is not
+%                   to use double-quoted MATLAB strings as arguments of the APIs, e.g. for
+%                   the file name in st4RenderWrite. The unknown type leads to errors and
+%                   not even the error message itself can be raised. It uses expressions to
+%                   get the bad file name (or else) for feedback into the error message and
+%                   the expressions are not compatible with the new type string.
 %
 %   Input argument(s):
 %       templateGroupFileName

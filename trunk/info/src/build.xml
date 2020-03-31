@@ -147,7 +147,7 @@
       </fileset>
     </copy>
     
-    <!-- Package excelExporter.* to jar file -->
+    <!-- Package info.* to jar file -->
     <jar jarfile="${dist}/ST4ForOctave-${version}.jar"
          basedir="${build}"
     >
@@ -166,156 +166,11 @@
     </jar>
   </target>
   
-  <target name="run"
-          depends="jar"
-          description="Start a simple test run of the application"
-  >
-    <!-- See http://ant.apache.org/manual/using.html#arg -->
-    <exec executable="cmd.exe" dir="test">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="${dist}\excelExporter.cmd -v debug -l excelExporter.log -i test.xlsx --open-worksheet-selection --applied-worksheet-template TMPL --worksheet-by-tab .*DBC.* -b TEST --open-worksheet-selection --worksheet-by-index 2 --worksheet-name myWS -o test.output.txt -t test.stg -tn test -tc workbook -st -stn TMPL -atb .*DBC.* -ai 23 -g groupCAN -rt 1 -inc 3:13 -icc 1:8 --open-column-attribute --column-name colName --is-grouping-column --column-title ^.*DBC.*$ --open-column-attribute --column-name col2 --is-grouping-column --column-index 3"/>
-    </exec>
-  </target>
- 
-  <!-- Create a zip file for distribution of excelExporter -->
-  <target name="distribution"
-          depends="clean,init,jar,docDataModel"
-          description="Create the ZIP archive for the distribution of the binaries"
-  >
-    <!-- Remove possibly existing archive - shall be renewed -->
-    <delete verbose="true" file="${dist}/comFramework-excelExporter.zip"/>
-    <delete verbose="true" file="${dist}/excelExporter.zip"/>
-    
-    <!-- Generate version information - assuming that a SVN commit has been done prior to
-         building the archive. -->
-    <exec executable="SubWCRev.exe" dir="${dist}">
-      <arg value="${prjRootDir}"/>
-      <arg value="verTemplate.txt"/>
-      <arg value="version.txt"/>
-      <arg value="-f"/>
-    </exec>
-    <copy file="${dist}/version.txt" tofile="tmp-${timeTag}/comFramework/version.txt"/>
-    <copy file="${dist}/LICENSE-excelExporter.txt" tofile="tmp-${timeTag}/comFramework/lgpl.txt"/>
-    <copy todir="tmp-${timeTag}/comFramework">
-      <fileset dir="${doc}">
-        <include name="readMe.md"/>
-        <include name="readMe.html"/>
-      </fileset>
-    </copy>
-     
-    <!-- Run the samples, update the outputs and copy them into the zipped folder -->
-    <exec executable="cmd.exe" dir="samples/firstSample">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runFirstSample.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/columnWise">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runColumnWise.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/sortedTable">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runSortedTable.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/treeView">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runTreeView.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/withoutInput">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runWithoutInput.cmd 20"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/xls2dbc/usingGroups">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runXls2dbc.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/xls2dbc/usingReferences">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runXls2dbc.cmd -v WARN"/>
-    </exec>
-    <exec executable="cmd.exe" dir="samples/xls2dbc/usingSheets">
-      <arg value="/c"/>
-      <!-- line is the blank separated command line. -->
-      <arg line="runXls2dbc.cmd -v WARN"/>
-    </exec>
-
-    <copy todir="tmp-${timeTag}/comFramework/excelExporter/samples">
-      <fileset dir="samples">
-        <include name="**/*"/>
-        <exclude name="**/*.bak"/>
-        <exclude name="**/*.log"/>
-        <exclude name="**/*.~"/>
-      </fileset>
-    </copy>
-      
-    <copy todir="tmp-${timeTag}/comFramework/excelExporter/dist">
-      <fileset dir="${dist}">
-        <include name="version.txt"/>
-        <include name="excelExporter-${version}.jar"/>
-        <include name="ST-4.0.8.jar"/>
-        <include name="log4j-*2.4.jar"/>
-        <include name="poi-*-20150929.jar"/>
-        <include name="xmlbeans-2.6.0.jar"/>
-        <include name="LICENSE*.txt"/>
-        <include name="excelExporter.cmd"/>
-        <include name="excelExporter.ico"/>
-        <!-- <include name="testInstallation.cmd"/> -->
-        <exclude name="**/*.bak"/>
-      </fileset>
-    </copy>
-    <copy todir="tmp-${timeTag}/comFramework/excelExporter/doc">
-      <fileset dir="${doc}">
-        <include name="readMe.md"/>
-        <include name="readMe.html"/>
-        <include name="ST4-270115-0836-52.pdf"/>
-        <include name="dataModel/"/>
-        <include name="*@Internet.html"/>
-        <include name="dataModelForStringTemplateV4.html"/>
-        <include name="installation.txt"/>
-        <include name="excelExporter.cmd"/>
-        <include name="testInstallation.cmd"/>
-        <exclude name="**/*.bak"/>
-      </fileset>
-    </copy>
-    
-    <zip destfile="${dist}/comFramework-excelExporter.zip"
-         comment="excelExporter, version ${version}"
-         basedir="tmp-${timeTag}"
-         includes="comFramework/"
-    />
-    
-    <!-- Copy some files (also) into the root of the self-contained excelExporter binaries
-         archive -->
-    <copy file="${dist}/LICENSE-excelExporter.txt" tofile="tmp-${timeTag}/comFramework/excelExporter/lgpl.txt"/>
-    <copy file="${dist}/version.txt" tofile="tmp-${timeTag}/comFramework/excelExporter/version.txt"/>
-    <copy todir="tmp-${timeTag}/comFramework/excelExporter">
-      <fileset dir="${doc}">
-        <include name="readMe.md"/>
-        <include name="readMe.html"/>
-      </fileset>
-    </copy>
-    <zip destfile="${dist}/excelExporter.zip"
-         comment="excelExporter, version ${version}"
-         basedir="tmp-${timeTag}/comFramework"
-         includes="excelExporter/"
-    />
-    <delete verbose="false" dir="tmp-${timeTag}"/>
-  </target> <!-- distribution -->
-  
   <!-- Delete all build products in order to enforce a later rebuild -->
   <target name="clean" description="Remove all built files: class and jar files, the zip archives.">
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete verbose="false" dir="${build}"/>
-    <delete verbose="true" file="${dist}/excelExporter-${version}.jar"/>
-    <delete verbose="true" file="${dist}/comFramework-excelExporter.zip"/>
-    <delete verbose="true" file="${dist}/excelExporter.zip"/>
+    <delete verbose="true" file="${dist}/ST4ForOctave-${version}.jar"/>
   </target>
 
 </project>
