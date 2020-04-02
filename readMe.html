@@ -66,7 +66,7 @@ locale = javaMethod(&#39;getDefault&#39;, &#39;java.util.Locale&#39;);
 % It should be US to avoid problems with representation of numbers and
 % dates. Differences in locale will easily affect the output of
 % StringTemplate V4 in a way, which won&#39;t be desirable for most use
-% cases. We switch to the US standard if necessary
+% cases. We switch to the US standard if necessary.
 if ~strcmp(locale.getLanguage(), &#39;us&#39;)
     % Create a US Locale object...
     localeUSObj = javaObject(&#39;java.util.Locale&#39;, &#39;US&#39;);
