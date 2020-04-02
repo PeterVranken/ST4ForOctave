@@ -40,8 +40,8 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r60 as of 02.04.2020 21:55:16. Please refer to
-the SVN log for latest changes.
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r60 as of 02.04.2020 21:55:16.
+Please refer to the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
