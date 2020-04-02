@@ -7,16 +7,16 @@ output.
 Code is generated for two targets. Both are executable. The representation
 of the generated code is modeled close to a real machine instruction set.
 This holds particularly for the representation in C code, where macros and
-the goto statement permit to let the generated code resemble real machine
+the goto statement permit letting the generated code resemble real machine
 code.
 
-The sample proves that the template engine is well suited to render deeply
-structured data. The parse tree itself is developed as a normal Octave
-data structure. The sample code demonstrates that the StringTemplate V4
-interface barely restrains the design of the Octave application. A quite
-normal and usual data object can be passed to the StringTemplate V4 engine
-just like that. The interface code does do the required wrapping in a
-reliable way.
+The sample proves that the template engine is well suited for rendering
+deeply structured data. The parse tree itself is developed as a normal
+Octave data structure. The sample code demonstrates that the
+StringTemplate V4 interface barely restrains the design of the Octave
+application. A quite normal and usual data object can be passed to the
+StringTemplate V4 engine just like that. The interface code does do the
+required wrapping in a reliable way.
 
 Furthermore, the sample demonstrates the major advantage of using a
 template engine as output generator, the flexibility and configurability.
@@ -33,7 +33,7 @@ achieve this degree of changeability of the application output with normal
 programming techniques.
 
 To run the compiler you need to consider the general notes on the
-configuration of the interfaces stated in file readMe.md in the root
+configuration of the interface stated in file readMe.md in the root
 folder of this distribution. Then CD here and type e.g.
 
 help runCompiler

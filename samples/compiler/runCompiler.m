@@ -61,9 +61,9 @@ function runCompiler(program, openCode)
 
     % Adjust Java class path. It doesn't matter if the paths were already configured.
     % Find the StringTemplate template engine.
-    javaaddpath(fullfile(here, '../../StringTemplate/ST-4.0.8.jar'));
-    % Find the template group files.
-    javaaddpath(fullfile(here, 'templates'));
+    javaaddpath(fullfile(here, '../../StringTemplate/antlr-4.8-complete.jar'));
+    % Find the interface.
+    javaaddpath(fullfile(here, '../../StringTemplate/ST4ForOctave-1.0.jar'));
     %disp('Java class path:')
     %javaclasspath
 
