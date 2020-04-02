@@ -40,7 +40,7 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r45. Please refer to
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r56 as of 02.04.2020 20:55:34. Please refer to
 the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
@@ -136,9 +136,9 @@ functions in this package put some code like this in your Octave script:
     locale = javaMethod('getDefault', 'java.util.Locale');
 
     % It should be US to avoid problems with representation of numbers and
-    % dates, we switch to the US standard. Local differences will easy affect
-    % the output of StringTemplate V4, which will be desirable for barely any
-    % use case.
+    % dates. Differences in locale will easily affect the output of
+    % StringTemplate V4 in a way, which won't be desirable for most use
+    % cases. We switch to the US standard if necessary
     if ~strcmp(locale.getLanguage(), 'us')
         % Create a US Locale object...
         localeUSObj = javaObject('java.util.Locale', 'US');
@@ -199,5 +199,5 @@ The interface can be used with MATLAB, too. Besides the documented
 limitations of the StringTemplate V4 interface itself lack elder MATLAB
 revisions the 64 Bit integer operations, which are required to run some of
 the samples. Moreover, MATLAB 2012 still comes with an incompatible old
-Java version and can't be used. MATLAB 2015 is fine and we don't have
-information about 2013 and 2014.
+Java version and can't be used. This revision of StringTemplate for Octave
+has been successfully tested with MATLAB 2015b and 2019b.
