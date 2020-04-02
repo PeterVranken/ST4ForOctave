@@ -201,10 +201,11 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %   Example(s):
 %       st4addpath
 %       st4javaaddpath
+%       st4SetLocaleUS
 %       text = st4Render('helloWorld.stg', 'myHelloWorldTemplate', 'greeting', 'Hello', 'name', 'World')
 %       text = st4Render('helloWorld.stg', 'myHelloWorldLstTemplate', 'greeting', 'Hello', 'nameList', {'World', 'Anna', 'Tom', 'Terence Parr'})
 %
-%   Copyright (C) 2015-2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2015-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU Lesser General Public License as published by the

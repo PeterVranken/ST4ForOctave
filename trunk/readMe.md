@@ -59,7 +59,7 @@ the SVN log for latest changes.
     some samples will fail to locate the required templates
 -   Open an Octave session. Ensure that the Java class path contains
 
-    -   the StringTemplate V4 jar file, `ST-4.0.8.jar`
+    -   the jar file with StringTemplate V4.3, `antlr-4.8-complete.jar`
     -   the interface jar file, `ST4ForOctave-1.0.jar`
 
     The current Java class path can be double-checked with typing
@@ -138,7 +138,7 @@ functions in this package put some code like this in your Octave script:
     % It should be US to avoid problems with representation of numbers and
     % dates. Differences in locale will easily affect the output of
     % StringTemplate V4 in a way, which won't be desirable for most use
-    % cases. We switch to the US standard if necessary
+    % cases. We switch to the US standard if necessary.
     if ~strcmp(locale.getLanguage(), 'us')
         % Create a US Locale object...
         localeUSObj = javaObject('java.util.Locale', 'US');

@@ -44,6 +44,9 @@ function st4RenderWrite( fileName               ...
 %                   the Octave interpreter context is not possible.
 %
 %   Example(s):
+%       st4addpath
+%       st4javaaddpath
+%       st4SetLocaleUS
 %       st4RenderWrite('helloWorld.txt', false, 'helloWorld.stg', 'myHelloWorldTemplate', 5, 'greeting', 'Hello', 'name', 'World')
 %       edit helloWorld.txt
 %       st4RenderWrite('helloWorld.txt', true, 'helloWorld.stg', 'myHelloWorldLstTemplate', 4, 'greeting', 'Hello', 'nameList', {'World', 'Anna', 'Tom', 'Terence Parr'})
