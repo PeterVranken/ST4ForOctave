@@ -16,12 +16,12 @@ renderSignalAsC(s) ::= <<
       @return Get the physical value as double.
       @param b The binary representation of signal <s.name>. */
 double bin2phys_<s.name>(<s.type> b) {return (double)<s.gain>*<s.name> + <s.offset>;}
-
+<\n>
 >>
 
 renderSignalAsH(s) ::= <<
 /* The binary representation of signal <s.name> and a conversion to its physical value. */
 extern <s.type> <s.name>;
 extern double bin2phys_<s.name>(<s.type> b);
-
+<\n>
 >>
