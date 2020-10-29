@@ -4,5 +4,5 @@ dd(2) = struct('name', 'signalB', 'type', 'int16_t', 'gain', 2^1, 'offset', -10)
 dd(3) = struct('name', 'signalC', 'type', 'int32_t', 'gain', 1, 'offset', 0);
 cCode = st4Render('wikiSample.stg', 'cCode', 'dd', dd);
 hCode = st4Render('wikiSample.stg', 'hCode', 'dd', dd);
-disp(['C source file: ' char(10) cCode]);
-disp(['C header file: ' char(10) hCode]);
+fprintf(['C source file: ' char(10) cCode]);
+fprintf(['C header file: ' char(10) hCode]);
