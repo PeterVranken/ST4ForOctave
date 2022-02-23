@@ -9,7 +9,7 @@ function [text] = render(info, templateDesc, varargin)
 %
 %   Input argument(s):
 %       info        A struct containing information about the rendering process, which is
-%                   passed to the rendering process, i.e. to make it available to the
+%                   passed to the rendering process, i.e., to make it available to the
 %                   template expressions.
 %       templateDesc
 %                   A struct, which contains the information about the template to use. It
@@ -231,7 +231,7 @@ function [text] = render(info, templateDesc, varargin)
         % A template argument named info requires special handling: Normally, we add our
         % pre-defined Java info object as service function to a template. However, not all
         % templates will have such an attribute and we can only add it conditionally.
-        % Moreover, 'info' is a quite common designation and if the user already uesed it,
+        % Moreover, 'info' is a quite common designation and if the user already used it,
         % we must not override his decision.
         if strcmpi(name, 'info')
             addInfoObject = false;

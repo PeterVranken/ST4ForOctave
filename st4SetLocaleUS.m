@@ -8,7 +8,7 @@ function st4SetLocaleUS
 %                   ugly, probably undesired things like 3,1415 when printing pi with the
 %                   number renderer (i.e. using the formatted, printf like output) in a
 %                   template. Generally using locale US avoids these problems.
-%                     If you expeience locale related problems you may consider putting
+%                     If you experience locale related problems you may consider putting
 %                   this script into your initialization M script code of your application.
 %                   
 %   Input argument(s):
