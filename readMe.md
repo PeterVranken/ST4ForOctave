@@ -40,7 +40,7 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/) is SVN r68 as of 21.02.2023.
+The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/files/) is SVN r68 as of 21.02.2023.
   
 The Java jar files require a Java runtime system of at least Java 8
 (aka 1.8).
