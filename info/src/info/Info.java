@@ -48,8 +48,8 @@ import java.text.*;
  * can be directly accessed from the ST4 templates. Use template expressions like {@code
  * <info.application>, version <info.version>} to access public fields.<p>
  *   Public methods starting with get or is can be accessed by placing the method name
- * without the syllable get/is into the template, e.g. <info.output.name> would expand to
- * the return value of output.getName().<p>
+ * without the syllable get/is into the template, e.g. {@code <info.output.name>} would
+ * expand to the return value of output.getName().<p>
  *   Of particular significance are Boolean fields or getters and optionally null-valued
  * fields: In an ST4 template, their value can be queried with an conditional template
  * expression like {@code <if(!bFlag)><info.warn.("Flag is not set")><endif>}<p>
@@ -85,7 +85,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
     
     /** Third part of version designation of the application. This part relates to fixes
         or insignificant functional changes. */
-    public static int versionFix = 1;
+    public static int versionFix = 2;
     
     /** Forth part of version designation of the application. This part is updated with
         every change of any of the files of the application - regardless whether it is
@@ -140,8 +140,8 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         file name (like its extension). Please refer to class FileExt.<p>
           The information from the Java class File is partly accessible: All methods
         starting with get or is can be used by placing the method name without the syllable
-        get/is into the template, e.g. <templateFile.name> would yield the return value of
-        File.getName().<p>
+        get/is into the template, e.g. {@code <templateFile.name>} would yield the return
+        value of File.getName().<p>
           Please refer to the online help of Java class File for details. */
     public FileExt templateFile = null;
     
@@ -166,7 +166,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         the file name (like its extension). Please refer to class FileExt.<p>
           The information from the Java class File is partly accessible: All methods
         starting with get or is can be used by placing the method name without the syllable
-        get/is into the template, e.g. <output.name> would yield the return value of
+        get/is into the template, e.g. {@code <output.name>} would yield the return value of
         File.getName().<p>
           Please refer to the online help of Java class File for details. */
     public FileExt output = null;
@@ -244,11 +244,12 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         before.<p>
           and, or, xor, not, sr, asr, sl are the binary operations, the latter three mean
         shifting. Note that not is a unary operator and must not have an operand.<p>
-          isGE, isLE, isG, isL, isE, isNE are the comparisons >=, <=, >, <, ==, !=,
-        respectively. They yield a Boolean result, which is returned to the template engine
-        and which can be used in a StringTemplate V4 conditional expression. Please note,
-        the Boolean result is not assigned to the destination number; all of these
-        operations do not alter the map contents, they just affect the template expansion.<p>
+          isGE, isLE, isG, isL, isE, isNE are the comparisons {@code >=}, {@code <=},
+        {@code >}, {@code <}, {@code ==}, {@code !=}, respectively. They yield a Boolean
+        result, which is returned to the template engine and which can be used in a
+        StringTemplate V4 conditional expression. Please note, the Boolean result is not
+        assigned to the destination number; all of these operations do not alter the map
+        contents, they just affect the template expansion.<p>
           The default operand of all comparisons is null. You can check if number x is
         negative by a simple {@code <info.calc.x_isL>}.<p>
           Examples:<p>
@@ -266,7 +267,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         operation subtracts x's value as it was at the evaluation time of this command, not
         x's current value meanwhile.<p>
           {@code <info.calc.({noFrames_set_<cluster.noFrames>})>}: A typical way to get
-        "real" numeric information into the initially empty scratch pad {@link <calc>} is
+        "real" numeric information into the initially empty scratch pad {@link calc} is
         the use of the StringTemplate V4 map operator {@code .()}, which builds the key to
         the wanted value by template expansion prior to querying the map.<p>
           {@code <if(info.calc.noFrames_isG_0)>uint16 noFrames =
@@ -285,7 +286,8 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
 
     /** The number of user stored numbers in the scratch pad {@link #calc}. From a
         StringTemplate V4 template this member is accessed as {@code
-        <info.noCalcNumbers>}. */ 
+        <info.noCalcNumbers>}.
+          @return Get the number of user stored numbers. */
     public int getNoCalcNumbers()
         { assert calc != null; return calc.size(); }
 
@@ -333,31 +335,31 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         /* A map is applied to make the version test available as a <if()> condition in
            the template. */
         isVersionDataModel = new HashMap<>(1);
-        isVersionDataModel.put("v"+versionDataModel, new Boolean(true));
+        isVersionDataModel.put("v"+versionDataModel, Boolean.valueOf(true));
         
         assert errCnt != null: "Don't pass null as error counter";
         errCnt_ = errCnt;
         calc = new NumberMap(errCnt, /* logContext */ "<info.calc>: ");
         error = new ST4CmdInterpreter</* TContext */ Integer, /* TCmdResult */ Object>
-                            ( /* context */ new Integer(SimpleLogger.Level.ERROR.value())
+                            ( /* context */ Integer.valueOf(SimpleLogger.Level.ERROR.value())
                             , /* cmdListener */ this
                             , errCnt_
                             , /* debugLogContext */ "<Info.error>: "
                             );
         warn = new ST4CmdInterpreter</* TContext */ Integer, /* TCmdResult */ Object>
-                            ( /* context */ new Integer(SimpleLogger.Level.WARN.value())
+                            ( /* context */ Integer.valueOf(SimpleLogger.Level.WARN.value())
                             , /* cmdListener */ this
                             , errCnt_
                             , /* debugLogContext */ "<Info.warn>: "
                             );
         info = new ST4CmdInterpreter</* TContext */ Integer, /* TCmdResult */ Object>
-                            ( /* context */ new Integer(SimpleLogger.Level.INFO.value())
+                            ( /* context */ Integer.valueOf(SimpleLogger.Level.INFO.value())
                             , /* cmdListener */ this
                             , errCnt_
                             , /* debugLogContext */ "<Info.info>: "
                             );
         debug = new ST4CmdInterpreter</* TContext */ Integer, /* TCmdResult */ Object>
-                              ( /* context */ new Integer(SimpleLogger.Level.DEBUG.value())
+                              ( /* context */ Integer.valueOf(SimpleLogger.Level.DEBUG.value())
                               , /* cmdListener */ this
                               , errCnt_
                               , /* debugLogContext */ "<Info.debug>: "
@@ -367,8 +369,8 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
    
     /**
      * Adjust the logging level for the template message output. This relates to template
-     * constructs like <info.warn.(["Hello World"])>. By default it is INFO but you can set
-     * any value defined in class {@link SimpleLogger.Level}.
+     * constructs like {@code <info.warn.(["Hello World"])>}. By default it is INFO but you
+     * can set any value defined in class {@link SimpleLogger.Level}.
      *   @param level
      * The new logging level.
      */
@@ -378,8 +380,8 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
    
     /**
      * Adjust the logging level for the template message output. This relates to template
-     * constructs like <info.warn.(["Hello World"])>. By default it is 4 (INFO) but you can
-     * set any value din the range 0 (OFF) till 5 (DEBUG).
+     * constructs like {@code <info.warn.(["Hello World"])>}. By default it is 4 (INFO) but
+     * you can set any value din the range 0 (OFF) till 5 (DEBUG).
      *   @param level
      * The new logging level as an integer in the range 0..5.
      */
@@ -425,7 +427,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
             /* A map is applied to make the version test available as a <if()> condition in
                the template. */
             isVersionDataModel = new HashMap<>(1);
-            isVersionDataModel.put("v"+versionDataModel, new Boolean(true));
+            isVersionDataModel.put("v"+versionDataModel, Boolean.valueOf(true));
         }
     } /* End of setApplicationInfo */
     
@@ -435,7 +437,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
      *   @param tFileName The name of the template file.
      *   @param tName The name of the template.
      *   @param tArgInfo The name of the template argument with general information.
-     *   @param tWrapCol The wrap column or a value <= 0 if no wrapping takes place.
+     *   @param tWrapCol The wrap column or a value {@code <= 0} if no wrapping takes place.
      */
     public void setTemplateInfo( String tFileName
                                , String tName
@@ -448,7 +450,7 @@ public class Info implements IST4CmdListener</* TContext */ Integer, /* TCmdResu
         templateArgNameInfo = tArgInfo;
         
         if(tWrapCol > 0)
-            templateWrapCol = new Integer(tWrapCol);
+            templateWrapCol = Integer.valueOf(tWrapCol);
         else
             templateWrapCol = null;
 

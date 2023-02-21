@@ -16,5 +16,5 @@
 
 % TODO Replace <installDirOfST4InterfaceForOctave> with your actual path
 % and uncomment the lines
-%<installDirOfST4InterfaceForOctave>\StringTemplate\ST-4.0.8.jar
+%<installDirOfST4InterfaceForOctave>\StringTemplate\antlr-4.10.1-complete.jar
 %<installDirOfST4InterfaceForOctave>\StringTemplate\ST4ForOctave-1.0.jar

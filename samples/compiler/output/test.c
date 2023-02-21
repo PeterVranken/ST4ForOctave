@@ -7,7 +7,7 @@
  * This file has been created with help of st4Render.m, see
  * https://sourceforge.net/projects/stringtemplate-for-octave/
  *
- * Copyright (C) 2018 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+ * Copyright (C) 2015-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the

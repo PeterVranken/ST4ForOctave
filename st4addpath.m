@@ -15,7 +15,7 @@ function st4addpath
 %       st4addpath
 %       path
 %
-%   Copyright (C) 2018-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2018-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU Lesser General Public License as published by the
