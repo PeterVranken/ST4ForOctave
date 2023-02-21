@@ -53,11 +53,11 @@ import java.util.regex.*;
  *   The listener is an interface only and the idea is that a data container in the
  * StringTemplate V4 data model implements this interface. Its implementation of the
  * listener can interpret the commands such that they operate on its data contents.
- *   @param TContext
+ *   @param <TContext>
  * This is the type of the context object, which is passed to the command interpreter at
  * creation time and which it passes for reference to the connected listener, when doing a
  * command interpretation.
- *   @param TCmdResult
+ *   @param <TCmdResult>
  * The type of the data object, which is returned to the template engine as result of the
  * interpreted comand. It needs to be a class, which is supported by the template engine.
  */

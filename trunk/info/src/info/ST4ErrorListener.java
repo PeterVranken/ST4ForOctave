@@ -111,6 +111,7 @@ public class ST4ErrorListener implements STErrorListener
     /**
      * Compose a string, which indicates the location of a template expansion problem in a
      * uniquely used way.
+     *   @return Get the string.
      *   @remark For the template expansion process there's no specific location
      * information. This function rather is a dummy.
      */
@@ -125,6 +126,7 @@ public class ST4ErrorListener implements STErrorListener
      * The reported errors from ST4 are ugly in that they contain a lot of information,
      * which is irrelevant in our application context. We try to remove the unwanted
      * information and filter the relevant parts.
+     *   @return Get the filtered, cleaned error message back.
      *   @param msg
      * The error message to be filtered.
      */
