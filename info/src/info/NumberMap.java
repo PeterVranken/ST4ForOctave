@@ -807,41 +807,41 @@ public class NumberMap extends ST4CmdInterpreter<Object,Object>
             case read:
                 /* Normal operation: Read and return value, implicitly do the post
                    processing for the next reading. */
-                return new Long(number.read(/* doPostOp */ true));
+                return Long.valueOf(number.read(/* doPostOp */ true));
 
             case get:
                 /* Read a number without applying the post operation and return the value. */
-                return new Long(number.read(/* doPostOp */ false));
+                return Long.valueOf(number.read(/* doPostOp */ false));
 
             case isGE:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) >= operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) >= operand);
 
             case isLE:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) <= operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) <= operand);
 
             case isG:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) > operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) > operand);
 
             case isL:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) < operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) < operand);
 
             case isE:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) == operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) == operand);
 
             case isNE:
                 /* Comparison: Return a Java Boolean. Checking a number must not trigger
                    the post processing. */
-                return new Boolean(number.read(/* doPostOp */ false) != operand);
+                return Boolean.valueOf(number.read(/* doPostOp */ false) != operand);
 
             case set:
                 /* Overwrite the current value for the next reading but don't change the
@@ -1039,7 +1039,7 @@ public class NumberMap extends ST4CmdInterpreter<Object,Object>
                modifying commands; only the read operation yields a result (and changes the
                value by post operations). */
             if(cmd.operation_ == Operation.read)
-                return new Long(number.read(/* doPostOp */ true));
+                return Long.valueOf(number.read(/* doPostOp */ true));
             else
                 return null;
 
@@ -1163,7 +1163,7 @@ public class NumberMap extends ST4CmdInterpreter<Object,Object>
         testCmdParser("cnt");
         testCmdParser("3*trash");
         testCmdParser("Gehts?");
-        testCmdParser("äh");
+        testCmdParser("aeh");
         testCmdParser("cnt0");
         testCmdParser("cnt1");
         testCmdParser("cnt1_set");

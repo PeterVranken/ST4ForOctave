@@ -48,11 +48,13 @@ public class SimpleLogger
         /** Storage space for the numeric value of each enumeration value. */
         private final int numVal;
 
-        /** Implicitly called constructor for each enumeration value. */
+        /** Implicitly called constructor for each enumeration value.
+              @param numVal The numeric representation of an enumerated value. */
         Level(int numVal)
             {this.numVal = numVal;}
 
-        /** Getter for numeric representation of enumeration value. */
+        /** Getter for numeric representation of enumeration value.
+              @return Get the numeric value as an integer. */
         public int value()
             {return numVal;}
 
