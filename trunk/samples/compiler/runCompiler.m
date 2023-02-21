@@ -24,7 +24,7 @@ function runCompiler(program, openCode)
 %       runCompiler('test', true)
 %       runCompiler('euclid', true)
 %
-%   Copyright (C) 2016-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2016-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU Lesser General Public License as published by the
@@ -59,11 +59,11 @@ function runCompiler(program, openCode)
     addpath(fullfile(here, '../..'));
     addpath(fullfile(here, 'output'));
 
-    % Adjust Java class path. It doesn't matter if the paths were already configured.
+    % Adjust Java class path (if not already done during Octave start-up).
     % Find the StringTemplate template engine.
-    javaaddpath(fullfile(here, '../../StringTemplate/antlr-4.8-complete.jar'));
+    %javaaddpath(fullfile(here, '../../StringTemplate/antlr-4.12.0-complete.jar'));
     % Find the interface.
-    javaaddpath(fullfile(here, '../../StringTemplate/ST4ForOctave-1.0.jar'));
+    %javaaddpath(fullfile(here, '../../StringTemplate/ST4ForOctave-1.0.jar'));
     %disp('Java class path:')
     %javaclasspath
 

@@ -4,7 +4,7 @@
  * This file demonstrates the use of both, the Ocatve-to-StringTemplate-interface
  * st4RenderWrite and the library template mod.stg.
  *
- * This file has been created with ST4ForOctave version 1.0.1.56,
+ * This file has been created with ST4ForOctave version 1.0.2.67,
  * see http://sourceforge.net/projects/stringtemplate-for-octave/
  *
  * Copyright (C) 2018-2020 Whoever

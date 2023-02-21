@@ -19,7 +19,7 @@ function st4javaaddpath
 %       st4javaaddpath
 %       javaclasspath
 %
-%   Copyright (C) 2018-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2018-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU Lesser General Public License as published by the
@@ -35,7 +35,7 @@ function st4javaaddpath
 %   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     installDirOfST4InterfaceForOctave = fileparts(mfilename('fullpath'));
-    javaaddpath([installDirOfST4InterfaceForOctave '\StringTemplate\antlr-4.8-complete.jar']);
+    javaaddpath([installDirOfST4InterfaceForOctave '\StringTemplate\antlr-4.12.0-complete.jar']);
     javaaddpath([installDirOfST4InterfaceForOctave '\StringTemplate\ST4ForOctave-1.0.jar']);
 
 end % of function st4javaaddpath.

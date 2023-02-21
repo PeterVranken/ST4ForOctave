@@ -32,9 +32,11 @@ function [a b h] = euclid(i, j)
 %                   No errors are thrown
 %
 %   Example(s):
+%       i = int64(0);
+%       j = int64(0);
 %       [a b h] = euclid(i, j)
 %
-%   Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2015-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU General Public License as published by the
@@ -50,9 +52,9 @@ function [a b h] = euclid(i, j)
 %   with this program. If not, see <http://www.gnu.org/licenses/>.
 
     % List of initialized variables.
-    a = 0;
-    b = 0;
-    h = 0;
+    a = int64(0);
+    b = int64(0);
+    h = int64(0);
 
     % Find the greatest common divisor of two integer numbers.
     % An implementation of Euclid's algorithm.
@@ -64,7 +66,7 @@ function [a b h] = euclid(i, j)
     b = j;
     while true
       _R00 = b;
-      _R00 = _R00 == 0;;
+      _R00 = _R00 == int64(0);;
       if _R00
           break
       end

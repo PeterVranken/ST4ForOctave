@@ -5,9 +5,14 @@ cd %~dp0
 
 setlocal
 
-:: TODO Conside a local modification of the search path, edit the installation path of
+:: Octave requires an environment variable to specify, which Java runtime to use.
+::   TODO Consider adjusting the path to your Java installation.
+REM set JAVA_HOME=C:\Program Files\Java\openlogic-openjdk-8u362-b09-windows-64\jre
+REM set PATH=%JAVA_HOME%\bin;%PATH%
+
+:: TODO Consider a local modification of the search path, edit the installation path of
 :: Octave and uncomment the next statement.
-REM set PATH=%PATH%;C:\Program Files\Octave\octave-5.2.0-w64-64;C:\Program Files\Octave\octave-4.4.1-w64;C:\Program Files\Octave\octave-4.2.0-w64
+REM set PATH=%PATH%;C:\Program Files\Octave\octave-7.1.0-w64;C:\Program Files\Octave\octave-5.2.0-w64-64;C:\Program Files\Octave\octave-4.4.1-w64;C:\Program Files\Octave\octave-4.2.0-w64
 
 :: Check for Octave.
 set tool=octave

@@ -4,7 +4,7 @@
 //
 // Compiler back-end: Generate C code from enhanced parse tree.
 //
-// Copyright (C) 2016 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+// Copyright (C) 2016-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 //
 // This program is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by the
@@ -31,7 +31,7 @@ generateCode(p) ::= <<
 variablesDef(listVariablesWr) ::= <<
 <if(listVariablesWr)>
 % List of initialized variables.
-<listVariablesWr:{name|<name> = 0;<\n>}><\\>
+<listVariablesWr:{name|<name> = int64(0);<\n>}><\\>
 
 <endif>
 >>
@@ -106,7 +106,7 @@ load(e) ::= <<
 <tmpVar(e.depth)> = <valueOfExpr(e.leftExpr)>;<\n>
 >>
 
-valueOfExpr(e) ::= "<if(e.operation)><tmpVar(e.depth)><elseif(e.number)><e.number><elseif(e.variable)><e.variable><endif>"
+valueOfExpr(e) ::= "<if(e.operation)><tmpVar(e.depth)><elseif(e.number)>int64(<e.number>)<elseif(e.variable)><e.variable><endif>"
 
 
 tmpVar(idx) ::= <<
@@ -158,6 +158,7 @@ _R<idx; format="%02d">
 >>
 
 @modM.examples() ::= <<
+<p.listVariablesRd:{name|%       <name> = int64(0);<\n>}><\\>
 %       [<applicationInterfaceExit(p.listVariablesWr)>] = <fileInfo.rawOutputFileName>(<applicationInterfaceEntry(p.listVariablesRd)>)
 >>
 
