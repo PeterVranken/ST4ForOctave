@@ -32,7 +32,7 @@ modC() ::= <<
 <@description()>
  *
  * This file has been created with help of st4Render.m, see
- * https://sourceforge.net/projects/stringtemplate-for-octave/
+ * https://github.com/PeterVranken/ST4ForOctave.git
  *
 <@copyright>
  * Copyright (C) 2015-<fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
@@ -101,7 +101,7 @@ modH() ::= <<
 <@description()>
  *
  * This file has been created with help of st4Render.m, see
- * https://sourceforge.net/projects/stringtemplate-for-octave/
+ * https://github.com/PeterVranken/ST4ForOctave.git
  *
 <@copyright>
  * Copyright (C) 2015-<fileInfo.year> Peter Vranken (mailto:Peter_Vranken@Yahoo.de)

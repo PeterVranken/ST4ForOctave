@@ -2,14 +2,14 @@
 
 # What is StringTemplate-for-Octave? #
 
-StringTemplate-for-Octave is a SourceForge open source project, which
-presents an interface between GNU Octave (<http://www.Octave.org>) and
-StringTemplate V4 (<http://www.stringtemplate.org>). Although Octave is
-basically an environment for data analysis and development of mathematical
-algorithms is it due to its convenient and very efficient scripting
-language well suited for general scripting and text processing, too.
-(Here, "very efficient" is meant in terms of development effort and
-progress.) In this context, a template engine is a useful component.
+StringTemplate-for-Octave is an open source project, which presents an
+interface between GNU Octave (<http://www.Octave.org>) and StringTemplate
+V4 (<http://www.stringtemplate.org>). Although Octave is basically an
+environment for data analysis and development of mathematical algorithms
+is it due to its convenient and very efficient scripting language well
+suited for general scripting and text processing, too. (Here, "very
+efficient" is meant in terms of development effort and progress.) In this
+context, a template engine is a useful component.
 
 StringTemplate V4 is a popular Java implementation of a powerful and
 convenient template engine. Intended output text is defined widely literal
@@ -40,8 +40,8 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://sourceforge.net/projects/stringtemplate-for-octave/files/) is SVN r68 as of 21.02.2023.
-  
+The current revision of the [downloadable files](https://github.com/PeterVranken/ST4ForOctave/releases/tag/v1.0.2) is SVN r68 as of 21.02.2023.
+
 The Java jar files require a Java runtime system of at least Java 8
 (aka 1.8).
 
@@ -68,7 +68,7 @@ Please refer to the SVN log for latest changes.
 
     The current Java class path can be double-checked with typing
     `javaclasspath` in the Octave command line window.
-    
+
     Several ways exist to modify the Java class path of Octave. You may do
     this on the fly with the support script `st4javaaddpath` from the root
     of the archive or you rely on the Octave startup file
@@ -106,7 +106,7 @@ failed because it tried loading the files always from the startup
 directory of Octave. Either this was the right path or the template
 expansion failed.
 
-We couldn't find an explanation and can't offer a fix. 
+We couldn't find an explanation and can't offer a fix.
 
 From SVN r39 on, we circumvent the problem by passing only absolute paths
 to the ST4 engine. The user specified template files are located using the
@@ -185,8 +185,12 @@ snippet:
     templates as additional attribute `info`. The fields and services this
     object provides to the template are described in the Javadoc
     documentation at
+    [https://github.com/PeterVranken/ST4ForOctave/blob/master/doc/dataModel/index.html](https://htmlpreview.github.io/?https://github.com/PeterVranken/ST4ForOctave/blob/master/doc/dataModel/index.html) or
     <https://svn.code.sf.net/p/stringtemplate-for-octave/code/trunk/doc/dataModel/index.html>.
-    Consider this Javadoc as the manual of the info object
+    Consider this Javadoc as the manual of the info object.
+    (If these links shouldn't work in your browser then you can try
+    the file download: The same HTML content is part of the distribution.
+    Open local file `<installDir>\doc\dataModel\index.html` in your browser.)
 -   Study the well documented source code of the interface scripts and the
     samples
 

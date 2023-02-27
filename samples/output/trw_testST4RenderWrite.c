@@ -5,7 +5,7 @@
  * st4RenderWrite and the library template mod.stg.
  *
  * This file has been created with ST4ForOctave version 1.0.2.67,
- * see http://sourceforge.net/projects/stringtemplate-for-octave/
+ * see https://github.com/PeterVranken/ST4ForOctave.git
  *
  * Copyright (C) 2018-2020 Whoever
  *

@@ -77,4 +77,4 @@ Start reading this Javadoc document with class `Info`.
 
 An overview on the documentation available for the Octave interface
 ST4ForOctave can be found on-line at
-https://sourceforge.net/p/stringtemplate-for-octave/wiki/Home/[SourceForge, window="_blank"].
+https://github.com/PeterVranken/ST4ForOctave[GitHub, window="_blank"].
