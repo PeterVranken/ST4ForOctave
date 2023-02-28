@@ -18,7 +18,7 @@ function [p] = analyzer(p)
 %       [p] = parser(sourcCode);
 %       p = analyzer(p);
 %
-%   Copyright (C) 2016-2020 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
+%   Copyright (C) 2016-2023 Peter Vranken (mailto:Peter_Vranken@Yahoo.de)
 %
 %   This program is free software: you can redistribute it and/or modify it
 %   under the terms of the GNU Lesser General Public License as published by the
@@ -283,7 +283,7 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
     % operation is replaced by a terminal. This is in practice mainly relevant to remove
     % the negation operation and make it a negative literal.
     %   We take this step after the recursion of the sub-expressions in order to find more
-    % compile-time known sub-expressions -even if this barely has relevance in practice.
+    % compile-time known sub-expressions - even if this barely has relevance in practice.
     if ~isempty(e.leftExpr.number)  &&  ~isempty(e.rightExpr.number)
         % Numeric overruns don't matter in this demonstrative software. Actually, the
         % overrun behavior of these Octave operations at compile time differs from the
@@ -315,9 +315,12 @@ function [e mapOfVars maxDepth] = analyseExpr(e, depth, mapOfVars)
             e.number = e.leftExpr.number * e.rightExpr.number;
         case 'div'
             % Octave's operation / is defined different to the intended integer division
-            % operator, which rounds towards zero for noth signs. This behavior is modeled
-            % by Octave's idivide.
-            e.number = idivide(e.leftExpr.number, e.rightExpr.number);
+            % operator, which rounds towards zero for all sign combinations. This behavior
+            % is modeled by command idivide in elder versions of Octave and in MATLAB.
+            % Newer version of Octave behave differently, which requires an equalizing
+            % sub-function. Note, for large numbers, the calculation is still wrong due to
+            % the different dealing with overflows in C and Octave.
+            e.number = divIntLikeC(e.leftExpr.number, e.rightExpr.number);
         case 'mod'
             % Octave's operation mod(a,b) is defined different to the intended integer
             % modulus operator, which should behave as defined in language C. The operation
