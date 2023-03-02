@@ -185,10 +185,9 @@ snippet:
     templates as additional attribute `info`. The fields and services this
     object provides to the template are described in the Javadoc
     documentation at
-    [https://github.com/PeterVranken/ST4ForOctave/blob/master/doc/dataModel/index.html](https://htmlpreview.github.io/?https://github.com/PeterVranken/ST4ForOctave/blob/master/doc/dataModel/index.html) or
-    <https://svn.code.sf.net/p/stringtemplate-for-octave/code/trunk/doc/dataModel/index.html>.
+    [GitHub pages](https://PeterVranken.github.io/ST4ForOctave).
     Consider this Javadoc as the manual of the info object.
-    (If these links shouldn't work in your browser then you can try
+    (If the links shouldn't work in your browser then you can try
     the file download: The same HTML content is part of the distribution.
     Open local file `<installDir>\doc\dataModel\index.html` in your browser.)
 -   Study the well documented source code of the interface scripts and the
