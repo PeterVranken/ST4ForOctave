@@ -1,5 +1,3 @@
-[TOC]
-
 # What is StringTemplate-for-Octave? #
 
 StringTemplate-for-Octave is an open source project, which presents an
