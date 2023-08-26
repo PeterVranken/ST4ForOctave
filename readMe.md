@@ -13,8 +13,8 @@ StringTemplate V4 is a popular Java implementation of a powerful and
 convenient template engine. Intended output text is defined widely literal
 with intermingled template expressions. These expressions can refer to
 data objects, which are passed in to the template engine as native Java
-objects. Data object can be simple basic types or deeply nested data
-structures build from collections and showing recursive structures. This
+objects. Data objects can be simple basic types or deeply nested data
+structures built from collections and showing recursive structures. This
 normally requires a compiled Java class, which a well-defined, statically
 typed data object can be instantiated from.
 
@@ -24,16 +24,16 @@ engine.
 
 The interface presented automates this concept. It wraps widely arbitrary
 Octave data objects with appropriate Java data types and collections.
-While this is straight forward for linear lists (e.g. using a
+While this is straight forward for linear lists (e.g., using a
 `java.util.ArrayList`) it does need much more consideration when it
-comes to Octave struct objects with run-time defined fields (i.e. no
+comes to Octave struct objects with run-time defined fields (i.e., no
 compiled Java class is available by principle). All the processing is done
 recursively so that deeply nested data objects can be passed to the
 template engine just like that.
 
 A major sample presents a compiler fragment, which passes its complete
-parse tree as a single "attribute" -- i.e. the data object to be rendered
-in the terminology of StringTemplate -- to the template engine for code
+parse tree as a single "attribute" (the data object to be rendered
+in the terminology of StringTemplate) to the template engine for code
 generation.
 
 # Current revision #
