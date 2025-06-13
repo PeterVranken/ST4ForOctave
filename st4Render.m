@@ -132,7 +132,7 @@ function [text] = st4Render(templateGroupFileName, verbose, templateName, vararg
 %                   they are.
 %                     A Octave data object is all the rest - with a number of unsupported
 %                   exceptions. The interface to StringTemplate V4 can handle basic data
-%                   tapes, like numerals and strings. Note, that the numeric data types
+%                   types, like numerals and strings. Note, that the numeric data types
 %                   double, uint8, uint16, int8, etc. are distinguished and matter, e.g.
 %                   when it comes to formatted printing.
 %                     The interface will try to model the more complex Octave data
