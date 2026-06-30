@@ -76,7 +76,7 @@ function st4RenderWrite( fileName               ...
     templateDesc.templateGroupFileName = templateGroupFileName;
     templateDesc.templateName = templateName;
 
-    % Run the template expanion, get the text to write into file.
+    % Run the template expansion, get the text to write into file.
     fileContents = render(info, templateDesc, varargin);
 
     % Try creating the directory to the generated file. For Octave, it doesn't matter if

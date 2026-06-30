@@ -226,6 +226,10 @@ function [text] = render(info, templateDesc, varargin)
     wrapCol = 72;
     for i=1:2:length(varargin)
         name = varargin{i};
+        assert( isa(name, 'char') ...
+              , ['Error in variable argument list: Expect names of template attributes' ...
+                 ' and the attributes in alternating order'] ...
+              );
         value = varargin{i+1};
 
         % A template argument named info requires special handling: Normally, we add our
