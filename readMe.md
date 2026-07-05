@@ -26,10 +26,10 @@ The interface presented automates this concept. It wraps widely arbitrary
 Octave data objects with appropriate Java data types and collections.
 While this is straight forward for linear lists (e.g., using a
 `java.util.ArrayList`) it does need much more consideration when it
-comes to Octave struct objects with run-time defined fields (i.e., no
+comes to Octave `struct` objects with run-time defined fields (i.e., no
 compiled Java class is available by principle). All the processing is done
 recursively so that deeply nested data objects can be passed to the
-template engine just like that.
+template engine for text and programming code generation.
 
 A major sample presents a compiler fragment, which passes its complete
 parse tree as a single "attribute" (the data object to be rendered
@@ -38,12 +38,20 @@ generation.
 
 # Current revision #
 
-The current revision of the [downloadable files](https://github.com/PeterVranken/ST4ForOctave/releases/tag/v1.0.2) is SVN r68 as of 21.02.2023.
+The current revision of the [downloadable files](https://github.com/PeterVranken/ST4ForOctave/releases/tag/v1.0.2) v1.0.2 as of 21.02.2023.
+This is at the same time the latest revision found at Sourceforge, before
+the project was moved to GitHub.[^1]
+[^1]: The project was *imported* into Git, thereby retaining the
+  Sourceforge SVN revisions as Git commits. In the further writing you
+  might still find references to past SVN revisions; we've not relocated
+  them to Git commits.
+
+Latest changes can be fetched by cloning the [GitHub repository](https://github.com/PeterVranken/ST4ForOctave). Please
+refer to the [Git log](https://github.com/PeterVranken/ST4ForOctave/commits/master/) for latest changes.
 
 The Java jar files require a Java runtime system of at least Java 8
 (aka 1.8).
 
-Please refer to the SVN log for latest changes.
 
 # How to run the StringTemplate V4 engine from GNU Octave? #
 
@@ -197,7 +205,7 @@ The data structures, which can be exchanged with the StringTemplate engine
 are widely arbitrary, which means that you can feel free in modeling your
 data. However, there are important limitations; we can't pass any
 imaginable Octave object through the given Java interface. For example
-class objects of Octave are not supported but struct objects are. Type
+class objects of Octave are not supported but `struct` objects are. Type
 `help st4Render` to get a list of known limitations.
 
 The limitations won't be very painful but it means that you must not
