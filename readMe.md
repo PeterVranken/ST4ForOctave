@@ -87,9 +87,9 @@ The Java jar files require a Java runtime system of at least Java 8
     to get the whole story on setting the Java class path
 -   Consider running the Octave command `st4SetLocaleUS`, which makes Java
     code assume standard US representation of character sets and number,
-    date and time designations. If you don't do so, then your templates my
-    produce different output depending on where the tool is run. See below
-    for details
+    date and time designations. If you don't do so, then your templates
+    may produce different output depending on where the tool is run. See
+    below for details
 -   In Octave, `cd` to directory `samples` and run the different Octave
     scripts. They will easily throw an error if something is still wrong
     with the paths! Open the scripts in a text editor and find out what
@@ -127,7 +127,7 @@ relative to the group file, which contains the import statement. This
 behavior matches the expectations but it is no longer possible to hold a
 general purpose template library somewhere in the depth of the file system
 and just add the root path of the library to the Java class path as it
-usually is possible with the ST4 engine.
+is usually possible with the ST4 engine.
 
 Using this avoidance strategy all samples and tests worked very well and
 in full accordance with user expectations but the documented behavior of
@@ -217,4 +217,4 @@ limitations of the StringTemplate V4 interface itself lack elder MATLAB
 revisions the 64 Bit integer operations, which are required to run some of
 the samples. Moreover, MATLAB 2012 still comes with an incompatible old
 Java version and can't be used. This revision of StringTemplate for Octave
-has been successfully tested with MATLAB 2021b.
+has been successfully tested with MATLAB 2021b and 2023b.
